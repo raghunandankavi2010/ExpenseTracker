@@ -26,3 +26,14 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+ext {
+
+    // dependencies versions
+    dagger = '2.25.3'
+    navVersion = '2.1.0'
+    appCompat = '1.1.0'
+    coreKtx = '1.1.0'
+    constraintLayout = '1.1.3'
+    roomVersion = '2.2.3'
+}

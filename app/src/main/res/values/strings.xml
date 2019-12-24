@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Expense Tracker</string>
     <string name="total_amt_spent">Total amount spent this month</string>
+    <string name="hint_expense_type">Expense Type</string>
+    <string name="hint_expense_amt">Expense Amount</string>
+    <string name="hint_expense_remarks">Remarks</string>
 </resources>

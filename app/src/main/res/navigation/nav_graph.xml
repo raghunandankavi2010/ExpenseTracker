@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/expenseFragment">
+
+    <fragment
+        android:id="@+id/expenseFragment"
+        android:name="me.raghu.expensetracker.ui.ExpenseFragment"
+        android:label="Expenses" >
+        <action
+            android:id="@+id/action_expenseFragment_to_expenseInput"
+            app:destination="@id/expenseInput" />
+    </fragment>
+    <fragment
+        android:id="@+id/expenseInput"
+        android:name="me.raghu.expensetracker.ui.ExpenseInput"
+        android:label="Add Your Expenses" />
+</navigation>

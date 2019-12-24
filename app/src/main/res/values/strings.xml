@@ -4,4 +4,5 @@
     <string name="hint_expense_type">Expense Type</string>
     <string name="hint_expense_amt">Expense Amount</string>
     <string name="hint_expense_remarks">Remarks</string>
+    <string name="add_expense">Add Expense</string>
 </resources>

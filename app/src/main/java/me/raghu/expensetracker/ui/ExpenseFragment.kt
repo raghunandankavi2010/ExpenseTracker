@@ -1,16 +1,21 @@
 package me.raghu.expensetracker.ui
 
-import androidx.lifecycle.ViewModelProviders
+import android.app.Activity
+import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment.findNavController
+import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.expense_fragment.*
-
 import me.raghu.expensetracker.R
+import javax.inject.Inject
+
 
 class ExpenseFragment : Fragment() {
 
@@ -20,6 +25,18 @@ class ExpenseFragment : Fragment() {
 
     private lateinit var viewModel: ExpenseViewModel
 
+    val searchViewModel: ExpenseViewModel by viewModels {
+        viewModelFactory
+    }
+
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    override fun onAttach(context: Context) {
+        AndroidSupportInjection.inject(this)
+        super.onAttach(context)
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

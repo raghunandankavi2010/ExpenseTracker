@@ -1,6 +1,5 @@
 package me.raghu.expensetracker.ui
 
-import android.app.Activity
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -19,19 +18,18 @@ import javax.inject.Inject
 
 class ExpenseFragment : Fragment() {
 
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+
     companion object {
         fun newInstance() = ExpenseFragment()
     }
 
     private lateinit var viewModel: ExpenseViewModel
 
-    val searchViewModel: ExpenseViewModel by viewModels {
+    val expenseViewModel: ExpenseViewModel by viewModels {
         viewModelFactory
     }
-
-
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
 
     override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)

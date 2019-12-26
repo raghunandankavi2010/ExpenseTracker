@@ -1,98 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <data>
+        <variable
+            name="viewModel"
+            type="me.raghu.expensetracker.ui.ExpenseInputViewModel"/>
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
 
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/type"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/standard_16dp"
-            android:layout_marginLeft="@dimen/standard_16dp"
-            android:layout_marginTop="@dimen/standard_16dp"
-            android:layout_marginEnd="@dimen/standard_16dp"
-            android:layout_marginRight="@dimen/standard_16dp"
-            android:hint="@string/hint_expense_type"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="match_parent">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/expense_type"
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/type"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text" />
+                android:layout_marginStart="@dimen/standard_16dp"
+                android:layout_marginLeft="@dimen/standard_16dp"
+                android:layout_marginTop="@dimen/standard_16dp"
+                android:layout_marginEnd="@dimen/standard_16dp"
+                android:layout_marginRight="@dimen/standard_16dp"
+                android:hint="@string/hint_expense_type"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/expense_type"
+                    android:text="@={viewModel.expenseType}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/amount"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/standard_16dp"
-            android:layout_marginLeft="@dimen/standard_16dp"
-            android:layout_marginTop="@dimen/standard_16dp"
-            android:layout_marginEnd="@dimen/standard_16dp"
-            android:layout_marginRight="@dimen/standard_16dp"
-            android:hint="@string/hint_expense_amt"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/type">
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/amt"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/amount"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number" />
+                android:layout_marginStart="@dimen/standard_16dp"
+                android:layout_marginLeft="@dimen/standard_16dp"
+                android:layout_marginTop="@dimen/standard_16dp"
+                android:layout_marginEnd="@dimen/standard_16dp"
+                android:layout_marginRight="@dimen/standard_16dp"
+                android:hint="@string/hint_expense_amt"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/type">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/amt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number" />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/remarks"
-            android:gravity="top|start"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/standard_16dp"
-            android:layout_marginLeft="@dimen/standard_16dp"
-            android:layout_marginTop="@dimen/standard_16dp"
-            android:layout_marginEnd="@dimen/standard_16dp"
-            android:layout_marginRight="@dimen/standard_16dp"
-            android:hint="@string/hint_expense_remarks"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/amount">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/rm"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/remarks"
                 android:gravity="top|start"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
-                android:inputType="text" />
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/standard_16dp"
+                android:layout_marginLeft="@dimen/standard_16dp"
+                android:layout_marginTop="@dimen/standard_16dp"
+                android:layout_marginEnd="@dimen/standard_16dp"
+                android:layout_marginRight="@dimen/standard_16dp"
+                android:hint="@string/hint_expense_remarks"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/amount">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/rm"
+                    android:gravity="top|start"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:inputType="text" />
 
-        <Button
-            android:id="@+id/addExpenses"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/add_expense"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/remarks" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/addExpenses"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/add_expense"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/remarks" />
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

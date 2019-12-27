@@ -1,19 +1,15 @@
 package me.raghu.expensetracker.ui
 
 import android.os.Bundle
-import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import dagger.android.support.DaggerFragment
-import kotlinx.android.synthetic.main.expense_input_fragment.*
 import me.raghu.expensetracker.R
 import me.raghu.expensetracker.databinding.ExpenseInputFragmentBinding
-import me.raghu.expensetracker.db.Expense
 import javax.inject.Inject
 
 
@@ -27,7 +23,7 @@ class ExpenseInput : DaggerFragment() {
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
 
-    val expenseInputViewModel: ExpenseInputViewModel by viewModels {
+    private val expenseInputViewModel: ExpenseInputViewModel by viewModels {
         viewModelFactory
     }
     private lateinit var binding: ExpenseInputFragmentBinding

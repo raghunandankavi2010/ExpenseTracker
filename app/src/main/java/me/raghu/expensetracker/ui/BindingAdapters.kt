@@ -7,7 +7,6 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
-import androidx.databinding.BindingConversion
 import androidx.lifecycle.MutableLiveData
 import me.raghu.expensetracker.R
 
@@ -30,7 +29,7 @@ object BindingAdapters {
             }
             val watcher: TextWatcherAdapter = object : TextWatcherAdapter() {
                 override fun onTextChanged(s: CharSequence,
-                                           start: Int, before: Int, count: Int) {
+                                           arg1: Int, arg2: Int, arg3: Int) {
                     bindableString.value = s.toString()
                 }
             }

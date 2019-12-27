@@ -46,31 +46,23 @@ class ExpenseInputViewModel
         amount.addOnPropertyChangedCallback(callback)
     }
 
-
-    fun resetError() {
-        expenseTypeError.set("")
-        amountError.set("")
-        remarksError.set("")
-    }
-
-
     fun performValidation() {
-        if (TextUtils.isEmpty(expenseType.get())) {
+        if (expenseType.isEmpty) {
             expenseTypeError.set("Expense Type cannot be empty")
         } else {
             expenseTypeError.set("")
         }
-        if (TextUtils.isEmpty(amount.get()) || amount.get() == "0") {
+        if (amount.isEmpty || amount.get() == "0") {
             amountError.set("Amount cannot be empty or 0")
         } else {
             amountError.set("")
         }
-        if (TextUtils.isEmpty(remarks.get())) {
+        if (remarks.isEmpty) {
             remarksError.set("Remarks cannot be empty")
         } else {
             remarksError.set("")
         }
-        if (!TextUtils.isEmpty(expenseType.get()) && !TextUtils.isEmpty(amount.get()) && !TextUtils.isEmpty(remarks.get())) {
+        if (!expenseType.isEmpty && !amount.isEmpty && !remarks.isEmpty) {
             val expense = Expense(
                 expenseType = expenseType.get(),
                 expenseAmt = amount.get(),

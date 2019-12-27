@@ -22,25 +22,32 @@ class ExpenseInputViewModel
     var remarks =  MutableLiveData<String>()
 
     var remarksError =  MutableLiveData<String>()
+    
+    private var isTypeValidated= false
+    private var isAmtValidated = false
+    private var isRemarksValidated = false
 
     fun performValidation() {
 
-      if (TextUtils.isEmpty(expenseType.value)) {
+      if (TextUtils.isEmpty(expenseType.value?.trim())) {
             expenseTypeError.value = "Expense Type cannot be empty"
         } else {
             expenseTypeError.value = ""
+          isTypeValidated= true
         }
-        if (TextUtils.isEmpty(amount.value)|| amount.value=="0") {
+        if (TextUtils.isEmpty(amount.value?.trim())|| amount.value?.trim()=="0") {
             amountError.value = "Amount cannot be empty or 0"
         } else {
             amountError.value = ""
+            isAmtValidated = true
         }
-        if (TextUtils.isEmpty(remarks.value)) {
+        if (TextUtils.isEmpty(remarks.value?.trim())) {
             remarksError.value = "Remarks cannot be empty"
         } else {
             remarksError.value = ""
+            isRemarksValidated = true
         }
-        if (!TextUtils.isEmpty(expenseType.value) && !TextUtils.isEmpty(amount.value) && !TextUtils.isEmpty(remarks.value)) {
+        if (isTypeValidated && isAmtValidated  && isRemarksValidated) {
             val expense = Expense(
                 expenseType = expenseType.value,
                 expenseAmt = amount.value,

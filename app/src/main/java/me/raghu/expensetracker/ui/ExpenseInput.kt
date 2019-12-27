@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import dagger.android.support.DaggerFragment
 import me.raghu.expensetracker.R
@@ -44,6 +45,24 @@ class ExpenseInput : DaggerFragment() {
         binding.addExpenses.setOnClickListener {
             expenseInputViewModel.performValidation()
         }
+
+        expenseInputViewModel.expenseType.observe(this, Observer {
+            if(it.isNotEmpty()){
+                expenseInputViewModel.expenseTypeError.value = ""
+            }
+        })
+
+        expenseInputViewModel.amount.observe(this, Observer {
+            if(it.isNotEmpty()){
+                expenseInputViewModel.amountError.value = ""
+            }
+        })
+
+        expenseInputViewModel.remarks.observe(this, Observer {
+            if(it.isNotEmpty()){
+                expenseInputViewModel.remarksError.value = ""
+            }
+        })
     }
 
 }

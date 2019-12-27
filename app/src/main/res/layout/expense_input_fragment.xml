@@ -7,6 +7,7 @@
         <variable
             name="viewModel"
             type="me.raghu.expensetracker.ui.ExpenseInputViewModel"/>
+
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -21,6 +22,8 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/type"
+                app:errorEnabled="true"
+                app:error="@{viewModel.expenseTypeError}"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -36,7 +39,8 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/expense_type"
-                    android:text="@={viewModel.expenseType}"
+                    binding = "@{viewModel.expenseType}"
+                    hideKeyboardOnInputDone="@{true}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text" />
@@ -46,6 +50,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/amount"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                app:error="@{viewModel.amountError}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/standard_16dp"
@@ -60,6 +65,8 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/amt"
+                    binding = "@{viewModel.amount}"
+                    hideKeyboardOnInputDone="@{true}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="number" />
@@ -71,6 +78,7 @@
                 android:id="@+id/remarks"
                 android:gravity="top|start"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                app:error="@{viewModel.remarksError}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/standard_16dp"
@@ -86,6 +94,8 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/rm"
                     android:gravity="top|start"
+                    binding = "@{viewModel.remarks}"
+                    hideKeyboardOnInputDone="@{true}"
                     android:layout_width="match_parent"
                     android:layout_height="300dp"
                     android:inputType="text" />

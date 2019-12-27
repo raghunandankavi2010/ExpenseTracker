@@ -2,6 +2,8 @@ package me.raghu.expensetracker.ui
 
 import android.text.TextUtils
 import android.util.Log
+import androidx.databinding.Observable
+import androidx.databinding.Observable.OnPropertyChangedCallback
 import androidx.lifecycle.ViewModel
 import me.raghu.expensetracker.db.Expense
 import javax.inject.Inject
@@ -22,6 +24,35 @@ class ExpenseInputViewModel
     var remarks = BindableString()
     @JvmField
     var remarksError = BindableString()
+
+    init {
+        val callback: OnPropertyChangedCallback = object : OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable, propertyId: Int) {
+                when {
+                    sender === expenseType -> {
+                        expenseTypeError.set("")
+                    }
+                    sender == amount -> {
+                        expenseTypeError.set("")
+                    }
+                    sender === remarks -> {
+                        remarksError.set("")
+                    }
+                }
+            }
+        }
+        expenseType.addOnPropertyChangedCallback(callback)
+        amount.addOnPropertyChangedCallback(callback)
+        amount.addOnPropertyChangedCallback(callback)
+    }
+
+
+    fun resetError() {
+        expenseTypeError.set("")
+        amountError.set("")
+        remarksError.set("")
+    }
+
 
     fun performValidation() {
         if (TextUtils.isEmpty(expenseType.get())) {
@@ -49,7 +80,7 @@ class ExpenseInputViewModel
         }
     }
 
-    fun addExpenseToDb(expense: Expense) {
+    private fun addExpenseToDb(expense: Expense) {
         Log.i("Expense Amount", "" + expense.expenseAmt)
     }
 

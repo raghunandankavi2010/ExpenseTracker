@@ -39,13 +39,12 @@ class ExpenseInput : DaggerFragment() {
         binding = DataBindingUtil.inflate(
             inflater, R.layout.expense_input_fragment, container, false
         )
+        binding.lifecycleOwner = this
         binding.viewModel = expenseInputViewModel
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
-        binding.lifecycleOwner = this
         binding.addExpenses.setOnClickListener {
             expenseInputViewModel.performValidation()
         }

@@ -2,77 +2,56 @@ package me.raghu.expensetracker.ui
 
 import android.text.TextUtils
 import android.util.Log
-import androidx.databinding.Observable
-import androidx.databinding.Observable.OnPropertyChangedCallback
 import androidx.lifecycle.ViewModel
 import me.raghu.expensetracker.db.Expense
 import javax.inject.Inject
+import androidx.lifecycle.MutableLiveData
 
 
 class ExpenseInputViewModel
 @Inject constructor() : ViewModel() {
 
-    @JvmField
-    var expenseType = BindableString()
-    @JvmField
-    var expenseTypeError = BindableString()
-    @JvmField
-    var amount = BindableString()
-    @JvmField
-    var amountError = BindableString()
-    @JvmField
-    var remarks = BindableString()
-    @JvmField
-    var remarksError = BindableString()
+    var expenseType = MutableLiveData<String>()
 
-    init {
-        val callback: OnPropertyChangedCallback = object : OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable, propertyId: Int) {
-                when {
-                    sender === expenseType -> {
-                        expenseTypeError.set("")
-                    }
-                    sender == amount -> {
-                        expenseTypeError.set("")
-                    }
-                    sender === remarks -> {
-                        remarksError.set("")
-                    }
-                }
-            }
-        }
-        expenseType.addOnPropertyChangedCallback(callback)
-        amount.addOnPropertyChangedCallback(callback)
-        amount.addOnPropertyChangedCallback(callback)
-    }
+    var expenseTypeError =  MutableLiveData<String>()
+
+    var amount =  MutableLiveData<String>()
+
+    var amountError =  MutableLiveData<String>()
+
+    var remarks =  MutableLiveData<String>()
+
+    var remarksError =  MutableLiveData<String>()
 
     fun performValidation() {
-        if (expenseType.isEmpty) {
-            expenseTypeError.set("Expense Type cannot be empty")
+
+      if (TextUtils.isEmpty(expenseType.value)) {
+            expenseTypeError.value = "Expense Type cannot be empty"
         } else {
-            expenseTypeError.set("")
+            expenseTypeError.value = ""
         }
-        if (amount.isEmpty || amount.get() == "0") {
-            amountError.set("Amount cannot be empty or 0")
+        if (TextUtils.isEmpty(amount.value)|| amount.value=="0") {
+            amountError.value = "Amount cannot be empty or 0"
         } else {
-            amountError.set("")
+            amountError.value = ""
         }
-        if (remarks.isEmpty) {
-            remarksError.set("Remarks cannot be empty")
+        if (TextUtils.isEmpty(remarks.value)) {
+            remarksError.value = "Remarks cannot be empty"
         } else {
-            remarksError.set("")
+            remarksError.value = ""
         }
-        if (!expenseType.isEmpty && !amount.isEmpty && !remarks.isEmpty) {
+        if (!TextUtils.isEmpty(expenseType.value) && !TextUtils.isEmpty(amount.value) && !TextUtils.isEmpty(remarks.value)) {
             val expense = Expense(
-                expenseType = expenseType.get(),
-                expenseAmt = amount.get(),
-                remarks = remarks.get()
+                expenseType = expenseType.value,
+                expenseAmt = amount.value,
+                remarks = remarks.value
             )
             addExpenseToDb(expense)
         }
     }
 
     private fun addExpenseToDb(expense: Expense) {
+
         Log.i("Expense Amount", "" + expense.expenseAmt)
     }
 

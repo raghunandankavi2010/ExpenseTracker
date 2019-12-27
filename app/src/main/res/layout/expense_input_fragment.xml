@@ -96,9 +96,10 @@
                     android:gravity="top|start"
                     binding = "@{viewModel.remarks}"
                     hideKeyboardOnInputDone="@{true}"
+                    android:imeOptions="actionDone"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
-                    android:inputType="text|textMultiLine" />
+                    android:inputType="textMultiLine" />
 
             </com.google.android.material.textfield.TextInputLayout>
 

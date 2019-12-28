@@ -13,17 +13,10 @@
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
         <activity
-            android:resizeableActivity="true"
+            android:resizeableActivity="false"
             android:name="me.raghu.expensetracker.ui.MainActivity"
             android:windowSoftInputMode="adjustPan|adjustResize"
             tools:ignore="UnusedAttribute">
-            <layout
-                android:defaultWidth="300dp"
-                android:defaultHeight="450dp"
-                android:gravity="top|end"
-                android:minWidth="200dp"
-                android:minHeight="200dp"
-                tools:targetApi="n" />
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

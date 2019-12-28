@@ -2,10 +2,10 @@ package me.raghu.expensetracker.ui
 
 import android.text.TextUtils
 import android.util.Log
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import me.raghu.expensetracker.db.Expense
 import javax.inject.Inject
-import androidx.lifecycle.MutableLiveData
 
 
 class ExpenseInputViewModel
@@ -13,29 +13,29 @@ class ExpenseInputViewModel
 
     var expenseType = MutableLiveData<String>()
 
-    var expenseTypeError =  MutableLiveData<String>()
+    var expenseTypeError = MutableLiveData<String>()
 
-    var amount =  MutableLiveData<String>()
+    var amount = MutableLiveData<String>()
 
-    var amountError =  MutableLiveData<String>()
+    var amountError = MutableLiveData<String>()
 
-    var remarks =  MutableLiveData<String>()
+    var remarks = MutableLiveData<String>()
 
-    var remarksError =  MutableLiveData<String>()
-    
-    private var isTypeValidated= false
+    var remarksError = MutableLiveData<String>()
+
+    private var isTypeValidated = false
     private var isAmtValidated = false
     private var isRemarksValidated = false
 
     fun performValidation() {
 
-      if (TextUtils.isEmpty(expenseType.value?.trim())) {
+        if (TextUtils.isEmpty(expenseType.value?.trim())) {
             expenseTypeError.value = "Expense Type cannot be empty"
         } else {
             expenseTypeError.value = ""
-          isTypeValidated= true
+            isTypeValidated = true
         }
-        if (TextUtils.isEmpty(amount.value?.trim())|| amount.value?.trim()=="0") {
+        if (TextUtils.isEmpty(amount.value?.trim()) || amount.value?.trim() == "0") {
             amountError.value = "Amount cannot be empty or 0"
         } else {
             amountError.value = ""
@@ -47,7 +47,7 @@ class ExpenseInputViewModel
             remarksError.value = ""
             isRemarksValidated = true
         }
-        if (isTypeValidated && isAmtValidated  && isRemarksValidated) {
+        if (isTypeValidated && isAmtValidated && isRemarksValidated) {
             val expense = Expense(
                 expenseType = expenseType.value,
                 expenseAmt = amount.value,

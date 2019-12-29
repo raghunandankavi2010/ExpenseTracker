@@ -2,11 +2,13 @@ package me.raghu.expensetracker.ui
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
@@ -35,6 +37,7 @@ class ExpenseFragment : Fragment() {
         AndroidSupportInjection.inject(this)
         super.onAttach(context)
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -44,10 +47,15 @@ class ExpenseFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(ExpenseViewModel::class.java)
         add.setOnClickListener {
             it.findNavController().navigate(R.id.expenseInput)
         }
+        expenseViewModel.expenses.observe(this, Observer { expenses ->
+            expenses?.let {
+                if(it.isNotEmpty())
+                    Log.i("Expenses",""+it[0].expenseAmt)
+            }
+        })
     }
 
 }

@@ -4,12 +4,16 @@ import android.text.TextUtils
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
 import me.raghu.expensetracker.db.Expense
+import me.raghu.expensetracker.repository.DatabaseRepository
+import java.util.*
 import javax.inject.Inject
 
 
 class ExpenseInputViewModel
-@Inject constructor() : ViewModel() {
+@Inject constructor(private val databaseRepository: DatabaseRepository) : ViewModel() {
 
     var expenseType = MutableLiveData<String>()
 
@@ -48,18 +52,24 @@ class ExpenseInputViewModel
             isRemarksValidated = true
         }
         if (isTypeValidated && isAmtValidated && isRemarksValidated) {
+            val date = Calendar.getInstance().time
             val expense = Expense(
                 expenseType = expenseType.value,
                 expenseAmt = amount.value,
-                remarks = remarks.value
+                remarks = remarks.value,
+                date = date
             )
             addExpenseToDb(expense)
         }
     }
 
     private fun addExpenseToDb(expense: Expense) {
+        Log.i("Value",""+expense.date.toString())
+        viewModelScope.launch {
+            val long = databaseRepository.insert(expense)
+            Log.i("Value",""+long)
+        }
 
-        Log.i("Expense Amount", "" + expense.expenseAmt)
     }
 
 }

@@ -5,4 +5,5 @@
     <string name="hint_expense_amt">Expense Amount</string>
     <string name="hint_expense_remarks">Remarks</string>
     <string name="add_expense">Add Expense</string>
+    <string name="amount">%1$s! %2$.1f Rs </string>
 </resources>

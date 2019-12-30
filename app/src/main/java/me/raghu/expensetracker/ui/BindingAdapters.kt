@@ -7,6 +7,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import me.raghu.expensetracker.R
 
@@ -56,5 +57,10 @@ object BindingAdapters {
             false
         }
         view.setOnEditorActionListener(listener)
+    }
+
+    @BindingAdapter("amount")
+    @JvmStatic fun setAmount(textView: TextView, total: LiveData<Float>) {
+        textView.text = textView.resources.getString(R.string.amount, "Spent", total.value)
     }
 }

@@ -1,5 +1,5 @@
 
-package me.raghu.expensetracker.ui
+package me.raghu.expensetracker.ui.databinding
 
 import android.content.Context
 import android.view.inputmethod.EditorInfo
@@ -10,6 +10,7 @@ import androidx.databinding.BindingAdapter
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import me.raghu.expensetracker.R
+import me.raghu.expensetracker.ui.TextWatcherAdapter
 
 
 object BindingAdapters {

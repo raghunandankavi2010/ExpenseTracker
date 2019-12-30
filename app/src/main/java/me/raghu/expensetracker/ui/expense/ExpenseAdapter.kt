@@ -11,26 +11,25 @@ import me.raghu.expensetracker.databinding.ExpenseItemBinding
 import me.raghu.expensetracker.db.Expense
 import me.raghu.expensetracker.ui.common.DataBoundListAdapter
 import me.raghu.expensetracker.utils.dateToString
+import java.util.concurrent.Executor
+import java.util.concurrent.Executors
 
 /**
  * A RecyclerView adapter for [Repo] class.
  */
 class ExpenseAdapter(
     private val dataBindingComponent: DataBindingComponent,
+    appExecutors : Executor,
     private val repoClickCallback: ((Expense) -> Unit)?
-) : DataBoundListAdapter<Expense, ExpenseItemBinding>(
+) : DataBoundListAdapter<Expense, ExpenseItemBinding>(appExecutors = appExecutors,
 
     diffCallback = object : DiffUtil.ItemCallback<Expense>() {
         override fun areItemsTheSame(oldItem: Expense, newItem: Expense): Boolean {
-            return oldItem.expenseAmt == newItem.expenseAmt
-                    && oldItem.expenseType == newItem.expenseType && oldItem.remarks == newItem.remarks
-                    && oldItem.date?.dateToString() == newItem.date?.dateToString()
+            return false //oldItem.id == newItem.id
         }
 
         override fun areContentsTheSame(oldItem: Expense, newItem: Expense): Boolean {
-            return oldItem.expenseAmt == newItem.expenseAmt
-                    && oldItem.expenseType == newItem.expenseType && oldItem.remarks == newItem.remarks
-                    && oldItem.date?.dateToString() == newItem.date?.dateToString()
+            return false //oldItem == newItem
         }
     }
 ) {

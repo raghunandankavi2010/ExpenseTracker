@@ -1,7 +1,8 @@
-package me.raghu.expensetracker.ui
+package me.raghu.expensetracker.ui.expense
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,18 +18,15 @@ import kotlinx.android.synthetic.main.expense_fragment.*
 import me.raghu.expensetracker.R
 import me.raghu.expensetracker.databinding.ExpenseFragmentBinding
 import me.raghu.expensetracker.ui.databinding.FragmentDataBindingComponent
-import me.raghu.expensetracker.ui.expense.ExpenseAdapter
-import me.raghu.expensetracker.ui.expense.ExpenseViewModel
 import me.raghu.expensetracker.utils.autoCleared
 import me.raghu.expensetracker.utils.getFirstDateOfMonth
 import me.raghu.expensetracker.utils.getLastDateOfMonth
 import java.util.*
+import java.util.concurrent.Executors
 import javax.inject.Inject
 
 
 class ExpenseFragment : Fragment() {
-
-
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -72,9 +70,10 @@ class ExpenseFragment : Fragment() {
             it.findNavController().navigate(R.id.expenseInput)
         }
         val date = Date()
+        val newSingleThreadExecutor = Executors.newSingleThreadExecutor()
         expenseViewModel.setDateRange(date.getFirstDateOfMonth(), getLastDateOfMonth())
         val expenseAdapter = ExpenseAdapter(
-            dataBindingComponent = dataBindingComponent
+            dataBindingComponent = dataBindingComponent, appExecutors = newSingleThreadExecutor
         ) { expense ->
             expense.let {
 
@@ -83,17 +82,23 @@ class ExpenseFragment : Fragment() {
         this.adapter = expenseAdapter
         binding.main.expenseList.adapter = adapter
         val  mDividerItemDecoration = DividerItemDecoration(
-           binding.main.expenseList.context,DividerItemDecoration.HORIZONTAL)
+           this.context,DividerItemDecoration.VERTICAL)
         binding.main.expenseList.addItemDecoration(mDividerItemDecoration)
         initExpenseList()
     }
 
     private fun initExpenseList() {
         expenseViewModel.expenses.observe(viewLifecycleOwner, androidx.lifecycle.Observer  {
-            list -> list?.let{ adapter.submitList(it)}
-
+                listResource ->
+            // we don't need any null checks here for the adapter since LiveData guarantees that
+            // it won't call us if fragment is stopped or not started.
+            if (listResource != null) {
+                Log.i("Expenses List",""+listResource.size)
+                adapter.submitList(listResource)
+            } else {
+                adapter.submitList(emptyList())
+            }
         })
     }
-
 
 }

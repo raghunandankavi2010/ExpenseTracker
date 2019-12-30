@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/expenseFragment"
-        android:name="me.raghu.expensetracker.ui.ExpenseFragment"
+        android:name="me.raghu.expensetracker.ui.expense.ExpenseFragment"
         android:label="Expenses" >
         <action
             android:id="@+id/action_expenseFragment_to_expenseInput"

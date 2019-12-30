@@ -20,9 +20,9 @@ class ExpenseViewModel
     }
 
     val expenses: LiveData<List<Expense>> = liveData {
-        val data = databaseRepository.getExpenses()
-        emit(data)
+      emitSource(databaseRepository.getExpenses())
     }
+
 
     data class Range(val startDate: Date, val endDate: Date) {
         fun <T> ifExists(f: (Date, Date) -> LiveData<T>): LiveData<T> {

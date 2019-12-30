@@ -1,6 +1,7 @@
 package me.raghu.expensetracker.repository
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import me.raghu.expensetracker.db.Expense
@@ -24,10 +25,10 @@ class DatabaseRepository @Inject constructor(private val expenseDao: ExpenseDao)
         return long
     }
 
-    suspend fun getExpenses(): List<Expense> {
+    suspend fun getExpenses(): LiveData<List<Expense>> {
         return withContext(Dispatchers.IO) {
             val data = expenseDao.fetchExpenses()
-            Log.i("Expenses List Size", "" + data.size)
+            Log.i("Expenses List Size", "" + data.value?.size)
             data
         }
     }

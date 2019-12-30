@@ -10,7 +10,6 @@ import androidx.databinding.BindingAdapter
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import me.raghu.expensetracker.R
-import me.raghu.expensetracker.ui.TextWatcherAdapter
 
 
 object BindingAdapters {

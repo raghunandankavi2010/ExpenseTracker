@@ -1,4 +1,4 @@
-package me.raghu.expensetracker.ui
+package me.raghu.expensetracker.ui.expenseinput
 
 import android.text.TextUtils
 import android.util.Log

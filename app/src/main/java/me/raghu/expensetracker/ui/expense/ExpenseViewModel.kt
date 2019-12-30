@@ -1,4 +1,4 @@
-package me.raghu.expensetracker.ui
+package me.raghu.expensetracker.ui.expense
 
 import androidx.lifecycle.*
 import kotlinx.coroutines.Dispatchers
@@ -31,7 +31,10 @@ class ExpenseViewModel
     }
 
     fun setDateRange(startDate: Date, endDate: Date) {
-        val update = Range(startDate, endDate)
+        val update = Range(
+            startDate,
+            endDate
+        )
         if (range.value == update) {
             return
         }

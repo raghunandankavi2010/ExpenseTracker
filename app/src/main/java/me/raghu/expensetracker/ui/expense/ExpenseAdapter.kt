@@ -1,5 +1,5 @@
 
-package me.raghu.expensetracker.ui
+package me.raghu.expensetracker.ui.expense
 
 import androidx.databinding.DataBindingComponent
 import androidx.databinding.DataBindingUtil

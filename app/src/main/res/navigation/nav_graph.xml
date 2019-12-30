@@ -14,6 +14,6 @@
     </fragment>
     <fragment
         android:id="@+id/expenseInput"
-        android:name="me.raghu.expensetracker.ui.ExpenseInput"
+        android:name="me.raghu.expensetracker.ui.expenseinput.ExpenseInput"
         android:label="Add Your Expenses" />
 </navigation>

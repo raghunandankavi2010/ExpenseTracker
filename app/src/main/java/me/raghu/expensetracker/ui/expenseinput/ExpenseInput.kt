@@ -1,4 +1,4 @@
-package me.raghu.expensetracker.ui
+package me.raghu.expensetracker.ui.expenseinput
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -20,7 +20,8 @@ import javax.inject.Inject
 class ExpenseInput : DaggerFragment() {
 
     companion object {
-        fun newInstance() = ExpenseInput()
+        fun newInstance() =
+            ExpenseInput()
     }
 
     var binding by autoCleared<ExpenseInputFragmentBinding>()

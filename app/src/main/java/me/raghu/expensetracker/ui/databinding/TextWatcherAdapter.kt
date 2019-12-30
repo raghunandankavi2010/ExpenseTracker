@@ -1,4 +1,4 @@
-package me.raghu.expensetracker.ui
+package me.raghu.expensetracker.ui.databinding
 
 import android.text.Editable
 import android.text.TextWatcher

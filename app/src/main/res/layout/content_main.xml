@@ -5,7 +5,7 @@
     <data>
         <variable
             name="expenseViewModel"
-            type="me.raghu.expensetracker.ui.ExpenseViewModel" />
+            type="me.raghu.expensetracker.ui.expense.ExpenseViewModel" />
     </data>
 <androidx.constraintlayout.widget.ConstraintLayout
     android:id="@+id/root"

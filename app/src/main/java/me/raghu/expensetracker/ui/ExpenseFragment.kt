@@ -17,6 +17,8 @@ import kotlinx.android.synthetic.main.expense_fragment.*
 import me.raghu.expensetracker.R
 import me.raghu.expensetracker.databinding.ExpenseFragmentBinding
 import me.raghu.expensetracker.ui.databinding.FragmentDataBindingComponent
+import me.raghu.expensetracker.ui.expense.ExpenseAdapter
+import me.raghu.expensetracker.ui.expense.ExpenseViewModel
 import me.raghu.expensetracker.utils.autoCleared
 import me.raghu.expensetracker.utils.getFirstDateOfMonth
 import me.raghu.expensetracker.utils.getLastDateOfMonth
@@ -71,7 +73,9 @@ class ExpenseFragment : Fragment() {
         }
         val date = Date()
         expenseViewModel.setDateRange(date.getFirstDateOfMonth(), getLastDateOfMonth())
-        val expenseAdapter = ExpenseAdapter(dataBindingComponent = dataBindingComponent) { expense ->
+        val expenseAdapter = ExpenseAdapter(
+            dataBindingComponent = dataBindingComponent
+        ) { expense ->
             expense.let {
 
             }

@@ -6,8 +6,8 @@ import androidx.lifecycle.ViewModelProvider
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
-import me.raghu.expensetracker.ui.ExpenseInputViewModel
-import me.raghu.expensetracker.ui.ExpenseViewModel
+import me.raghu.expensetracker.ui.expense.ExpenseViewModel
+import me.raghu.expensetracker.ui.expenseinput.ExpenseInputViewModel
 import me.raghu.expensetracker.viewmodel.ExpenseTrackerViewModelFactory
 
 @Suppress("unused")

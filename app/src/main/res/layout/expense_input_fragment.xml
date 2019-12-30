@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="me.raghu.expensetracker.ui.ExpenseInputViewModel"/>
+            type="me.raghu.expensetracker.ui.expenseinput.ExpenseInputViewModel"/>
 
     </data>
 

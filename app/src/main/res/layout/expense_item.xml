@@ -57,11 +57,11 @@
         android:gravity="center"
         date= "@{expense.date}"
         android:id="@+id/textView4"
-        android:layout_width="150dp"
+        android:layout_width="155dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        tools:text="23-12-1986 11:17:09"
+        tools:text="23-12-1986 11:17:09 pm"
         app:layout_constraintBottom_toBottomOf="@+id/expenseRemark"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/expenseType" />

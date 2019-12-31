@@ -1,6 +1,6 @@
 package me.raghu.expensetracker.db
 
-import androidx.lifecycle.LiveData
+import androidx.paging.DataSource
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -14,7 +14,7 @@ interface ExpenseDao {
     suspend fun insertExpense(expense: Expense):Long
 
     @Query("SELECT * FROM expense")
-    fun fetchExpenses(): LiveData<List<Expense>>
+    fun fetchExpenses(): DataSource.Factory<Int, Expense>
 
     @Query("DELETE FROM expense WHERE expense_type = :expenseType")
     fun deleteExpense(expenseType:String)

@@ -45,9 +45,9 @@ dependencies {
     implementation "androidx.core:core-ktx:$rootProject.coreKtx"
     implementation "androidx.constraintlayout:constraintlayout:$rootProject.constraintLayout"
 
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.1.0'
+    implementation "androidx.legacy:legacy-support-v4:$rootProject.legacySupport"
+    implementation "androidx.lifecycle:lifecycle-extensions:$rootProject.lifecycleExtension"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$rootProject.viewModelKtx"
     //dagger2
     implementation "com.google.dagger:dagger:$rootProject.dagger"
     api "com.google.dagger:dagger-android:$rootProject.dagger"
@@ -64,12 +64,16 @@ dependencies {
     implementation "androidx.room:room-ktx:$rootProject.roomVersion"
     // material ui
     implementation "com.google.android.material:material:$rootProject.materialUi"
-    //livedata
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0-rc03'
+    // livedata
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$rootProject.livedataKtx"
+    // paging
+    implementation "androidx.paging:paging-runtime-ktx:$rootProject.paging_version"
 
     testImplementation 'junit:junit:4.12'
+    testImplementation "androidx.paging:paging-common:$rootProject.paging_version"
     testImplementation "androidx.room:room-testing:$rootProject.roomVersion"
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
 
 }

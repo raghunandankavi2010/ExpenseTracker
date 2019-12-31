@@ -37,4 +37,9 @@ ext {
     constraintLayout = '1.1.3'
     roomVersion = '2.2.3'
     materialUi = '1.0.0-alpha1'
+    livedataKtx = '2.2.0-rc03'
+    paging_version = '2.1.1'
+    legacySupport = '1.0.0'
+    lifecycleExtension = '2.1.0'
+    viewModelKtx ='2.1.0'
 }

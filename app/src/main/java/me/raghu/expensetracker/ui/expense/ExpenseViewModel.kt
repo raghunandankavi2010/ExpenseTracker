@@ -2,16 +2,17 @@ package me.raghu.expensetracker.ui.expense
 
 import androidx.lifecycle.*
 import kotlinx.coroutines.Dispatchers
-import me.raghu.expensetracker.db.Expense
+import me.raghu.expensetracker.db.ExpenseDao
 import me.raghu.expensetracker.repository.DatabaseRepository
 import java.util.*
 import javax.inject.Inject
+import androidx.paging.toLiveData
+import androidx.paging.Config
 
 class ExpenseViewModel
-@Inject constructor(private val databaseRepository: DatabaseRepository) : ViewModel() {
+@Inject constructor(private val databaseRepository: DatabaseRepository,private val expenseDao: ExpenseDao) : ViewModel() {
 
     private val range: MutableLiveData<Range> = MutableLiveData()
-
 
     val toatalExpenseCurrentMonth = range.switchMap { range ->
         liveData(context = viewModelScope.coroutineContext + Dispatchers.IO) {
@@ -19,10 +20,9 @@ class ExpenseViewModel
         }
     }
 
-    val expenses: LiveData<List<Expense>> = liveData {
-      emitSource(databaseRepository.getExpenses())
-    }
-
+   val expense = expenseDao.fetchExpenses().toLiveData(
+        Config(pageSize = 30, enablePlaceholders = true)
+    )
 
     data class Range(val startDate: Date, val endDate: Date) {
         fun <T> ifExists(f: (Date, Date) -> LiveData<T>): LiveData<T> {

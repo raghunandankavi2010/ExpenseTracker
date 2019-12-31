@@ -88,17 +88,10 @@ class ExpenseFragment : Fragment() {
     }
 
     private fun initExpenseList() {
-        expenseViewModel.expenses.observe(viewLifecycleOwner, androidx.lifecycle.Observer  {
-                listResource ->
-            // we don't need any null checks here for the adapter since LiveData guarantees that
-            // it won't call us if fragment is stopped or not started.
-            if (listResource != null) {
-                Log.i("Expenses List",""+listResource.size)
-                adapter.submitList(listResource)
-            } else {
-                adapter.submitList(emptyList())
-            }
+        expenseViewModel.expense.observe(viewLifecycleOwner, androidx.lifecycle.Observer(){
+            adapter.submitList(it)
         })
+
     }
 
 }

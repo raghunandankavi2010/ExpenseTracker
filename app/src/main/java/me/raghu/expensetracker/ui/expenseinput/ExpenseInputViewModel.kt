@@ -68,8 +68,14 @@ class ExpenseInputViewModel
         viewModelScope.launch {
             val long = databaseRepository.insert(expense)
             Log.i("Value",""+long)
+            reset()
         }
+    }
 
+    private fun reset(){
+        expenseType.value = ""
+        amount.value = ""
+        remarks.value = ""
     }
 
 }

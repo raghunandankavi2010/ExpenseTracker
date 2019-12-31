@@ -8,6 +8,7 @@ import java.util.*
 import javax.inject.Inject
 import androidx.paging.toLiveData
 import androidx.paging.Config
+import kotlinx.coroutines.launch
 
 class ExpenseViewModel
 @Inject constructor(private val databaseRepository: DatabaseRepository,private val expenseDao: ExpenseDao) : ViewModel() {
@@ -39,6 +40,12 @@ class ExpenseViewModel
             return
         }
         range.value = update
+    }
+
+    fun deleteExpense(id: Int){
+        viewModelScope.launch {
+            databaseRepository.deleteExpense(id)
+        }
     }
 }
 

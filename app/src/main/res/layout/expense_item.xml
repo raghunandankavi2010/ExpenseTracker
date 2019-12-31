@@ -67,7 +67,7 @@
         app:layout_constraintTop_toTopOf="@+id/expenseType" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/delete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@+id/textView4"
@@ -75,5 +75,18 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_delete"
         android:contentDescription="@string/delete" />
+
+    <ImageView
+        android:id="@+id/edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="123dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView4"
+        app:layout_constraintEnd_toStartOf="@+id/delete"
+        app:layout_constraintStart_toEndOf="@+id/expenseType"
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/edit"
+        app:srcCompat="@drawable/ic_edit" />
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

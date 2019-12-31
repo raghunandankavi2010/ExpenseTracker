@@ -20,7 +20,7 @@ import java.util.concurrent.Executors
 class ExpenseAdapter(
     private val dataBindingComponent: DataBindingComponent,
     appExecutors : Executor,
-    private val repoClickCallback: ((Expense) -> Unit)?
+    private val expenseClickCallback: ((Expense) -> Unit)?
 ) : DataBoundListAdapter<Expense, ExpenseItemBinding>(appExecutors = appExecutors,
 
     diffCallback = object : DiffUtil.ItemCallback<Expense>() {
@@ -42,10 +42,13 @@ class ExpenseAdapter(
             false,
             dataBindingComponent
         )
-        binding.root.setOnClickListener {
+        binding.delete.setOnClickListener {
             binding.expense?.let {
-                repoClickCallback?.invoke(it)
+                expenseClickCallback?.invoke(it)
             }
+        }
+        binding.edit.setOnClickListener {
+          // to do take user to new page to edit
         }
         return binding
     }

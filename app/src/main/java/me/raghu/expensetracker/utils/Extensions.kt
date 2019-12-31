@@ -6,7 +6,7 @@ import java.util.*
 
 
     fun getLastDateOfMonth(): Date {
-        val cal: Calendar = Calendar.getInstance()
+        val cal: Calendar = Calendar.getInstance(java.util.TimeZone.getDefault())
         val lastDate: Int = cal.getActualMaximum(Calendar.DATE)
         cal.set(Calendar.DAY_OF_MONTH, lastDate)
         return cal.time
@@ -20,7 +20,7 @@ import java.util.*
     }
 
     fun Date.dateToString(): String {
-
         val dateFormat: DateFormat = SimpleDateFormat("yyyy-MM-dd hh:mm:ss a", Locale.getDefault())
         return dateFormat.format(this)
     }
+

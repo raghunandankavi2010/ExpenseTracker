@@ -2,6 +2,7 @@ package me.raghu.expensetracker.ui.expense
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -74,7 +75,7 @@ class ExpenseFragment : Fragment() {
             dataBindingComponent = dataBindingComponent, appExecutors = newSingleThreadExecutor
         ) { expense ->
             expense.let {
-
+                expenseViewModel.deleteExpense(expense.id)
             }
         }
         this.adapter = expenseAdapter
@@ -90,7 +91,6 @@ class ExpenseFragment : Fragment() {
         expenseViewModel.expense.observe(viewLifecycleOwner, androidx.lifecycle.Observer(){
             adapter.submitList(it)
         })
-
     }
 
 }

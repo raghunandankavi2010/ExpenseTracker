@@ -40,4 +40,9 @@ class DatabaseRepository @Inject constructor(private val expenseDao: ExpenseDao)
         }
     }
 
+    suspend fun deleteExpense(id:Int) {
+         withContext(Dispatchers.IO) {
+            expenseDao.deleteExpense(id)
+        }
+    }
 }

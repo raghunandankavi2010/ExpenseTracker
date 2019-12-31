@@ -16,13 +16,13 @@ interface ExpenseDao {
     @Query("SELECT * FROM expense")
     fun fetchExpenses(): DataSource.Factory<Int, Expense>
 
-    @Query("DELETE FROM expense WHERE expense_type = :expenseType")
-    fun deleteExpense(expenseType:String)
+    @Query("DELETE FROM expense WHERE id = :expenseId")
+    fun deleteExpense(expenseId:Int)
 
     @Query("SELECT * FROM expense WHERE date BETWEEN :from AND :to")
-    fun expenseinrange(from: Date, to: Date): List<Expense>
+    fun expenseInrange(from: Date, to: Date): List<Expense>
 
-    @Query("SELECT SUM(expense_amount) as total FROM expense where date BETWEEN :startDay AND :endDay ORDER BY date ASC")
+    @Query("SELECT SUM(expense_amount) as total FROM expense where date BETWEEN :startDay AND :endDay ORDER BY datetime(date) DESC")
     fun expenseForCurrentMonth(
         startDay: Date?,
         endDay: Date?

@@ -25,7 +25,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        amount = "@{expenseViewModel.toatalExpenseCurrentMonth}"
+        amount = "@{expenseViewModel.totalExpenseCurrentMonth}"
         android:id="@+id/total_amt_spent_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -14,7 +14,7 @@ class ExpenseViewModel
 
     private val range: MutableLiveData<Range> = MutableLiveData()
 
-    val toatalExpenseCurrentMonth = range.switchMap { range ->
+    val totalExpenseCurrentMonth = range.switchMap { range ->
         liveData(context = viewModelScope.coroutineContext + Dispatchers.IO) {
             emit(databaseRepository.getExpensesForCurrentMonth(range.startDate, range.endDate))
         }

@@ -2,7 +2,6 @@ package me.raghu.expensetracker.ui.expense
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +11,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
-import androidx.recyclerview.widget.DividerItemDecoration
 import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.expense_fragment.*
 import me.raghu.expensetracker.R
@@ -81,9 +79,10 @@ class ExpenseFragment : Fragment() {
         }
         this.adapter = expenseAdapter
         binding.main.expenseList.adapter = adapter
-        val  mDividerItemDecoration = DividerItemDecoration(
-           this.context,DividerItemDecoration.VERTICAL)
-        binding.main.expenseList.addItemDecoration(mDividerItemDecoration)
+        val  mDividerItemDecoration = context?.let {
+            DividerItemDecoration(it)
+        }
+        mDividerItemDecoration?.let { binding.main.expenseList.addItemDecoration(it) }
         initExpenseList()
     }
 

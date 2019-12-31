@@ -18,8 +18,14 @@ import javax.inject.Inject
 class FragmentBindingAdapters @Inject constructor(val fragment: Fragment) {
 
     @BindingAdapter("date")
-     fun  bindDate(textView: TextView,date: Date) {
+     fun bindDate(textView: TextView,date: Date) {
        textView.text = date.dateToString()
+    }
+
+    @BindingAdapter("amountspent")
+    fun bindAmount(textView: TextView, amount: String) {
+        textView.text = textView.resources.getString(R.string.expense_amount, amount,
+            Currency.getInstance(Locale.getDefault()).getSymbol(Locale.getDefault()))
     }
 
 }

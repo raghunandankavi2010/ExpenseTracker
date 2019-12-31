@@ -10,6 +10,7 @@ import androidx.databinding.BindingAdapter
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import me.raghu.expensetracker.R
+import java.util.*
 
 
 object BindingAdapters {
@@ -61,6 +62,7 @@ object BindingAdapters {
 
     @BindingAdapter("amount")
     @JvmStatic fun setAmount(textView: TextView, total: LiveData<Float>) {
-        textView.text = textView.resources.getString(R.string.amount, "Spent", total.value)
+        textView.text = textView.resources.getString(R.string.amount, total.value,
+            Currency.getInstance(Locale.getDefault()).getSymbol(Locale.getDefault()))
     }
 }

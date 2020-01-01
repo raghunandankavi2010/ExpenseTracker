@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     app:startDestination="@id/expenseFragment">
 
@@ -11,9 +12,17 @@
         <action
             android:id="@+id/action_expenseFragment_to_expenseInput"
             app:destination="@id/expenseInput" />
+        <action
+            android:id="@+id/action_expenseFragment_to_editExpenseFragment"
+            app:destination="@id/editExpenseFragment" />
     </fragment>
     <fragment
         android:id="@+id/expenseInput"
         android:name="me.raghu.expensetracker.ui.expenseinput.ExpenseInput"
         android:label="Add Your Expenses" />
+    <fragment
+        android:id="@+id/editExpenseFragment"
+        android:name="me.raghu.expensetracker.ui.editexpense.EditExpenseFragment"
+        android:label="Edit Expenses"
+        tools:layout="@layout/expense_edit" />
 </navigation>

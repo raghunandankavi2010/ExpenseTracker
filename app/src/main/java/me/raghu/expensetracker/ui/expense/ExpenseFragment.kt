@@ -2,16 +2,17 @@ package me.raghu.expensetracker.ui.expense
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingComponent
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.expense_fragment.*
 import me.raghu.expensetracker.R
@@ -73,14 +74,22 @@ class ExpenseFragment : Fragment() {
         expenseViewModel.setDateRange(date.getFirstDateOfMonth(), getLastDateOfMonth())
         val expenseAdapter = ExpenseAdapter(
             dataBindingComponent = dataBindingComponent, appExecutors = newSingleThreadExecutor
-        ) { expense ->
-            expense.let {
-                expenseViewModel.deleteExpense(expense.id)
+        ) { expenseEvent ->
+            expenseEvent.let {
+                if (expenseEvent.type == "delete") {
+                    expenseViewModel.deleteExpense(expenseEvent.expense.id)
+                } else if (expenseEvent.type == "edit") {
+                    val bundle = bundleOf("expense" to expenseEvent.expense)
+                    findNavController().navigate(
+                        R.id.action_expenseFragment_to_editExpenseFragment,
+                        bundle
+                    )
+                }
             }
         }
         this.adapter = expenseAdapter
         binding.main.expenseList.adapter = adapter
-        val  mDividerItemDecoration = context?.let {
+        val mDividerItemDecoration = context?.let {
             DividerItemDecoration(it)
         }
         mDividerItemDecoration?.let { binding.main.expenseList.addItemDecoration(it) }
@@ -88,7 +97,7 @@ class ExpenseFragment : Fragment() {
     }
 
     private fun initExpenseList() {
-        expenseViewModel.expense.observe(viewLifecycleOwner, androidx.lifecycle.Observer(){
+        expenseViewModel.expense.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             adapter.submitList(it)
         })
     }

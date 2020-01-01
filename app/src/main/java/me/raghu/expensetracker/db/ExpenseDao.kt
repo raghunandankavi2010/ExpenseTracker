@@ -1,10 +1,7 @@
 package me.raghu.expensetracker.db
 
 import androidx.paging.DataSource
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import java.util.*
 
 @Dao
@@ -27,4 +24,7 @@ interface ExpenseDao {
         startDay: Date?,
         endDay: Date?
     ): Float
+
+    @Query("UPDATE expense SET expense_type = :expenseType, expense_amount = :expenseAmount, remarks = :remarks, date = :date WHERE id = :id")
+    fun updateExpense(id: Int, expenseType: String, expenseAmount: String, remarks: String, date: Date)
 }

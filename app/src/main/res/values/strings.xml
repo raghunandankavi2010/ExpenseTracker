@@ -11,4 +11,6 @@
     <string name="expense_remarks">Remarks : %1$s</string>
     <string name="delete">Delete</string>
     <string name="edit">Edit</string>
+    <string name="edit_expense">Edit Expense</string>
+
 </resources>

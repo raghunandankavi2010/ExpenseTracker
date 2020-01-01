@@ -1,7 +1,6 @@
 package me.raghu.expensetracker.repository
 
 import android.util.Log
-import androidx.lifecycle.LiveData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import me.raghu.expensetracker.db.Expense
@@ -25,24 +24,31 @@ class DatabaseRepository @Inject constructor(private val expenseDao: ExpenseDao)
         return long
     }
 
- /*   suspend fun getExpenses(): LiveData<List<Expense>> {
+    /*   suspend fun getExpenses(): LiveData<List<Expense>> {
+           return withContext(Dispatchers.IO) {
+               val data = expenseDao.fetchExpenses()
+               Log.i("Expenses List Size", "" + data.value?.size)
+               data
+           }
+       }
+   */
+    suspend fun getExpensesForCurrentMonth(startDate: Date, endDate: Date): Float {
         return withContext(Dispatchers.IO) {
-            val data = expenseDao.fetchExpenses()
-            Log.i("Expenses List Size", "" + data.value?.size)
-            data
-        }
-    }
-*/
-    suspend fun getExpensesForCurrentMonth(startDate: Date,endDate: Date): Float {
-        return withContext(Dispatchers.IO) {
-            val data = expenseDao.expenseForCurrentMonth(startDate,endDate)
+            val data = expenseDao.expenseForCurrentMonth(startDate, endDate)
             data
         }
     }
 
-    suspend fun deleteExpense(id:Int) {
-         withContext(Dispatchers.IO) {
+    suspend fun deleteExpense(id: Int) {
+        withContext(Dispatchers.IO) {
             expenseDao.deleteExpense(id)
+        }
+    }
+
+
+    suspend fun updateExpense(id: Int, expenseType: String, expenseAmt: String, remarks: String,date : Date) {
+        withContext(Dispatchers.IO) {
+            expenseDao.updateExpense(id,expenseType,expenseAmt,remarks,date)
         }
     }
 }

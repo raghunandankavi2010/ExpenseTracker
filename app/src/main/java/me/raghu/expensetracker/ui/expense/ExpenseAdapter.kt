@@ -10,6 +10,7 @@ import me.raghu.expensetracker.R
 import me.raghu.expensetracker.databinding.ExpenseItemBinding
 import me.raghu.expensetracker.db.Expense
 import me.raghu.expensetracker.ui.common.DataBoundListAdapter
+import me.raghu.expensetracker.utils.ExpenseEvent
 import me.raghu.expensetracker.utils.dateToString
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
@@ -20,16 +21,18 @@ import java.util.concurrent.Executors
 class ExpenseAdapter(
     private val dataBindingComponent: DataBindingComponent,
     appExecutors : Executor,
-    private val expenseClickCallback: ((Expense) -> Unit)?
+    private val expenseClickCallback: ((ExpenseEvent) -> Unit)?
 ) : DataBoundListAdapter<Expense, ExpenseItemBinding>(appExecutors = appExecutors,
 
     diffCallback = object : DiffUtil.ItemCallback<Expense>() {
         override fun areItemsTheSame(oldItem: Expense, newItem: Expense): Boolean {
-            return false //oldItem.id == newItem.id
+            return oldItem.id == newItem.id && oldItem.expenseType == newItem.expenseType
+                    && oldItem.expenseAmt == newItem.expenseAmt && oldItem.date == newItem.date
         }
 
         override fun areContentsTheSame(oldItem: Expense, newItem: Expense): Boolean {
-            return false //oldItem == newItem
+            return oldItem.id == newItem.id && oldItem.expenseType == newItem.expenseType
+                    && oldItem.expenseAmt == newItem.expenseAmt && oldItem.date == newItem.date
         }
     }
 ) {
@@ -44,11 +47,13 @@ class ExpenseAdapter(
         )
         binding.delete.setOnClickListener {
             binding.expense?.let {
-                expenseClickCallback?.invoke(it)
+                expenseClickCallback?.invoke(ExpenseEvent("delete",it))
             }
         }
         binding.edit.setOnClickListener {
-          // to do take user to new page to edit
+            binding.expense?.let {
+                expenseClickCallback?.invoke(ExpenseEvent("edit",it))
+            }
         }
         return binding
     }

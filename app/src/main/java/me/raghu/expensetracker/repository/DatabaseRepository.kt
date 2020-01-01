@@ -33,11 +33,8 @@ class DatabaseRepository @Inject constructor(private val expenseDao: ExpenseDao)
            }
        }
    */
-    suspend fun getExpensesForCurrentMonth(startDate: Date, endDate: Date): LiveData<Float> {
-        return withContext(Dispatchers.IO) {
-            val data = expenseDao.expenseForCurrentMonth(startDate, endDate)
-            data
-        }
+     fun getExpensesForCurrentMonth(startDate: Date, endDate: Date): LiveData<Float> {
+            return  expenseDao.expenseForCurrentMonth(startDate, endDate)
     }
 
     suspend fun deleteExpense(id: Int) {

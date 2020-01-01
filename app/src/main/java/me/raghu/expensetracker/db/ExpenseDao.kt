@@ -1,5 +1,6 @@
 package me.raghu.expensetracker.db
 
+import androidx.lifecycle.LiveData
 import androidx.paging.DataSource
 import androidx.room.*
 import java.util.*
@@ -23,7 +24,7 @@ interface ExpenseDao {
     fun expenseForCurrentMonth(
         startDay: Date?,
         endDay: Date?
-    ): Float
+    ): LiveData<Float>
 
     @Query("UPDATE expense SET expense_type = :expenseType, expense_amount = :expenseAmount, remarks = :remarks, date = :date WHERE id = :id")
     fun updateExpense(id: Int, expenseType: String, expenseAmount: String, remarks: String, date: Date)

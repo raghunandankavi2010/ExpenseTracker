@@ -1,6 +1,7 @@
 package me.raghu.expensetracker.repository
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import me.raghu.expensetracker.db.Expense
@@ -32,7 +33,7 @@ class DatabaseRepository @Inject constructor(private val expenseDao: ExpenseDao)
            }
        }
    */
-    suspend fun getExpensesForCurrentMonth(startDate: Date, endDate: Date): Float {
+    suspend fun getExpensesForCurrentMonth(startDate: Date, endDate: Date): LiveData<Float> {
         return withContext(Dispatchers.IO) {
             val data = expenseDao.expenseForCurrentMonth(startDate, endDate)
             data

@@ -17,7 +17,7 @@ class ExpenseViewModel
 
     val totalExpenseCurrentMonth = range.switchMap { range ->
         liveData(context = viewModelScope.coroutineContext + Dispatchers.IO) {
-            emit(databaseRepository.getExpensesForCurrentMonth(range.startDate, range.endDate))
+            emitSource(databaseRepository.getExpensesForCurrentMonth(range.startDate, range.endDate))
         }
     }
 

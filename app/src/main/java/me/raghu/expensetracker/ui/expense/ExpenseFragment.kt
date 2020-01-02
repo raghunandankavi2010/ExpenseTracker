@@ -68,11 +68,16 @@ class ExpenseFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity /* Activity context */)
-        val sharedPreferenceStringLiveData = SharedPreferenceStringLiveData(sharedPreferences, "income_monthly", "")
+        val sharedPreferences =
+            PreferenceManager.getDefaultSharedPreferences(activity /* Activity context */)
+        val sharedPreferenceStringLiveData =
+            SharedPreferenceStringLiveData(sharedPreferences, "income_monthly", "")
         sharedPreferenceStringLiveData.getStringLiveData("income_monthly", "").observe(this,
             androidx.lifecycle.Observer { incomeValue: String ->
-                binding.main.monthlyIncome.text = incomeValue
+                binding.main.monthlyIncome.text = activity?.resources?.getString(
+                    R.string.m_income, incomeValue,
+                    Currency.getInstance(Locale.getDefault()).getSymbol(Locale.getDefault())
+                )
                 expenseViewModel.expenseExceeded.value = incomeValue.toFloat()
             }
         )
@@ -101,8 +106,8 @@ class ExpenseFragment : Fragment() {
 
         this.adapter = expenseAdapter
         binding.main.expenseList.adapter = adapter
-       val dividerItemDecoration = DividerItemDecoration(context,DividerItemDecoration.VERTICAL)
-         binding.main.expenseList.addItemDecoration(dividerItemDecoration)
+        val dividerItemDecoration = DividerItemDecoration(context, DividerItemDecoration.VERTICAL)
+        binding.main.expenseList.addItemDecoration(dividerItemDecoration)
         initExpenseList()
     }
 

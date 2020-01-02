@@ -16,6 +16,7 @@
     <string name="monthly_income_title">Enter Monthly Income</string>
     <string name="edit_income">Edit Income</string>
     <string name="monthly_income">Monthly Income</string>
+    <string name="m_income">%1$s %2$s </string>
     <string name="exceeded_expense_limit_for_this_month">Exceeded Expense limit for this month</string>
 
 </resources>

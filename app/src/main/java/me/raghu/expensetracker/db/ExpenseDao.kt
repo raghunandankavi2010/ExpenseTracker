@@ -11,7 +11,7 @@ interface ExpenseDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertExpense(expense: Expense):Long
 
-    @Query("SELECT * FROM expense")
+    @Query("SELECT * FROM expense ORDER BY date DESC")
     fun fetchExpenses(): DataSource.Factory<Int, Expense>
 
     @Query("DELETE FROM expense WHERE id = :expenseId")

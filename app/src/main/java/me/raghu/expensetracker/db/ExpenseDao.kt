@@ -18,7 +18,7 @@ interface ExpenseDao {
     fun deleteExpense(expenseId:Int)
 
     @Query("SELECT * FROM expense WHERE date BETWEEN :from AND :to")
-    fun expenseInrange(from: Date, to: Date): List<Expense>
+    fun expenseInRange(from: Date, to: Date): List<Expense>
 
     @Query("SELECT SUM(expense_amount) as total FROM expense where date BETWEEN :startDay AND :endDay ORDER BY datetime(date) DESC")
     fun expenseForCurrentMonth(

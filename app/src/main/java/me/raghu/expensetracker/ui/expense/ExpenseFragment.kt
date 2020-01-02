@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingComponent
 import androidx.databinding.DataBindingUtil
@@ -13,13 +14,13 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
 import androidx.preference.PreferenceManager
 import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.expense_fragment.*
 import me.raghu.expensetracker.R
 import me.raghu.expensetracker.databinding.ExpenseFragmentBinding
 import me.raghu.expensetracker.ui.databinding.FragmentDataBindingComponent
+import me.raghu.expensetracker.utils.SharedPreferenceStringLiveData
 import me.raghu.expensetracker.utils.autoCleared
 import me.raghu.expensetracker.utils.getFirstDateOfMonth
 import me.raghu.expensetracker.utils.getLastDateOfMonth
@@ -68,8 +69,12 @@ class ExpenseFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity /* Activity context */)
-        val defaultIncome = sharedPreferences.getString("income_monthly", "")
-        binding.main.monthlyIncome.text = defaultIncome
+        val sharedPreferenceStringLiveData = SharedPreferenceStringLiveData(sharedPreferences, "income_monthly", "")
+        sharedPreferenceStringLiveData.getStringLiveData("income_monthly", "").observe(this,
+            androidx.lifecycle.Observer { incomeValue: String ->
+                binding.main.monthlyIncome.text = incomeValue
+            }
+        )
 
         add.setOnClickListener {
             it.findNavController().navigate(R.id.expenseInput)

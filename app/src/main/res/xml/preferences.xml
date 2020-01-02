@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.preference.PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        app:key="income_key"
+        app:title="Set Monthly Income">
+
+        <com.takisoft.preferencex.EditTextPreference
+            app:key="income_monthly"
+            app:title="@string/monthly_income_title"
+            app:defaultValue="0"
+            android:inputType="number"
+            app:dialogTitle="@string/monthly_income_title"
+            app:summary="@string/edit_income" />
+
+    </PreferenceCategory>
+
+</androidx.preference.PreferenceScreen>

@@ -11,18 +11,40 @@
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
     <TextView
-        android:id="@+id/total_amt_spent"
+        android:id="@+id/m_income"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="@string/total_amt_spent"
+        android:layout_marginTop="16dp"
+        android:text="@string/monthly_income"
         android:textAppearance="?attr/textAppearanceHeadline6"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/monthly_income"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.453"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/m_income"
+        tools:text="0 Rs" />
+
+    <TextView
+        android:id="@+id/total_amt_spent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/total_amt_spent"
+        android:textAppearance="?attr/textAppearanceHeadline6"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/monthly_income" />
 
     <TextView
         amount = "@{expenseViewModel.totalExpenseCurrentMonth}"
@@ -37,7 +59,8 @@
         app:layout_constraintTop_toBottomOf="@+id/total_amt_spent"
         app:layout_constraintVertical_bias="0.0" />
 
-    <androidx.recyclerview.widget.RecyclerView
+
+  <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/expenseList"
         android:layout_width="match_parent"
         android:layout_height="0dp"

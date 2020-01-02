@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
+import androidx.preference.PreferenceManager
 import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.expense_fragment.*
 import me.raghu.expensetracker.R
@@ -66,6 +67,10 @@ class ExpenseFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity /* Activity context */)
+        val defaultIncome = sharedPreferences.getString("income_monthly", "")
+        binding.main.monthlyIncome.text = defaultIncome
+
         add.setOnClickListener {
             it.findNavController().navigate(R.id.expenseInput)
         }

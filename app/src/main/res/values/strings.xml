@@ -15,6 +15,6 @@
     <string name="settings">Settings</string>
     <string name="monthly_income_title">Enter Monthly Income</string>
     <string name="edit_income">Edit Income</string>
-
+    <string name="monthly_income">Monthly Income</string>
 
 </resources>

@@ -73,6 +73,7 @@ dependencies {
     implementation "androidx.paging:paging-runtime-ktx:$rootProject.paging_version"
     // preferences
     implementation "androidx.preference:preference:$rootProject.preferences"
+    implementation 'com.takisoft.preferencex:preferencex:1.1.0'
 
     testImplementation 'junit:junit:4.12'
     testImplementation "androidx.paging:paging-common:$rootProject.paging_version"

@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
+import androidx.recyclerview.widget.DividerItemDecoration
 import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.expense_fragment.*
 import me.raghu.expensetracker.R
@@ -100,10 +101,8 @@ class ExpenseFragment : Fragment() {
 
         this.adapter = expenseAdapter
         binding.main.expenseList.adapter = adapter
-        val mDividerItemDecoration = context?.let {
-            DividerItemDecoration(it)
-        }
-        mDividerItemDecoration?.let { binding.main.expenseList.addItemDecoration(it) }
+       val dividerItemDecoration = DividerItemDecoration(context,DividerItemDecoration.VERTICAL)
+         binding.main.expenseList.addItemDecoration(dividerItemDecoration)
         initExpenseList()
     }
 

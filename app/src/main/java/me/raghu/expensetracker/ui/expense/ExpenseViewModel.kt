@@ -15,11 +15,14 @@ class ExpenseViewModel
 
     private val range: MutableLiveData<Range> = MutableLiveData()
 
+    val expenseExceeded: MutableLiveData<Float> = MutableLiveData(0f)
+
     val totalExpenseCurrentMonth = range.switchMap { range ->
         liveData(context = viewModelScope.coroutineContext + Dispatchers.IO) {
             emitSource(databaseRepository.getExpensesForCurrentMonth(range.startDate, range.endDate))
         }
     }
+
 
    val expense = expenseDao.fetchExpenses().toLiveData(
         Config(pageSize = 30, enablePlaceholders = true)

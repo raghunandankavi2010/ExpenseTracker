@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingComponent
 import androidx.databinding.DataBindingUtil
@@ -73,6 +72,7 @@ class ExpenseFragment : Fragment() {
         sharedPreferenceStringLiveData.getStringLiveData("income_monthly", "").observe(this,
             androidx.lifecycle.Observer { incomeValue: String ->
                 binding.main.monthlyIncome.text = incomeValue
+                expenseViewModel.expenseExceeded.value = incomeValue.toFloat()
             }
         )
 
@@ -97,6 +97,7 @@ class ExpenseFragment : Fragment() {
                 }
             }
         }
+
         this.adapter = expenseAdapter
         binding.main.expenseList.adapter = adapter
         val mDividerItemDecoration = context?.let {

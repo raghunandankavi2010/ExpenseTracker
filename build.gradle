@@ -44,4 +44,5 @@ ext {
     legacySupport = '1.0.0'
     lifecycleExtension = '2.1.0'
     viewModelKtx ='2.1.0'
+    preferences = '1.1.0'
 }

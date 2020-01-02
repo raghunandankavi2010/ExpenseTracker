@@ -15,6 +15,9 @@
         <action
             android:id="@+id/action_expenseFragment_to_editExpenseFragment"
             app:destination="@id/editExpenseFragment" />
+        <action
+            android:id="@+id/action_expenseFragment_to_settingsFragment"
+            app:destination="@id/secondActivity" />
     </fragment>
     <fragment
         android:id="@+id/expenseInput"
@@ -25,4 +28,7 @@
         android:name="me.raghu.expensetracker.ui.editexpense.EditExpenseFragment"
         android:label="Edit Expenses"
         tools:layout="@layout/expense_edit" />
+    <activity
+        android:id="@+id/secondActivity"
+        android:name="me.raghu.expensetracker.ui.settings.SettingsActivity" />
 </navigation>

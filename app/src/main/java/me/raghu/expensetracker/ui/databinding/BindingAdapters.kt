@@ -2,6 +2,7 @@
 package me.raghu.expensetracker.ui.databinding
 
 import android.content.Context
+import android.util.Log
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
@@ -62,7 +63,14 @@ object BindingAdapters {
 
     @BindingAdapter("amount")
     @JvmStatic fun setAmount(textView: TextView, total: LiveData<Float>) {
-        textView.text = textView.resources.getString(R.string.amount, total.value,
-            Currency.getInstance(Locale.getDefault()).getSymbol(Locale.getDefault()))
+        if(total.value==null){
+            textView.text = textView.resources.getString(R.string.amount, 0.0,
+                Currency.getInstance(Locale.getDefault()).getSymbol(Locale.getDefault()))
+        }else {
+            textView.text = textView.resources.getString(
+                R.string.amount, total.value,
+                Currency.getInstance(Locale.getDefault()).getSymbol(Locale.getDefault())
+            )
+        }
     }
 }

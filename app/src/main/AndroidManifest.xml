@@ -23,6 +23,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:resizeableActivity="false"
+            android:name="me.raghu.expensetracker.ui.settings.SettingsActivity"
+            tools:ignore="UnusedAttribute">
+
+        </activity>
     </application>
 
 </manifest>

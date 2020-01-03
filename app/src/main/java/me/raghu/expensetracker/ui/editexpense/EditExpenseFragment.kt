@@ -8,7 +8,9 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.snackbar.Snackbar
 import dagger.android.support.AndroidSupportInjection
 import me.raghu.expensetracker.R
 import me.raghu.expensetracker.databinding.ExpenseEditBinding
@@ -68,6 +70,17 @@ class EditExpenseFragment : Fragment() {
         binding.editExpense?.setOnClickListener {
             editexpenseViewModel.updateExpenseToDb()
         }
+
+        editexpenseViewModel.editedSuccessFully.observe(this, Observer {
+            if(it){
+                val snackbar = binding.coordinator?.rootView?.let { it1 ->
+                    Snackbar
+                        .make(it1, getString(R.string.expense_saved), Snackbar.LENGTH_LONG)
+                }
+                snackbar?.show()
+                editexpenseViewModel.editedSuccessFully.value = false
+            }
+        })
     }
 
 }

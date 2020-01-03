@@ -13,9 +13,8 @@ class ExpenseEditViewModel @Inject constructor(private val databaseRepository: D
     ViewModel() {
 
     var expenseType = MutableLiveData<String>()
-    var id = MutableLiveData<Int>()
 
-    var expenseTypeError = MutableLiveData<String>()
+    var id = MutableLiveData<Int>()
 
     var amount = MutableLiveData<String>()
 
@@ -25,19 +24,16 @@ class ExpenseEditViewModel @Inject constructor(private val databaseRepository: D
 
     var remarksError = MutableLiveData<String>()
 
-    private var isTypeValidated = false
+    var editedSuccessFully = MutableLiveData<Boolean>(false)
+
+    var hideKeyBoard = MutableLiveData<Boolean>(false)
+
     private var isAmtValidated = false
     private var isRemarksValidated = false
 
 
     fun updateExpenseToDb() {
-
-        if (TextUtils.isEmpty(expenseType.value?.trim())) {
-            expenseTypeError.value = "Expense Type cannot be empty"
-        } else {
-            expenseTypeError.value = ""
-            isTypeValidated = true
-        }
+        hideKeyBoard.value = true
         if (TextUtils.isEmpty(amount.value?.trim()) || amount.value?.trim() == "0") {
             amountError.value = "Amount cannot be empty or 0"
         } else {
@@ -50,7 +46,7 @@ class ExpenseEditViewModel @Inject constructor(private val databaseRepository: D
             remarksError.value = ""
             isRemarksValidated = true
         }
-        if (isTypeValidated && isAmtValidated && isRemarksValidated) {
+        if (isAmtValidated && isRemarksValidated) {
             val date = Calendar.getInstance().time
             viewModelScope.launch {
                 with(databaseRepository) {
@@ -62,6 +58,7 @@ class ExpenseEditViewModel @Inject constructor(private val databaseRepository: D
                         date
                     )
                 }
+                editedSuccessFully.value = true
                 reset()
             }
         }
@@ -69,6 +66,7 @@ class ExpenseEditViewModel @Inject constructor(private val databaseRepository: D
 
 
     private fun reset() {
+
         expenseType.value = ""
         amount.value = ""
         remarks.value = ""

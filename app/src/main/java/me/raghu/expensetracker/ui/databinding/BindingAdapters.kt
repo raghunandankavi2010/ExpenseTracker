@@ -1,12 +1,11 @@
-
 package me.raghu.expensetracker.ui.databinding
 
 import android.content.Context
-import android.util.Log
+import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
-import android.widget.EditText
-import android.widget.TextView
+import android.widget.*
+import android.widget.AdapterView.OnItemSelectedListener
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -19,11 +18,13 @@ object BindingAdapters {
 
     @BindingAdapter("binding")
     @JvmStatic
-    fun bindEditText(view: EditText,
-                     bindableString: MutableLiveData<String>) {
+    fun bindEditText(
+        view: EditText,
+        bindableString: MutableLiveData<String>
+    ) {
         var pair: Pair<MutableLiveData<String>, TextWatcherAdapter>? = null
-        if(view.getTag(R.id.binded)!=null){
-            pair= view.getTag(R.id.binded) as Pair<MutableLiveData<String>, TextWatcherAdapter>
+        if (view.getTag(R.id.binded) != null) {
+            pair = view.getTag(R.id.binded) as Pair<MutableLiveData<String>, TextWatcherAdapter>
         }
 
         if (pair == null || pair.first != bindableString) {
@@ -31,13 +32,17 @@ object BindingAdapters {
                 view.removeTextChangedListener(pair.second)
             }
             val watcher: TextWatcherAdapter = object : TextWatcherAdapter() {
-                override fun onTextChanged(s: CharSequence,
-                                           arg1: Int, arg2: Int, arg3: Int) {
+                override fun onTextChanged(
+                    s: CharSequence,
+                    arg1: Int, arg2: Int, arg3: Int
+                ) {
                     bindableString.value = s.toString()
                 }
             }
-            view.setTag(R.id.binded,
-                Pair(bindableString, watcher))
+            view.setTag(
+                R.id.binded,
+                Pair(bindableString, watcher)
+            )
             view.addTextChangedListener(watcher)
         }
         val newValue = bindableString.value
@@ -47,7 +52,8 @@ object BindingAdapters {
     }
 
     @BindingAdapter("hideKeyboardOnInputDone")
-    @JvmStatic fun hideKeyboardOnInputDone(view: EditText, enabled: Boolean) {
+    @JvmStatic
+    fun hideKeyboardOnInputDone(view: EditText, enabled: Boolean) {
         if (!enabled) return
         val listener = TextView.OnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
@@ -62,15 +68,66 @@ object BindingAdapters {
     }
 
     @BindingAdapter("amount")
-    @JvmStatic fun setAmount(textView: TextView, total: LiveData<Float>) {
-        if(total.value==null){
-            textView.text = textView.resources.getString(R.string.amount, 0.0,
-                Currency.getInstance(Locale.getDefault()).getSymbol(Locale.getDefault()))
-        }else {
+    @JvmStatic
+    fun setAmount(textView: TextView, total: LiveData<Float>) {
+        if (total.value == null) {
+            textView.text = textView.resources.getString(
+                R.string.amount, 0.0,
+                Currency.getInstance(Locale.getDefault()).getSymbol(Locale.getDefault())
+            )
+        } else {
             textView.text = textView.resources.getString(
                 R.string.amount, total.value,
                 Currency.getInstance(Locale.getDefault()).getSymbol(Locale.getDefault())
             )
         }
     }
+
+    @BindingAdapter(value=["selectedValue"],requireAll = false)
+    @JvmStatic
+    fun setSelectedSpinnerValue(spinner: Spinner, spinnerValue: MutableLiveData<String>) {
+        spinnerValue.value?.let{
+            spinner.setSelection(getIndex(spinner, it))
+        }
+        spinner.onItemSelectedListener = object :
+            OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>,
+                view: View, position: Int, id: Long
+            ) {
+                val value: String = parent.getItemAtPosition(position) as String
+                spinnerValue.value = value
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {
+
+            }
+        }
+    }
+    private fun getIndex(spinner: Spinner, myString: String): Int {
+        var index = 0
+        for (i in 0 until spinner.count) {
+            if (spinner.getItemAtPosition(i) == myString) {
+                index = i
+            }
+        }
+        return index
+    }
+
+    @BindingAdapter("hideKeyboardOnButtonClick")
+    @JvmStatic
+    fun hideKeyboardOnButtonClick(view: Button, hideKeyBoard: MutableLiveData<Boolean>) {
+        hideKeyBoard.value?.let {
+            if(it) {
+                val imm = view.context.getSystemService(Context.INPUT_METHOD_SERVICE)
+                        as InputMethodManager
+                imm.hideSoftInputFromWindow(view.windowToken, 0)
+                hideKeyBoard.value = false
+            }
+        }
+    }
+
+
+
+
 }

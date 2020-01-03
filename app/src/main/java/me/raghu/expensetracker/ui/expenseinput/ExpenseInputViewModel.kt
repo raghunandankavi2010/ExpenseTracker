@@ -17,8 +17,6 @@ class ExpenseInputViewModel
 
     var expenseType = MutableLiveData<String>()
 
-    var expenseTypeError = MutableLiveData<String>()
-
     var amount = MutableLiveData<String>()
 
     var amountError = MutableLiveData<String>()
@@ -27,18 +25,16 @@ class ExpenseInputViewModel
 
     var remarksError = MutableLiveData<String>()
 
-    private var isTypeValidated = false
+    var insertedSuccessFully = MutableLiveData<Boolean>(false)
+
+    var hideKeyBoard = MutableLiveData<Boolean>(false)
+
     private var isAmtValidated = false
     private var isRemarksValidated = false
 
     fun performValidation() {
 
-        if (TextUtils.isEmpty(expenseType.value?.trim())) {
-            expenseTypeError.value = "Expense Type cannot be empty"
-        } else {
-            expenseTypeError.value = ""
-            isTypeValidated = true
-        }
+        hideKeyBoard.value = true
         if (TextUtils.isEmpty(amount.value?.trim()) || amount.value?.trim() == "0") {
             amountError.value = "Amount cannot be empty or 0"
         } else {
@@ -51,7 +47,7 @@ class ExpenseInputViewModel
             remarksError.value = ""
             isRemarksValidated = true
         }
-        if (isTypeValidated && isAmtValidated && isRemarksValidated) {
+        if (isAmtValidated && isRemarksValidated) {
             val date = Calendar.getInstance().time
             val expense = Expense(
                 expenseType = expenseType.value,
@@ -68,12 +64,14 @@ class ExpenseInputViewModel
         viewModelScope.launch {
             val long = databaseRepository.insert(expense)
             Log.i("Value",""+long)
+            insertedSuccessFully.value = true
             reset()
         }
     }
 
     private fun reset(){
-        expenseType.value = ""
+
+        expenseType.value = "Cash"
         amount.value = ""
         remarks.value = ""
     }

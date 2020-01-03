@@ -101,7 +101,7 @@ class ExpenseFragment : Fragment() {
             }
         )
 
-        add.setOnClickListener {
+        binding.add.setOnClickListener {
             it.findNavController().navigate(R.id.expenseInput)
         }
         val date = Date()

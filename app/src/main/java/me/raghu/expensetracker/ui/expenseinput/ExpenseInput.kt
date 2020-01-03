@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.snackbar.Snackbar
 import dagger.android.support.DaggerFragment
 import me.raghu.expensetracker.R
 import me.raghu.expensetracker.databinding.ExpenseInputFragmentBinding
@@ -59,12 +60,6 @@ class ExpenseInput : DaggerFragment() {
             expenseInputViewModel.performValidation()
         }
 
-        expenseInputViewModel.expenseType.observe(this, Observer {
-            if (it.isNotEmpty()) {
-                expenseInputViewModel.expenseTypeError.value = ""
-            }
-        })
-
         expenseInputViewModel.amount.observe(this, Observer {
             if (it.isNotEmpty()) {
                 expenseInputViewModel.amountError.value = ""
@@ -74,6 +69,17 @@ class ExpenseInput : DaggerFragment() {
         expenseInputViewModel.remarks.observe(this, Observer {
             if (it.isNotEmpty()) {
                 expenseInputViewModel.remarksError.value = ""
+            }
+        })
+
+        expenseInputViewModel.insertedSuccessFully.observe(this, Observer {
+            if(it){
+                val snackbar = binding.coordinator?.rootView?.let { it1 ->
+                    Snackbar
+                        .make(it1, getString(R.string.expense_saved), Snackbar.LENGTH_LONG)
+                }
+                snackbar?.show()
+                expenseInputViewModel.insertedSuccessFully.value = false
             }
         })
     }

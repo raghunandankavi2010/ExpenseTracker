@@ -11,6 +11,7 @@
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/coordinator"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true">
@@ -20,32 +21,20 @@
             android:layout_height="match_parent">
 
 
-            <com.google.android.material.textfield.TextInputLayout
+            <Spinner
+                selectedValue="@{viewModel.expenseType}"
                 android:id="@+id/type"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
                 android:layout_marginStart="@dimen/standard_16dp"
                 android:layout_marginLeft="@dimen/standard_16dp"
                 android:layout_marginTop="@dimen/standard_16dp"
                 android:layout_marginEnd="@dimen/standard_16dp"
                 android:layout_marginRight="@dimen/standard_16dp"
-                android:hint="@string/hint_expense_type"
-                app:error="@{viewModel.expenseTypeError}"
-                app:errorEnabled="true"
+                android:entries="@array/payment_type"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/expense_type"
-                    binding="@{viewModel.expenseType}"
-                    hideKeyboardOnInputDone="@{true}"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text" />
-
-            </com.google.android.material.textfield.TextInputLayout>
+                app:layout_constraintTop_toTopOf="parent"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/amount"
@@ -106,6 +95,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
+                hideKeyboardOnButtonClick ="@{viewModel.hideKeyBoard}"
                 android:id="@+id/editExpense"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

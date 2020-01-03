@@ -18,5 +18,15 @@
     <string name="monthly_income">Monthly Income</string>
     <string name="m_income">%1$s %2$s </string>
     <string name="exceeded_expense_limit_for_this_month">Exceeded Expense limit for this month</string>
+    <string name="expense_saved">Expense Saved Successfully</string>
+
+    <string-array name="payment_type">
+        <item>Cash</item>
+        <item>Debit Card</item>
+        <item>Credit Card</item>
+        <item>UPI Payment</item>
+        <item>NetBanking</item>
+    </string-array>
+
 
 </resources>

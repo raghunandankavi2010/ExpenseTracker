@@ -15,7 +15,6 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
 import dagger.android.support.AndroidSupportInjection
-import kotlinx.android.synthetic.main.expense_fragment.*
 import me.raghu.expensetracker.R
 import me.raghu.expensetracker.databinding.ExpenseFragmentBinding
 import me.raghu.expensetracker.ui.databinding.FragmentDataBindingComponent
@@ -87,6 +86,7 @@ class ExpenseFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        PreferenceManager.setDefaultValues(activity,R.xml.preferences,false)
         val sharedPreferences =
             PreferenceManager.getDefaultSharedPreferences(activity /* Activity context */)
         val sharedPreferenceStringLiveData =

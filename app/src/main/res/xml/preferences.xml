@@ -10,7 +10,7 @@
         <com.takisoft.preferencex.EditTextPreference
             app:key="income_monthly"
             app:title="@string/monthly_income_title"
-            app:defaultValue="0"
+            android:defaultValue="0"
             android:inputType="number"
             app:dialogTitle="@string/monthly_income_title"
             app:summary="@string/edit_income" />

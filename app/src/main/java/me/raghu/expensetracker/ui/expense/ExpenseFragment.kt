@@ -14,7 +14,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
-import androidx.recyclerview.widget.DividerItemDecoration
 import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.expense_fragment.*
 import me.raghu.expensetracker.R
@@ -38,7 +37,7 @@ class ExpenseFragment : Fragment() {
         fun newInstance() = ExpenseFragment()
     }
 
-    val expenseViewModel: ExpenseViewModel by viewModels {
+    private val expenseViewModel: ExpenseViewModel by viewModels {
         viewModelFactory
     }
     private lateinit var binding: ExpenseFragmentBinding
@@ -64,6 +63,26 @@ class ExpenseFragment : Fragment() {
         binding = dataBinding
         binding.lifecycleOwner = this
         binding.viewModel = expenseViewModel
+        val newSingleThreadExecutor = Executors.newSingleThreadExecutor()
+        val expenseAdapter = ExpenseAdapter(
+            dataBindingComponent = dataBindingComponent, appExecutors = newSingleThreadExecutor
+        ) { expenseEvent ->
+            expenseEvent.let {
+                if (expenseEvent.type == "delete") {
+                    expenseViewModel.deleteExpense(expenseEvent.expense.id)
+                } else if (expenseEvent.type == "edit") {
+                    val bundle = bundleOf("expense" to expenseEvent.expense)
+                    findNavController().navigate(
+                        R.id.action_expenseFragment_to_editExpenseFragment,
+                        bundle
+                    )
+                }
+            }
+        }
+        this.adapter = expenseAdapter
+        binding.main.expenseList.adapter = adapter
+        val dividerItemDecoration = context?.let { DividerItemDecoration(it) }
+        dividerItemDecoration?.let { binding.main.expenseList.addItemDecoration(it) }
         return binding.root
     }
 
@@ -86,28 +105,9 @@ class ExpenseFragment : Fragment() {
             it.findNavController().navigate(R.id.expenseInput)
         }
         val date = Date()
-        val newSingleThreadExecutor = Executors.newSingleThreadExecutor()
-        expenseViewModel.setDateRange(date.getFirstDateOfMonth(), getLastDateOfMonth())
-        val expenseAdapter = ExpenseAdapter(
-            dataBindingComponent = dataBindingComponent, appExecutors = newSingleThreadExecutor
-        ) { expenseEvent ->
-            expenseEvent.let {
-                if (expenseEvent.type == "delete") {
-                    expenseViewModel.deleteExpense(expenseEvent.expense.id)
-                } else if (expenseEvent.type == "edit") {
-                    val bundle = bundleOf("expense" to expenseEvent.expense)
-                    findNavController().navigate(
-                        R.id.action_expenseFragment_to_editExpenseFragment,
-                        bundle
-                    )
-                }
-            }
-        }
 
-        this.adapter = expenseAdapter
-        binding.main.expenseList.adapter = adapter
-        val dividerItemDecoration = DividerItemDecoration(context, DividerItemDecoration.VERTICAL)
-        binding.main.expenseList.addItemDecoration(dividerItemDecoration)
+        expenseViewModel.setDateRange(date.getFirstDateOfMonth(), getLastDateOfMonth())
+
         initExpenseList()
     }
 

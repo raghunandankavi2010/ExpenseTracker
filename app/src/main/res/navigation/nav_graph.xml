@@ -8,7 +8,8 @@
     <fragment
         android:id="@+id/expenseFragment"
         android:name="me.raghu.expensetracker.ui.expense.ExpenseFragment"
-        android:label="Expenses" >
+        android:label="Expenses"
+        tools:layout="@layout/expense_fragment">
         <action
             android:id="@+id/action_expenseFragment_to_expenseInput"
             app:destination="@id/expenseInput" />
@@ -22,7 +23,8 @@
     <fragment
         android:id="@+id/expenseInput"
         android:name="me.raghu.expensetracker.ui.expenseinput.ExpenseInput"
-        android:label="Add Your Expenses" />
+        android:label="Add Your Expenses"
+        tools:layout="@layout/expense_input_fragment"/>
     <fragment
         android:id="@+id/editExpenseFragment"
         android:name="me.raghu.expensetracker.ui.editexpense.EditExpenseFragment"
@@ -30,5 +32,6 @@
         tools:layout="@layout/expense_edit" />
     <activity
         android:id="@+id/secondActivity"
-        android:name="me.raghu.expensetracker.ui.settings.SettingsActivity" />
+        android:name="me.raghu.expensetracker.ui.settings.SettingsActivity"
+        tools:layout="@layout/settings_activity"/>
 </navigation>

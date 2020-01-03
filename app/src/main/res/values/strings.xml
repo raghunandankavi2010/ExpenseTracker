@@ -5,7 +5,7 @@
     <string name="hint_expense_amt">Expense Amount</string>
     <string name="hint_expense_remarks">Remarks</string>
     <string name="add_expense">Add Expense</string>
-    <string name="amount">Spent %1$.1f %2$s </string>
+    <string name="amount">%1$.2f %2$s </string>
     <string name="expense_amount">Amount : %1$s %2$s</string>
     <string name="expense_type">Type : %1$s</string>
     <string name="expense_remarks">Remarks : %1$s</string>
@@ -17,8 +17,9 @@
     <string name="edit_income">Edit Income</string>
     <string name="monthly_income">Monthly Income</string>
     <string name="m_income">%1$s %2$s </string>
-    <string name="exceeded_expense_limit_for_this_month">Exceeded Expense limit for this month</string>
+    <string name="exceeded_expense_limit">Expense Exceeded By %1$.2f %2$s </string>
     <string name="expense_saved">Expense Saved Successfully</string>
+    <string name="choose_a_payment_mode_default_is_cash">Choose a Payment mode!. Default is cash</string>
 
     <string-array name="payment_type">
         <item>Cash</item>

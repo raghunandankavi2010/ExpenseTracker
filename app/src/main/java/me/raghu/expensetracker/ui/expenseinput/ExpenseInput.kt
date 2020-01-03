@@ -1,9 +1,7 @@
 package me.raghu.expensetracker.ui.expenseinput
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.databinding.DataBindingComponent
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
@@ -37,25 +35,30 @@ class ExpenseInput : DaggerFragment() {
         viewModelFactory
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        menu.clear()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val dataBinding = DataBindingUtil.inflate<ExpenseInputFragmentBinding>(
-            inflater,
-            R.layout.expense_input_fragment,
-            container,
-            false,
-            dataBindingComponent
-        )
-        binding = dataBinding
-        binding.lifecycleOwner = this
-        binding.viewModel = expenseInputViewModel
-        return binding.root
+        return inflater.inflate(R.layout.expense_input_fragment, container, false)
+
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
+        val dataBinding = DataBindingUtil.bind<ExpenseInputFragmentBinding>(view,dataBindingComponent)!!
+        binding = dataBinding
+        binding.lifecycleOwner = this
+        binding.viewModel = expenseInputViewModel
         binding.addExpenses.setOnClickListener {
             expenseInputViewModel.performValidation()
         }
@@ -74,14 +77,12 @@ class ExpenseInput : DaggerFragment() {
 
         expenseInputViewModel.insertedSuccessFully.observe(this, Observer {
             if(it){
-                val snackbar = binding.coordinator?.rootView?.let { it1 ->
-                    Snackbar
-                        .make(it1, getString(R.string.expense_saved), Snackbar.LENGTH_LONG)
-                }
-                snackbar?.show()
+                val snackbar = Snackbar
+                        .make(binding.type, getString(R.string.expense_saved), Snackbar.LENGTH_LONG)
+
+                snackbar.show()
                 expenseInputViewModel.insertedSuccessFully.value = false
             }
         })
     }
-
 }

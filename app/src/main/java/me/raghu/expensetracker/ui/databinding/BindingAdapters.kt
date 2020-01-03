@@ -4,11 +4,15 @@ import android.content.Context
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
-import android.widget.*
+import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
+import android.widget.EditText
+import android.widget.Spinner
+import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.google.android.material.button.MaterialButton
 import me.raghu.expensetracker.R
 import java.util.*
 
@@ -83,10 +87,10 @@ object BindingAdapters {
         }
     }
 
-    @BindingAdapter(value=["selectedValue"],requireAll = false)
+    @BindingAdapter(value = ["selectedValue"], requireAll = false)
     @JvmStatic
     fun setSelectedSpinnerValue(spinner: Spinner, spinnerValue: MutableLiveData<String>) {
-        spinnerValue.value?.let{
+        spinnerValue.value?.let {
             spinner.setSelection(getIndex(spinner, it))
         }
         spinner.onItemSelectedListener = object :
@@ -104,6 +108,7 @@ object BindingAdapters {
             }
         }
     }
+
     private fun getIndex(spinner: Spinner, myString: String): Int {
         var index = 0
         for (i in 0 until spinner.count) {
@@ -116,9 +121,9 @@ object BindingAdapters {
 
     @BindingAdapter("hideKeyboardOnButtonClick")
     @JvmStatic
-    fun hideKeyboardOnButtonClick(view: Button, hideKeyBoard: MutableLiveData<Boolean>) {
+    fun hideKeyboardOnButtonClick(view: MaterialButton, hideKeyBoard: MutableLiveData<Boolean>) {
         hideKeyBoard.value?.let {
-            if(it) {
+            if (it) {
                 val imm = view.context.getSystemService(Context.INPUT_METHOD_SERVICE)
                         as InputMethodManager
                 imm.hideSoftInputFromWindow(view.windowToken, 0)
@@ -127,7 +132,12 @@ object BindingAdapters {
         }
     }
 
-
-
-
+    @BindingAdapter("text")
+    @JvmStatic
+    fun text(textView: TextView, value :Float) {
+        textView.text = textView.resources.getString(
+            R.string.exceeded_expense_limit, value,
+            Currency.getInstance(Locale.getDefault()).getSymbol(Locale.getDefault())
+        )
+    }
 }

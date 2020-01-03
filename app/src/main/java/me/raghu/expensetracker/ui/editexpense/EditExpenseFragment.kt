@@ -2,9 +2,7 @@ package me.raghu.expensetracker.ui.editexpense
 
 import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -14,7 +12,6 @@ import com.google.android.material.snackbar.Snackbar
 import dagger.android.support.AndroidSupportInjection
 import me.raghu.expensetracker.R
 import me.raghu.expensetracker.databinding.ExpenseEditBinding
-
 import me.raghu.expensetracker.db.Expense
 import javax.inject.Inject
 
@@ -35,8 +32,13 @@ class EditExpenseFragment : Fragment() {
         arguments?.let {
             expense = it.getParcelable("expense")
         }
+        setHasOptionsMenu(true)
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        menu.clear()
+    }
     override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
         super.onAttach(context)
@@ -73,11 +75,10 @@ class EditExpenseFragment : Fragment() {
 
         editexpenseViewModel.editedSuccessFully.observe(this, Observer {
             if(it){
-                val snackbar = binding.coordinator?.rootView?.let { it1 ->
-                    Snackbar
-                        .make(it1, getString(R.string.expense_saved), Snackbar.LENGTH_LONG)
-                }
-                snackbar?.show()
+                val snackbar = Snackbar
+                    .make(binding.type, getString(R.string.expense_saved), Snackbar.LENGTH_LONG)
+
+                snackbar.show()
                 editexpenseViewModel.editedSuccessFully.value = false
             }
         })

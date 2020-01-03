@@ -17,6 +17,7 @@ import androidx.preference.PreferenceManager
 import dagger.android.support.AndroidSupportInjection
 import me.raghu.expensetracker.R
 import me.raghu.expensetracker.databinding.ExpenseFragmentBinding
+import me.raghu.expensetracker.ui.MainActivity
 import me.raghu.expensetracker.ui.databinding.FragmentDataBindingComponent
 import me.raghu.expensetracker.utils.SharedPreferenceStringLiveData
 import me.raghu.expensetracker.utils.autoCleared
@@ -47,6 +48,7 @@ class ExpenseFragment : Fragment() {
     override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
         super.onAttach(context)
+
     }
 
     override fun onCreateView(
@@ -78,6 +80,11 @@ class ExpenseFragment : Fragment() {
                 }
             }
         }
+        val ctx = activity as MainActivity
+        ctx.supportActionBar?.apply {
+            setHomeAsUpIndicator(R.drawable.ic_home)
+            setDisplayHomeAsUpEnabled(true)
+        }
         this.adapter = expenseAdapter
         binding.main.expenseList.adapter = adapter
         val dividerItemDecoration = context?.let { DividerItemDecoration(it) }
@@ -86,6 +93,7 @@ class ExpenseFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
         PreferenceManager.setDefaultValues(activity,R.xml.preferences,false)
         val sharedPreferences =
             PreferenceManager.getDefaultSharedPreferences(activity /* Activity context */)

@@ -30,7 +30,8 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector {
         setSupportActionBar(toolbar)
         val navController = findNavController(R.id.nav_host_fragment)
         appBarConfiguration = AppBarConfiguration(navController.graph)
-        toolbar.setupWithNavController(navController, appBarConfiguration)
+        setupActionBarWithNavController(navController, appBarConfiguration)
+        //toolbar.setupWithNavController(navController, appBarConfiguration)
 
         supportActionBar?.apply {
             setHomeAsUpIndicator(R.drawable.ic_home)

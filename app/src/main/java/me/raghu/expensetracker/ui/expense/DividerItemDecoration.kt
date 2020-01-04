@@ -33,14 +33,10 @@ class DividerItemDecoration(context: Context) : ItemDecoration() {
         state: RecyclerView.State
     ) {
         val spacing = view.resources.getDimensionPixelOffset(R.dimen.rv_bottom)
-
-
-        val childCount = parent.layoutManager!!.itemCount
-        val childIndex = parent.getChildLayoutPosition(view)
-        val spanCount: Int = 1
-        val spanIndex = childIndex % spanCount
-        if (isBottomEdge(childIndex, childCount, spanCount,spanIndex)) {
-            outRect.bottom = spacing;
+        parent.adapter?.let {
+            if (parent.getChildAdapterPosition(view) == it.itemCount - 1) {
+                outRect.bottom = spacing
+            }
         }
     }
     override fun onDraw(
@@ -65,10 +61,8 @@ class DividerItemDecoration(context: Context) : ItemDecoration() {
 
     private fun isBottomEdge(
         childIndex: Int,
-        childCount: Int,
-        spanCount: Int,
-        spanIndex: Int
+        childCount: Int
     ): Boolean {
-        return childIndex >= childCount - spanCount + spanIndex
+        return childIndex >= childCount - 1
     }
 }

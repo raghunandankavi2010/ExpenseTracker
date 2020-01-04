@@ -43,6 +43,7 @@ class ExpenseFragment : Fragment() {
     private lateinit var binding: ExpenseFragmentBinding
 
     private var adapter by autoCleared<ExpenseAdapter>()
+    private var dividerItemDecoration: DividerItemDecoration? = null
     var dataBindingComponent: DataBindingComponent = FragmentDataBindingComponent(this)
 
     override fun onAttach(context: Context) {
@@ -87,24 +88,27 @@ class ExpenseFragment : Fragment() {
         }
         this.adapter = expenseAdapter
         binding.main.expenseList.adapter = adapter
-        val dividerItemDecoration = context?.let { DividerItemDecoration(it) }
+
+        dividerItemDecoration = context?.let { DividerItemDecoration(it) }
         dividerItemDecoration?.let { binding.main.expenseList.addItemDecoration(it) }
+
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        PreferenceManager.setDefaultValues(activity,R.xml.preferences,false)
+        PreferenceManager.setDefaultValues(activity, R.xml.preferences, false)
         val sharedPreferences =
             PreferenceManager.getDefaultSharedPreferences(activity /* Activity context */)
         val sharedPreferenceStringLiveData =
             SharedPreferenceStringLiveData(sharedPreferences, "income_monthly", "")
         sharedPreferenceStringLiveData.getStringLiveData("income_monthly", "").observe(this,
             androidx.lifecycle.Observer { incomeValue: String ->
-                binding.main.layoutAccountExpenditureDetails.monthlyIncome.text = activity?.resources?.getString(
-                    R.string.m_income, incomeValue,
-                    Currency.getInstance(Locale.getDefault()).getSymbol(Locale.getDefault())
-                )
+                binding.main.layoutAccountExpenditureDetails.monthlyIncome.text =
+                    activity?.resources?.getString(
+                        R.string.m_income, incomeValue,
+                        Currency.getInstance(Locale.getDefault()).getSymbol(Locale.getDefault())
+                    )
                 expenseViewModel.expenseExceeded.value = incomeValue.toFloat()
             }
         )

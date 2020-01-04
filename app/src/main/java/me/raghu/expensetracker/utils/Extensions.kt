@@ -2,6 +2,7 @@ package me.raghu.expensetracker.utils
 
 import android.util.Log
 import java.text.DateFormat
+import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -27,4 +28,8 @@ import java.util.*
         val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
         return dateFormat.format(this)
     }
+
+   fun Float.toDefaultFormat() : String {
+    return NumberFormat.getCurrencyInstance(Locale.getDefault()).format(this)
+   }
 

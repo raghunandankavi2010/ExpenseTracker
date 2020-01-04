@@ -2,7 +2,7 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="standard_16dp">16dp</dimen>
-    <dimen name="rv_bottom">50dp</dimen>
+    <dimen name="rv_bottom">70dp</dimen>
     <dimen name="text_18">18sp</dimen>
     <dimen name="spacing_small">8dp</dimen>
     <dimen name="spacing_medium">16dp</dimen>

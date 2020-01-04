@@ -1,58 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <data>
-        <import type="android.view.View"/>
+
+        <import type="android.view.View" />
+
         <variable
             name="expenseViewModel"
             type="me.raghu.expensetracker.ui.expense.ExpenseViewModel" />
     </data>
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:id="@+id/root"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/keyline_start"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="@dimen/spacing_keyline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/root"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/keyline_start"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="@dimen/spacing_keyline" />
 
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/keyline_end"
-        app:layout_constraintGuide_end="@dimen/spacing_keyline"
-        android:orientation="vertical"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        />
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/keyline_end"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="@dimen/spacing_keyline" />
 
-    <include
-        android:id="@+id/layout_account_expenditure_details"
-        layout="@layout/layout_expenditure_details"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        app:expenseViewModel="@{expenseViewModel}"
-        app:layout_constraintEnd_toEndOf="@id/keyline_end"
-        app:layout_constraintStart_toStartOf="@id/keyline_start"
-        app:layout_constraintTop_toTopOf="parent" />
+            <include
+                android:id="@+id/layout_account_expenditure_details"
+                layout="@layout/layout_expenditure_details"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:expenseViewModel="@{expenseViewModel}"
+                app:layout_constraintEnd_toEndOf="@id/keyline_end"
+                app:layout_constraintStart_toStartOf="@id/keyline_start"
+                app:layout_constraintTop_toTopOf="parent" />
 
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/expenseList"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="@dimen/standard_16dp"
-        android:layout_marginBottom="16dp"
-        android:clipToPadding="false"
-        android:orientation="vertical"
-        app:layoutManager="LinearLayoutManager"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@id/keyline_end"
-        app:layout_constraintStart_toStartOf="@id/keyline_start"
-        app:layout_constraintTop_toBottomOf="@+id/layout_account_expenditure_details" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/expenseList"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_medium"
+                android:layout_marginBottom="@dimen/spacing_medium"
+                android:clipToPadding="false"
+                android:orientation="vertical"
+                app:layoutManager="LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/keyline_end"
+                app:layout_constraintStart_toStartOf="@id/keyline_start"
+                app:layout_constraintTop_toBottomOf="@+id/layout_account_expenditure_details" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 </layout>

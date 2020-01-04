@@ -14,6 +14,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.android.material.button.MaterialButton
 import me.raghu.expensetracker.R
+import me.raghu.expensetracker.utils.toDefaultFormat
 import java.util.*
 
 
@@ -76,7 +77,7 @@ object BindingAdapters {
     fun setAmount(textView: TextView, total: LiveData<Float>) {
         if (total.value == null) {
             textView.text = textView.resources.getString(
-                R.string.amount, 0.0,
+                R.string.amount, 0.0f.toDefaultFormat(),
                 Currency.getInstance(Locale.getDefault()).getSymbol(Locale.getDefault())
             )
         } else {
@@ -136,7 +137,7 @@ object BindingAdapters {
     @JvmStatic
     fun text(textView: TextView, value :Float) {
         textView.text = textView.resources.getString(
-            R.string.exceeded_expense_limit, value,
+            R.string.exceeded_expense_limit, value.toDefaultFormat(),
             Currency.getInstance(Locale.getDefault()).getSymbol(Locale.getDefault())
         )
     }

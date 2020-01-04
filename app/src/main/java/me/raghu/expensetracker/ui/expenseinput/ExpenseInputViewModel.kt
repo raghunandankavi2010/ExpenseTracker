@@ -37,12 +37,14 @@ class ExpenseInputViewModel
         hideKeyBoard.value = true
         if (TextUtils.isEmpty(amount.value?.trim()) || amount.value?.trim() == "0") {
             amountError.value = "Amount cannot be empty or 0"
+            isAmtValidated = false
         } else {
             amountError.value = ""
             isAmtValidated = true
         }
         if (TextUtils.isEmpty(remarks.value?.trim())) {
             remarksError.value = "Remarks cannot be empty"
+            isRemarksValidated = false
         } else {
             remarksError.value = ""
             isRemarksValidated = true

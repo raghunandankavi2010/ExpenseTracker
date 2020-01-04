@@ -101,8 +101,8 @@
                     android:layout_height="match_parent"
                     android:gravity="top|start"
                     android:imeOptions="actionDone"
-                    android:lines="2"
-                    android:inputType="textMultiLine" />
+                    android:maxLines="2"
+                    android:inputType="text" />
 
             </com.google.android.material.textfield.TextInputLayout>
 

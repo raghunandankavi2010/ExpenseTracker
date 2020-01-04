@@ -77,7 +77,7 @@ object BindingAdapters {
     fun setAmount(textView: TextView, total: LiveData<Float>) {
         if (total.value == null) {
             textView.text = textView.resources.getString(
-                R.string.amount, 0.0f.toDefaultFormat(),
+                R.string.amount, 0f,
                 Currency.getInstance(Locale.getDefault()).getSymbol(Locale.getDefault())
             )
         } else {
@@ -137,7 +137,7 @@ object BindingAdapters {
     @JvmStatic
     fun text(textView: TextView, value :Float) {
         textView.text = textView.resources.getString(
-            R.string.exceeded_expense_limit, value.toDefaultFormat(),
+            R.string.exceeded_expense_limit, value,
             Currency.getInstance(Locale.getDefault()).getSymbol(Locale.getDefault())
         )
     }

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="expenseViewModel"
+            type="me.raghu.expensetracker.ui.expense.ExpenseViewModel" />
+    </data>
+<com.google.android.material.card.MaterialCardView
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/spacing_medium"
+    android:clickable="true"
+    android:layout_marginEnd="@dimen/spacing_medium"
+    android:layout_marginTop="@dimen/spacing_small"
+    android:layout_marginBottom="@dimen/spacing_small"
+    android:focusable="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+        <TextView
+            android:textStyle="bold"
+            android:layout_marginStart="@dimen/spacing_medium"
+            style="?attr/textAppearanceSubtitle2"
+            android:id="@+id/alert"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/expense_exceed"
+            android:visibility="@{expenseViewModel.expenseExceeded==0 ? View.GONE: (expenseViewModel.totalExpenseCurrentMonth > expenseViewModel.expenseExceeded ? View.VISIBLE : View.GONE)}" />
+
+        <TextView
+            android:layout_marginStart="@dimen/spacing_medium"
+            style="?attr/textAppearanceHeadline3"
+            android:id="@+id/exceeded"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_small"
+            text="@{expenseViewModel.totalExpenseCurrentMonth - expenseViewModel.expenseExceeded}"
+            android:visibility="@{expenseViewModel.expenseExceeded==0 ? View.GONE: (expenseViewModel.totalExpenseCurrentMonth > expenseViewModel.expenseExceeded ? View.VISIBLE : View.GONE)}" />
+
+        <TextView
+            android:gravity="center"
+            android:id="@+id/m_income"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_small"
+            android:layout_marginStart="@dimen/spacing_medium"
+            android:text="@string/monthly_income"
+            style="?attr/textAppearanceSubtitle2"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_marginTop="@dimen/spacing_small"
+            android:layout_marginStart="@dimen/spacing_medium"
+            style="?attr/textAppearanceHeadline3"
+            android:gravity="center"
+            android:id="@+id/monthly_income"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="0 Rs" />
+
+        <TextView
+            android:layout_marginTop="@dimen/spacing_small"
+            android:layout_marginStart="@dimen/spacing_medium"
+            android:textStyle="bold"
+            android:id="@+id/total_amt_spent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/total_amt_spent"
+            style="?attr/textAppearanceSubtitle2"
+            />
+
+        <TextView
+            android:layout_marginTop="@dimen/spacing_small"
+            android:layout_marginStart="@dimen/spacing_medium"
+            style="?attr/textAppearanceHeadline3"
+            android:gravity="center"
+            android:layout_marginBottom="@dimen/spacing_medium"
+            amount = "@{expenseViewModel.totalExpenseCurrentMonth}"
+            android:id="@+id/total_amt_spent_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="0 Rs" />
+
+
+        <io.material.rally_line_indicator.RallyLineIndicator
+            android:id="@+id/account_line_indicator"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            tools:background="@color/expense_green_300"/>
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>
+</layout>

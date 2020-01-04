@@ -57,12 +57,4 @@ class DividerItemDecoration(context: Context) : ItemDecoration() {
             mDivider.draw(c)
         }
     }
-
-
-    private fun isBottomEdge(
-        childIndex: Int,
-        childCount: Int
-    ): Boolean {
-        return childIndex >= childCount - 1
-    }
 }

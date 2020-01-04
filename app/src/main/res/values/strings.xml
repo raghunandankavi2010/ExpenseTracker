@@ -17,9 +17,10 @@
     <string name="edit_income">Edit Income</string>
     <string name="monthly_income">Monthly Income</string>
     <string name="m_income">%1$s %2$s </string>
-    <string name="exceeded_expense_limit">Expense Exceeded By %1$.2f %2$s </string>
+    <string name="exceeded_expense_limit">%1$.2f %2$s </string>
     <string name="expense_saved">Expense Saved Successfully</string>
     <string name="choose_a_payment_mode_default_is_cash">Choose a Payment mode!. Default is cash</string>
+    <string name="expense_exceed">Expense for month exceeds by</string>
 
     <string-array name="payment_type">
         <item>Cash</item>

@@ -20,7 +20,8 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:textSize="@dimen/text_18"
+                android:textStyle="bold"
+                style="?attr/textAppearanceSubtitle2"
                 android:id="@+id/pmtMode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

@@ -12,88 +12,47 @@
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <TextView
-        android:id="@+id/alert"
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/keyline_start"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="@dimen/spacing_keyline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        />
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/keyline_end"
+        app:layout_constraintGuide_end="@dimen/spacing_keyline"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+
+    <include
+        android:id="@+id/layout_account_expenditure_details"
+        layout="@layout/layout_expenditure_details"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        text="@{expenseViewModel.totalExpenseCurrentMonth - expenseViewModel.expenseExceeded}"
-        android:visibility="@{expenseViewModel.expenseExceeded==0 ? View.GONE: (expenseViewModel.totalExpenseCurrentMonth > expenseViewModel.expenseExceeded ? View.VISIBLE : View.GONE)}"
-        android:textAppearance="?attr/textAppearanceHeadline6"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:expenseViewModel="@{expenseViewModel}"
+        app:layout_constraintEnd_toEndOf="@id/keyline_end"
+        app:layout_constraintStart_toStartOf="@id/keyline_start"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:textSize="@dimen/text_18"
-        android:gravity="center"
-        android:id="@+id/m_income"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/monthly_income"
-        android:textAppearance="?attr/textAppearanceHeadline6"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/alert" />
 
-    <TextView
-        android:textSize="@dimen/text_18"
-        android:gravity="center"
-        android:id="@+id/monthly_income"
-        android:minWidth="50dp"
-        android:minHeight="40dp"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/m_income"
-        tools:text="0 Rs" />
-
-    <TextView
-        android:id="@+id/total_amt_spent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/total_amt_spent"
-        android:textAppearance="?attr/textAppearanceHeadline6"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/monthly_income" />
-
-    <TextView
-        android:textSize="@dimen/text_18"
-        android:gravity="center"
-        android:minWidth="50dp"
-        android:minHeight="40dp"
-        amount = "@{expenseViewModel.totalExpenseCurrentMonth}"
-        android:id="@+id/total_amt_spent_value"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_marginTop="@dimen/standard_16dp"
-        tools:text="0 Rs"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/total_amt_spent"
-        app:layout_constraintVertical_bias="0.0" />
-
-
-  <androidx.recyclerview.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/expenseList"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="@dimen/standard_16dp"
-        app:layoutManager="LinearLayoutManager"
+        android:layout_marginBottom="16dp"
         android:clipToPadding="false"
         android:orientation="vertical"
+        app:layoutManager="LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/total_amt_spent_value" />
+        app:layout_constraintEnd_toEndOf="@id/keyline_end"
+        app:layout_constraintStart_toStartOf="@id/keyline_start"
+        app:layout_constraintTop_toBottomOf="@+id/layout_account_expenditure_details" />
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

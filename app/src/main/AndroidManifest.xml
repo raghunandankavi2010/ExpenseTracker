@@ -13,6 +13,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
         <activity
+            android:screenOrientation="portrait"
             android:resizeableActivity="false"
             android:name="me.raghu.expensetracker.ui.MainActivity"
             android:windowSoftInputMode="adjustPan|adjustResize"
@@ -24,6 +25,7 @@
             </intent-filter>
         </activity>
         <activity
+            android:screenOrientation="portrait"
             android:resizeableActivity="false"
             android:name="me.raghu.expensetracker.ui.settings.SettingsActivity"
             tools:ignore="UnusedAttribute">

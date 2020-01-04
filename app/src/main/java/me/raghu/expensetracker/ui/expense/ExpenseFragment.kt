@@ -101,7 +101,7 @@ class ExpenseFragment : Fragment() {
             SharedPreferenceStringLiveData(sharedPreferences, "income_monthly", "")
         sharedPreferenceStringLiveData.getStringLiveData("income_monthly", "").observe(this,
             androidx.lifecycle.Observer { incomeValue: String ->
-                binding.main.monthlyIncome.text = activity?.resources?.getString(
+                binding.main.layoutAccountExpenditureDetails.monthlyIncome.text = activity?.resources?.getString(
                     R.string.m_income, incomeValue,
                     Currency.getInstance(Locale.getDefault()).getSymbol(Locale.getDefault())
                 )

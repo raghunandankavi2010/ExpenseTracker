@@ -13,7 +13,7 @@ android {
     buildToolsVersion "29.0.2"
     defaultConfig {
         applicationId "me.raghu.expensetracker"
-        minSdkVersion 21
+        minSdkVersion 23
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -74,6 +74,8 @@ dependencies {
     // preferences
     implementation "androidx.preference:preference:$rootProject.preferences"
     implementation 'com.takisoft.preferencex:preferencex:1.1.0'
+    // rally line indicator
+    implementation project(':rally_line_indicator')
 
     testImplementation 'junit:junit:4.12'
     testImplementation "androidx.paging:paging-common:$rootProject.paging_version"

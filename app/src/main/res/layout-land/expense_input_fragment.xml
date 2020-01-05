@@ -42,9 +42,9 @@
             android:layout_height="60dp"
             android:layout_marginStart="@dimen/standard_16dp"
             android:layout_marginTop="@dimen/spacing_small"
-            android:layout_marginEnd="@dimen/spacing_medium"
+            android:layout_marginEnd="16dp"
             android:entries="@array/payment_type"
-            app:layout_constraintEnd_toStartOf="@+id/addExpenses"
+            app:layout_constraintEnd_toStartOf="@+id/editExpense"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/pmtMode" />
 
@@ -61,7 +61,7 @@
             android:layout_marginRight="@dimen/standard_16dp"
             android:hint="@string/hint_expense_amt"
             app:error="@{viewModel.amountError}"
-            app:layout_constraintEnd_toStartOf="@+id/addExpenses"
+            app:layout_constraintEnd_toStartOf="@+id/editExpense"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/type">
 

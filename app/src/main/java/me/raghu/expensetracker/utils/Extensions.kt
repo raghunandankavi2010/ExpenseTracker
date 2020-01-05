@@ -1,13 +1,12 @@
 package me.raghu.expensetracker.utils
 
 import android.util.Log
-import java.text.DateFormat
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
 
-    fun getLastDateOfMonth(): Date {
+fun getLastDateOfMonth(): Date {
         val cal: Calendar = Calendar.getInstance()
         val lastDate: Int = cal.getActualMaximum(Calendar.DATE)
         cal.set(Calendar.DAY_OF_MONTH, lastDate)
@@ -29,7 +28,10 @@ import java.util.*
         return dateFormat.format(this)
     }
 
-   fun Float.toDefaultFormat() : String {
+   fun Float.toDefaultFormat(): String {
     return NumberFormat.getCurrencyInstance(Locale.getDefault()).format(this)
    }
 
+   fun String.toDateFormat(): Date? {
+       return SimpleDateFormat("dd/MM/yyyy",Locale.getDefault()).parse(this)
+   }

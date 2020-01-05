@@ -15,19 +15,21 @@ import javax.inject.Inject
 class ExpenseInputViewModel
 @Inject constructor(private val databaseRepository: DatabaseRepository) : ViewModel() {
 
-    var expenseType = MutableLiveData<String>()
+    val expenseType = MutableLiveData<String>()
 
-    var amount = MutableLiveData<String>()
+    val amount = MutableLiveData<String>()
 
     var amountError = MutableLiveData<String>()
 
-    var remarks = MutableLiveData<String>()
+    val remarks = MutableLiveData<String>()
 
-    var remarksError = MutableLiveData<String>()
+    val remarksError = MutableLiveData<String>()
 
-    var insertedSuccessFully = MutableLiveData<Boolean>(false)
+    val insertedSuccessFully = MutableLiveData<Boolean>(false)
 
-    var hideKeyBoard = MutableLiveData<Boolean>(false)
+    val hideKeyBoard = MutableLiveData<Boolean>(false)
+
+    var selectedDate = MutableLiveData<Date>()
 
     private var isAmtValidated = false
     private var isRemarksValidated = false
@@ -50,7 +52,7 @@ class ExpenseInputViewModel
             isRemarksValidated = true
         }
         if (isAmtValidated && isRemarksValidated) {
-            val date = Calendar.getInstance().time
+            val date = selectedDate.value
             val expense = Expense(
                 expenseType = expenseType.value,
                 expenseAmt = amount.value,

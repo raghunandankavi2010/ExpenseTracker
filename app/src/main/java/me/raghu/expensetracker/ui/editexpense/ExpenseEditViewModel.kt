@@ -24,6 +24,8 @@ class ExpenseEditViewModel @Inject constructor(private val databaseRepository: D
 
     var remarksError = MutableLiveData<String>()
 
+    var selectedDate = MutableLiveData<Date>()
+
     var editedSuccessFully = MutableLiveData<Boolean>(false)
 
     var hideKeyBoard = MutableLiveData<Boolean>(false)
@@ -47,16 +49,18 @@ class ExpenseEditViewModel @Inject constructor(private val databaseRepository: D
             isRemarksValidated = true
         }
         if (isAmtValidated && isRemarksValidated) {
-            val date = Calendar.getInstance().time
+            val date = selectedDate.value
             viewModelScope.launch {
                 with(databaseRepository) {
-                    updateExpense(
-                        id.value!!,
-                        expenseType.value!!,
-                        amount.value!!,
-                        remarks.value!!,
-                        date
-                    )
+                    if (date != null) {
+                        updateExpense(
+                            id.value!!,
+                            expenseType.value!!,
+                            amount.value!!,
+                            remarks.value!!,
+                            date
+                        )
+                    }
                 }
                 editedSuccessFully.value = true
                 reset()

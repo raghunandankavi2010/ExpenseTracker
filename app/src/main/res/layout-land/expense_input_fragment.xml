@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
         <variable
             name="viewModel"
             type="me.raghu.expensetracker.ui.expenseinput.ExpenseInputViewModel"/>
-
+        <variable
+            name="dateSharedViewmodel"
+            type="me.raghu.expensetracker.ui.expenseinput.DateShareViewModel"/>
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -25,7 +28,7 @@
             android:id="@+id/pmtMode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="@dimen/spacing_small"
             android:text="@string/choose_a_payment_mode_default_is_cash"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -38,8 +41,8 @@
             android:layout_width="0dp"
             android:layout_height="60dp"
             android:layout_marginStart="@dimen/standard_16dp"
-            android:layout_marginTop="@dimen/standard_16dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginTop="@dimen/spacing_small"
+            android:layout_marginEnd="@dimen/spacing_medium"
             android:entries="@array/payment_type"
             app:layout_constraintEnd_toStartOf="@+id/addExpenses"
             app:layout_constraintStart_toStartOf="parent"
@@ -53,7 +56,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/standard_16dp"
             android:layout_marginLeft="@dimen/standard_16dp"
-            android:layout_marginTop="@dimen/standard_16dp"
+            android:layout_marginTop="@dimen/spacing_small"
             android:layout_marginEnd="@dimen/standard_16dp"
             android:layout_marginRight="@dimen/standard_16dp"
             android:hint="@string/hint_expense_amt"
@@ -77,18 +80,17 @@
             android:id="@+id/remarks"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/standard_16dp"
             android:layout_marginLeft="@dimen/standard_16dp"
-            android:layout_marginTop="@dimen/standard_16dp"
+            android:layout_marginTop="@dimen/spacing_small"
             android:layout_marginEnd="@dimen/standard_16dp"
             android:layout_marginRight="@dimen/standard_16dp"
             android:layout_marginBottom="@dimen/standard_16dp"
             android:gravity="top|start"
             android:hint="@string/hint_expense_remarks"
             app:error="@{viewModel.remarksError}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/addExpenses"
+            app:layout_constraintEnd_toStartOf="@+id/editExpense"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/amount">
 
@@ -104,9 +106,49 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
+        <ImageView
+            android:id="@+id/showDatePicker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="@id/remarks"
+            app:layout_constraintBottom_toBottomOf="@+id/date"
+            app:layout_constraintTop_toTopOf="@+id/date"
+            android:contentDescription="@string/date_picker"
+            app:srcCompat="@drawable/ic_calendar" />
+
+
+        <TextView
+            android:id="@+id/dateField"
+            style="?attr/textAppearanceHeadline6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_small"
+            android:text="@string/enter_date"
+            app:layout_constraintEnd_toEndOf="@+id/remarks"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/remarks"
+            app:layout_constraintTop_toBottomOf="@+id/remarks"
+            tools:text="Choose Date. Current date is set by default" />
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/standard_16dp"
+            android:layout_marginLeft="@dimen/standard_16dp"
+            android:layout_marginTop="@dimen/spacing_small"
+            android:layout_marginEnd="@dimen/standard_16dp"
+            android:layout_marginRight="@dimen/standard_16dp"
+            android:layout_marginBottom="@dimen/standard_16dp"
+            android:hint="@string/date_mask"
+            textDate="@{viewModel.selectedDate}"
+            app:layout_constraintEnd_toStartOf="@id/showDatePicker"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/dateField"/>
+
         <com.google.android.material.button.MaterialButton
             hideKeyboardOnButtonClick ="@{viewModel.hideKeyBoard}"
-            android:id="@+id/addExpenses"
+            android:id="@+id/editExpense"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="32dp"

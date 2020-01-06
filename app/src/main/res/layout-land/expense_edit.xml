@@ -24,12 +24,13 @@
 
 
             <TextView
-                android:textSize="@dimen/text_18"
                 android:id="@+id/pmtMode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_small"
+                android:fontFamily="@font/roboto_medium"
                 android:text="@string/choose_a_payment_mode_default_is_cash"
+                android:textSize="@dimen/text_18"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -123,28 +124,27 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_small"
+                android:fontFamily="@font/roboto_medium"
                 android:text="@string/enter_date"
                 app:layout_constraintEnd_toEndOf="@+id/remarks"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/remarks"
                 app:layout_constraintTop_toBottomOf="@+id/remarks"
-                tools:text="Choose Date. Current date is set by default" />
+                tools:text="Edit Date" />
 
             <TextView
                 android:id="@+id/date"
+                textDateEdit="@{viewModel.selectedDate}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/standard_16dp"
-                android:layout_marginLeft="@dimen/standard_16dp"
                 android:layout_marginTop="@dimen/spacing_small"
                 android:layout_marginEnd="@dimen/standard_16dp"
-                android:layout_marginRight="@dimen/standard_16dp"
-                android:layout_marginBottom="@dimen/standard_16dp"
+                android:fontFamily="@font/roboto_medium"
                 android:hint="@string/date_mask"
-                textDateEdit="@{viewModel.selectedDate}"
                 app:layout_constraintEnd_toStartOf="@id/showDatePicker"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/dateField"/>
+                app:layout_constraintTop_toBottomOf="@+id/dateField" />
 
             <com.google.android.material.button.MaterialButton
                 hideKeyboardOnButtonClick ="@{viewModel.hideKeyBoard}"

@@ -76,7 +76,8 @@ dependencies {
     implementation 'com.takisoft.preferencex:preferencex:1.1.0'
     // rally line indicator
     implementation project(':rally_line_indicator')
-
+    // line chart
+    implementation project(':chartslib')
 
     testImplementation 'junit:junit:4.12'
     testImplementation "androidx.paging:paging-common:$rootProject.paging_version"

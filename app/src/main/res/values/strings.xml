@@ -22,7 +22,7 @@
     <string name="choose_a_payment_mode_default_is_cash">Choose a Payment mode!. Default is cash</string>
     <string name="expense_exceed">Expense for month exceeds by</string>
     <string name="enter_date">Choose Date. Current date is set by default</string>
-    <string name ="date_mask">mm/dd/yyyy</string>
+    <string name="date_mask">mm/dd/yyyy</string>
     <string name="date_picker">Date Picker</string>
     <string name="edit_date_field">Edit Date</string>
 
@@ -33,6 +33,9 @@
         <item>UPI Payment</item>
         <item>NetBanking</item>
     </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>

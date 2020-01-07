@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
+import me.raghu.expensetracker.ui.chart.LineChartViewModel
 import me.raghu.expensetracker.ui.editexpense.ExpenseEditViewModel
 import me.raghu.expensetracker.ui.expense.ExpenseViewModel
 import me.raghu.expensetracker.ui.expenseinput.ExpenseInputViewModel
@@ -29,6 +30,11 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(ExpenseEditViewModel::class)
     abstract fun bindExpenseEditViewModel(expenseEditViewModel: ExpenseEditViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(LineChartViewModel::class)
+    abstract fun bindLineChartViewModel(lineChartViewModel: LineChartViewModel): ViewModel
 
     @Binds
     abstract fun bindViewModelFactory(factory: ExpenseTrackerViewModelFactory): ViewModelProvider.Factory

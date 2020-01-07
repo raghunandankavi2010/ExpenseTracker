@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_expenseFragment_to_settingsFragment"
             app:destination="@id/secondActivity" />
+        <action
+            android:id="@+id/action_expenseFragment_to_lineChartFragment"
+            app:destination="@id/lineChartFragment" />
     </fragment>
     <fragment
         android:id="@+id/expenseInput"
@@ -34,4 +37,9 @@
         android:id="@+id/secondActivity"
         android:name="me.raghu.expensetracker.ui.settings.SettingsActivity"
         tools:layout="@layout/settings_activity"/>
+    <fragment
+        android:id="@+id/lineChartFragment"
+        android:name="me.raghu.expensetracker.ui.chart.LineChartFragment"
+        android:label="Line Chart"
+        tools:layout="@layout/fragment_line_chart" />
 </navigation>

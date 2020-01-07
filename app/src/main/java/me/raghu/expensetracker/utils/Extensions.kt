@@ -28,6 +28,11 @@ fun getLastDateOfMonth(): Date {
         return dateFormat.format(this)
     }
 
+    fun Date.getDayofMonth(): String {
+    val dateFormat = SimpleDateFormat("dd", Locale.getDefault())
+    return dateFormat.format(this)
+    }
+
    fun Float.toDefaultFormat(): String {
     return NumberFormat.getCurrencyInstance(Locale.getDefault()).format(this)
    }
@@ -35,3 +40,10 @@ fun getLastDateOfMonth(): Date {
    fun String.toDateFormat(): Date? {
        return SimpleDateFormat("dd/MM/yyyy",Locale.getDefault()).parse(this)
    }
+
+   fun Date.getDayOfMonth(): Float {
+       val c = Calendar.getInstance()
+       c.time = this
+       val dayOfWeek = c[Calendar.DAY_OF_MONTH]
+    return dayOfWeek.toFloat()
+}

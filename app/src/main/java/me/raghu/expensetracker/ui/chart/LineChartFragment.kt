@@ -75,36 +75,40 @@ class LineChartFragment : DaggerFragment() {
         binding.chart.zoomType = ZoomType.HORIZONTAL_AND_VERTICAL
         binding.chart.setContainerScrollEnabled(true, ContainerScrollType.HORIZONTAL)
         lineChartViewModel.liveDataLineChartValues.observe(this, Observer {
+            binding.chart.visibility= View.GONE
             it?.let {
-                //In most cased you can call data model methods in builder-pattern-like manner.
-                //In most cased you can call data model methods in builder-pattern-like manner.
-                val line: Line = Line(it)
-                line.color = Color.BLUE
-                line.shape = shape
-                line.isCubic = isCubic
-                line.isFilled = isFilled
-                line.strokeWidth = 2
-                line.setHasLabels(hasLabels)
-                line.setHasLabelsOnlyForSelected(hasLabelForSelected)
-                line.setHasLines(hasLines)
-                line.setHasPoints(hasPoints)
-                val lines: MutableList<Line> = ArrayList<Line>()
-                lines.add(line)
+                if(it.size>0) {
+                    binding.chart.visibility = View.VISIBLE
+                    //In most cased you can call data model methods in builder-pattern-like manner.
+                    //In most cased you can call data model methods in builder-pattern-like manner.
+                    val line: Line = Line(it)
+                    line.color = Color.BLUE
+                    line.shape = shape
+                    line.isCubic = isCubic
+                    line.isFilled = isFilled
+                    line.strokeWidth = 2
+                    line.setHasLabels(hasLabels)
+                    line.setHasLabelsOnlyForSelected(hasLabelForSelected)
+                    line.setHasLines(hasLines)
+                    line.setHasPoints(hasPoints)
+                    val lines: MutableList<Line> = ArrayList<Line>()
+                    lines.add(line)
 
-                val data = LineChartData()
-                val axisX = Axis()
+                    val data = LineChartData()
+                    val axisX = Axis()
 
-                axisX.formatter = SimpleAxisValueFormatter(0)
+                    axisX.formatter = SimpleAxisValueFormatter(0)
 
-                val axisY: Axis = Axis().setHasLines(true)
-                axisX.name = "Day"
-                axisY.name = "Amount"
+                    val axisY: Axis = Axis().setHasLines(true)
+                    axisX.name = "Day"
+                    axisY.name = "Amount"
 
-                data.axisXBottom = axisX
-                data.axisYLeft = axisY
-                data.lines = lines
+                    data.axisXBottom = axisX
+                    data.axisYLeft = axisY
+                    data.lines = lines
 
-                binding.chart.lineChartData = data
+                    binding.chart.lineChartData = data
+                }
 
             }
         })

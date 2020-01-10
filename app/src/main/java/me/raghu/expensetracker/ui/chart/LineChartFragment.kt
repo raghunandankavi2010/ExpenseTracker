@@ -118,6 +118,7 @@ class LineChartFragment : DaggerFragment() {
         v.bottom = 0f
         v.top = 100f
         v.left = 0f
+        v.right = 20f
         binding.chart.maximumViewport = v
         binding.chart.currentViewport = v
     }

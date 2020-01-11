@@ -7,14 +7,17 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.switchMap
 import me.raghu.chartslib.hellocharts.model.PointValue
 import me.raghu.expensetracker.repository.DatabaseRepository
-import me.raghu.expensetracker.utils.*
+import me.raghu.expensetracker.utils.getDayOfMonth
+import me.raghu.expensetracker.utils.getDayofMonth
+import me.raghu.expensetracker.utils.getFirstDateOfMonth
+import me.raghu.expensetracker.utils.getLastDateOfMonth
 import java.util.*
 import javax.inject.Inject
 
 
 class LineChartViewModel @Inject constructor(private val databaseRepository: DatabaseRepository): ViewModel() {
-    val date = Date()
-    val expenseList = databaseRepository.getExpensesForLineChart( date.getFirstDateOfMonth(), getLastDateOfMonth())
+    private val date = Date()
+    private val expenseList = databaseRepository.getExpensesForLineChart( date.getFirstDateOfMonth(), getLastDateOfMonth())
     val liveDataLineChartValues = expenseList.switchMap {
         val chartEntry: MutableList<PointValue> = mutableListOf()
         for (expense in it) {

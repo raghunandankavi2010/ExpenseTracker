@@ -22,6 +22,7 @@ import me.raghu.expensetracker.databinding.FragmentLineChartBinding
 import me.raghu.expensetracker.ui.databinding.FragmentDataBindingComponent
 import me.raghu.expensetracker.utils.autoCleared
 import me.raghu.expensetracker.utils.getDayOfMonth
+import me.raghu.expensetracker.utils.getLastDateOfMonth
 import java.util.*
 import javax.inject.Inject
 import kotlin.collections.ArrayList
@@ -148,10 +149,10 @@ class LineChartFragment : DaggerFragment() {
 
         v.left = 1f
 
-
         if (right != null) {
-            v.right = right
+            v.right =  right
         }
+
         binding.chart.maximumViewport = v
         binding.chart.currentViewport = v
     }

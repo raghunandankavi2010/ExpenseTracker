@@ -5,6 +5,7 @@ import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.view.*
+import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.DataBindingComponent
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
@@ -13,7 +14,6 @@ import androidx.lifecycle.ViewModelProvider
 import dagger.android.support.AndroidSupportInjection
 import dagger.android.support.DaggerFragment
 import me.raghu.chartslib.hellocharts.formatter.SimpleAxisValueFormatter
-import me.raghu.chartslib.hellocharts.formatter.SimpleLineChartValueFormatter
 import me.raghu.chartslib.hellocharts.gesture.ContainerScrollType
 import me.raghu.chartslib.hellocharts.gesture.ZoomType
 import me.raghu.chartslib.hellocharts.model.*
@@ -21,7 +21,10 @@ import me.raghu.expensetracker.R
 import me.raghu.expensetracker.databinding.FragmentLineChartBinding
 import me.raghu.expensetracker.ui.databinding.FragmentDataBindingComponent
 import me.raghu.expensetracker.utils.autoCleared
+import me.raghu.expensetracker.utils.getDayOfMonth
+import java.util.*
 import javax.inject.Inject
+import kotlin.collections.ArrayList
 
 
 class LineChartFragment : DaggerFragment() {
@@ -58,6 +61,7 @@ class LineChartFragment : DaggerFragment() {
         super.onCreateOptionsMenu(menu, inflater)
         menu.clear()
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -66,22 +70,23 @@ class LineChartFragment : DaggerFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val dataBinding = DataBindingUtil.bind<FragmentLineChartBinding>(view,dataBindingComponent)!!
+        val dataBinding =
+            DataBindingUtil.bind<FragmentLineChartBinding>(view, dataBindingComponent)!!
         binding = dataBinding
         binding.lifecycleOwner = this
         resetViewport()
         binding.chart.isInteractive = true
-        binding.chart.isZoomEnabled= true
+        binding.chart.isZoomEnabled = true
         binding.chart.zoomType = ZoomType.HORIZONTAL_AND_VERTICAL
         binding.chart.setContainerScrollEnabled(true, ContainerScrollType.HORIZONTAL)
         lineChartViewModel.liveDataLineChartValues.observe(this, Observer {
-            binding.chart.visibility= View.GONE
+            binding.chart.visibility = View.GONE
+            binding.textView2.visibility = View.VISIBLE
             it?.let {
-                if(it.size>0) {
+                if (it.size > 0) {
                     binding.chart.visibility = View.VISIBLE
-                    //In most cased you can call data model methods in builder-pattern-like manner.
-                    //In most cased you can call data model methods in builder-pattern-like manner.
-                    val line: Line = Line(it)
+                    binding.textView2.visibility = View.GONE
+                    val line = Line(it)
                     line.color = Color.BLUE
                     line.shape = shape
                     line.isCubic = isCubic
@@ -98,21 +103,59 @@ class LineChartFragment : DaggerFragment() {
                     val axisX = Axis()
 
                     axisX.formatter = SimpleAxisValueFormatter(0)
-
+                    val typeface = ResourcesCompat.getFont(context!!, R.font.roboto_medium)
                     val axisY: Axis = Axis().setHasLines(true)
                     axisX.name = "Day"
+                    axisX.textColor = Color.BLACK
+                    axisX.typeface = typeface
                     axisY.name = "Amount"
+                    axisY.textColor = Color.BLACK
+                    axisY.typeface = typeface
 
                     data.axisXBottom = axisX
                     data.axisYLeft = axisY
                     data.lines = lines
 
+                    var left = it.minBy { pointValue ->
+                        pointValue.x
+                    }?.x
+                    var right = it.maxBy { pointValue ->
+                        pointValue.x
+                    }?.x
+                    var bottom = it.minBy { pointValue ->
+                        pointValue.y
+                    }?.y
+                    var top = it.maxBy { pointValue ->
+                        pointValue.y
+                    }?.y
                     binding.chart.lineChartData = data
+                    setViewPort(left, right, top, bottom)
                 }
 
             }
         })
     }
+
+    private fun setViewPort(left: Float?, right: Float?, top: Float?, bottom: Float?) {
+        val v = Viewport(binding.chart.maximumViewport)
+
+        v.bottom = 0f
+
+        if (top != null) {
+            v.top = top
+        }
+
+
+        v.left = 1f
+
+
+        if (right != null) {
+            v.right = right
+        }
+        binding.chart.maximumViewport = v
+        binding.chart.currentViewport = v
+    }
+
     private fun resetViewport() { // Reset viewport height range to (0,100)
         val v = Viewport(binding.chart.maximumViewport)
         v.bottom = 0f

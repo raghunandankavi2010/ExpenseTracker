@@ -1,9 +1,11 @@
 package me.raghu.expensetracker.ui.expense
+
+import android.R.attr.left
+import android.R.attr.right
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Rect
 import android.graphics.drawable.Drawable
-
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ItemDecoration
@@ -11,6 +13,7 @@ import me.raghu.expensetracker.R
 
 
 class DividerItemDecoration(context: Context) : ItemDecoration() {
+
     private val mDivider: Drawable?
 
     init {
@@ -32,12 +35,19 @@ class DividerItemDecoration(context: Context) : ItemDecoration() {
         parent: RecyclerView,
         state: RecyclerView.State
     ) {
+        outRect.left = 0
+        outRect.right = 0
+        outRect.bottom = 0
+        val childCount = parent.childCount
         val spacing = view.resources.getDimensionPixelOffset(R.dimen.rv_bottom)
         parent.adapter?.let {
-            if (parent.getChildAdapterPosition(view) == it.itemCount - 1) {
-                outRect.bottom = spacing
+            for (i in 0 until childCount) {
+                if(i == childCount) {
+                    outRect.bottom = spacing
+                }
             }
         }
+
     }
     override fun onDraw(
         c: Canvas,

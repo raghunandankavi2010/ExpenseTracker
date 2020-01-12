@@ -24,6 +24,7 @@ import javax.inject.Inject
 class EditExpenseFragment : Fragment() {
 
     private var expense: Expense? = null
+
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
@@ -89,7 +90,7 @@ class EditExpenseFragment : Fragment() {
             editexpenseViewModel.remarks.value = it.remarks
         }
 
-        binding.editExpense?.setOnClickListener {
+        binding.editExpense.setOnClickListener {
             editexpenseViewModel.updateExpenseToDb()
         }
 

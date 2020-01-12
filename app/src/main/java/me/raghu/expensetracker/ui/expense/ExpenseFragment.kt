@@ -2,6 +2,7 @@ package me.raghu.expensetracker.ui.expense
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -88,12 +89,16 @@ class ExpenseFragment : Fragment() {
         }
         this.adapter = expenseAdapter
         binding.main.expenseList.adapter = adapter
-
-        dividerItemDecoration = context?.let { DividerItemDecoration(it) }
-        dividerItemDecoration?.let { binding.main.expenseList.addItemDecoration(it) }
-
+        if (binding.main.expenseList.itemDecorationCount == 0) {
+            dividerItemDecoration = context?.let { DividerItemDecoration(it) }
+            dividerItemDecoration?.let { binding.main.expenseList.addItemDecoration(it) }
+        }
+        expenseViewModel.expense.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            adapter.submitList(it)
+        })
         return binding.root
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
@@ -120,13 +125,6 @@ class ExpenseFragment : Fragment() {
 
         expenseViewModel.setDateRange(date.getFirstDateOfMonth(), getLastDateOfMonth())
 
-        initExpenseList()
-    }
-
-    private fun initExpenseList() {
-        expenseViewModel.expense.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-            adapter.submitList(it)
-        })
     }
 
 }

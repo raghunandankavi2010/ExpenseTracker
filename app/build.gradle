@@ -79,7 +79,7 @@ dependencies {
     // line chart
     implementation project(':chartslib')
 
-    testImplementation 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.13'
     testImplementation "androidx.paging:paging-common:$rootProject.paging_version"
     testImplementation "androidx.room:room-testing:$rootProject.roomVersion"
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'

@@ -1,7 +1,5 @@
 package me.raghu.expensetracker.ui.expense
 
-import android.R.attr.left
-import android.R.attr.right
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Rect
@@ -38,13 +36,12 @@ class DividerItemDecoration(context: Context) : ItemDecoration() {
         outRect.left = 0
         outRect.right = 0
         outRect.bottom = 0
-        val childCount = parent.childCount
+        //val childCount = parent.childCount
         val spacing = view.resources.getDimensionPixelOffset(R.dimen.rv_bottom)
+        val isLastRow: Boolean = state.itemCount - 1  < 0
         parent.adapter?.let {
-            for (i in 0 until childCount) {
-                if(i == childCount) {
-                    outRect.bottom = spacing
-                }
+            if (isLastRow) {
+                outRect.bottom = spacing
             }
         }
 

@@ -3,6 +3,7 @@ package me.raghu.chartslib.hellocharts.gesture;
 import android.content.Context;
 import android.graphics.Point;
 import android.graphics.Rect;
+import android.widget.OverScroller;
 
 import androidx.core.widget.ScrollerCompat;
 
@@ -16,10 +17,10 @@ public class ChartScroller {
 
     private Viewport scrollerStartViewport = new Viewport(); // Used only for zooms and flings
     private Point surfaceSizeBuffer = new Point();// Used for scroll and flings
-    private ScrollerCompat scroller;
+    private OverScroller scroller;
 
     public ChartScroller(Context context) {
-        scroller = ScrollerCompat.create(context);
+        scroller = new OverScroller(context);
     }
 
     public boolean startScroll(ChartComputator computator) {

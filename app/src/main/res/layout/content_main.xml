@@ -53,6 +53,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_medium"
                 android:layout_marginBottom="@dimen/spacing_medium"
+                android:paddingBottom="@dimen/rv_bottom"
                 android:clipToPadding="false"
                 android:orientation="vertical"
                 app:layoutManager="LinearLayoutManager"

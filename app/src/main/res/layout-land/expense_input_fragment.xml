@@ -62,7 +62,7 @@
             android:layout_marginRight="@dimen/standard_16dp"
             android:hint="@string/hint_expense_amt"
             app:error="@{viewModel.amountError}"
-            app:layout_constraintEnd_toStartOf="@+id/editExpense"
+            app:layout_constraintEnd_toStartOf="@+id/addExpenses"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/type">
 
@@ -91,7 +91,7 @@
             android:gravity="top|start"
             android:hint="@string/hint_expense_remarks"
             app:error="@{viewModel.remarksError}"
-            app:layout_constraintEnd_toStartOf="@+id/editExpense"
+            app:layout_constraintEnd_toStartOf="@+id/addExpenses"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/amount">
 
@@ -148,7 +148,7 @@
 
         <com.google.android.material.button.MaterialButton
             hideKeyboardOnButtonClick ="@{viewModel.hideKeyBoard}"
-            android:id="@+id/editExpense"
+            android:id="@+id/addExpenses"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="32dp"

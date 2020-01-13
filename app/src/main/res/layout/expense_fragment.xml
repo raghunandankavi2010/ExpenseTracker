@@ -19,6 +19,7 @@
         bind:expenseViewModel= "@{viewModel}" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        style="@style/Widget.MaterialComponents.FloatingActionButton"
         android:id="@+id/add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

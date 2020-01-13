@@ -25,6 +25,10 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -73,17 +77,17 @@ dependencies {
     implementation "androidx.paging:paging-runtime-ktx:$rootProject.paging_version"
     // preferences
     implementation "androidx.preference:preference:$rootProject.preferences"
-    implementation 'com.takisoft.preferencex:preferencex:1.1.0'
+    implementation "com.takisoft.preferencex:preferencex:$rootProject.takitpreference"
     // rally line indicator
     implementation project(':rally_line_indicator')
     // line chart
     implementation project(':chartslib')
 
-    testImplementation 'junit:junit:4.13'
+    testImplementation "junit:junit:$rootProject.junit"
     testImplementation "androidx.paging:paging-common:$rootProject.paging_version"
     testImplementation "androidx.room:room-testing:$rootProject.roomVersion"
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    androidTestImplementation "androidx.test.ext:junit:$rootProject.junitext"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$rootProject.espresso"
 
 
 }

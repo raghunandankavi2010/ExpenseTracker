@@ -44,10 +44,10 @@ object BindingAdapters {
             }
             val watcher: TextWatcherAdapter = object : TextWatcherAdapter() {
                 override fun onTextChanged(
-                    s: CharSequence,
+                    arg0: CharSequence,
                     arg1: Int, arg2: Int, arg3: Int
                 ) {
-                    bindableString.value = s.toString()
+                    bindableString.value = arg0.toString()
                 }
             }
             view.setTag(

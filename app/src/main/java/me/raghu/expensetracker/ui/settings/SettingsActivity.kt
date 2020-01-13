@@ -7,6 +7,7 @@ import com.takisoft.preferencex.PreferenceFragmentCompat
 import me.raghu.expensetracker.R
 
 
+@Suppress("UNUSED_VARIABLE")
 class SettingsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

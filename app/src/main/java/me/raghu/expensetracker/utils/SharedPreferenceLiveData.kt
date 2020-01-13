@@ -4,6 +4,7 @@ import android.content.SharedPreferences
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
 import androidx.lifecycle.LiveData
 
+@Suppress("UNUSED_ANONYMOUS_PARAMETER")
 abstract class SharedPreferenceLiveData<T>(
     var sharedPrefs: SharedPreferences,
     var key: String,

@@ -28,6 +28,7 @@ import javax.inject.Inject
 import kotlin.collections.ArrayList
 
 
+@Suppress("UNUSED_PARAMETER")
 class LineChartFragment : DaggerFragment() {
 
 
@@ -117,16 +118,16 @@ class LineChartFragment : DaggerFragment() {
                     data.axisYLeft = axisY
                     data.lines = lines
 
-                    var left = it.minBy { pointValue ->
+                    val left = it.minBy { pointValue ->
                         pointValue.x
                     }?.x
-                    var right = it.maxBy { pointValue ->
+                    val right = it.maxBy { pointValue ->
                         pointValue.x
                     }?.x
-                    var bottom = it.minBy { pointValue ->
+                    val bottom = it.minBy { pointValue ->
                         pointValue.y
                     }?.y
-                    var top = it.maxBy { pointValue ->
+                    val top = it.maxBy { pointValue ->
                         pointValue.y
                     }?.y
                     binding.chart.lineChartData = data

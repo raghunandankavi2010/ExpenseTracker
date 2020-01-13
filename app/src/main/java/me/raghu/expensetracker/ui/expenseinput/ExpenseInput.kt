@@ -64,7 +64,7 @@ class ExpenseInput : DaggerFragment() {
         binding = dataBinding
         binding.lifecycleOwner = this
         binding.viewModel = expenseInputViewModel
-        binding.addExpenses?.setOnClickListener {
+        binding.addExpenses.setOnClickListener {
             expenseInputViewModel.performValidation()
         }
 
@@ -77,7 +77,7 @@ class ExpenseInput : DaggerFragment() {
             }
         })
 
-        binding.showDatePicker?.setOnClickListener {
+        binding.showDatePicker.setOnClickListener {
             val newFragment = DatePickerFragment()
             fragmentManager?.let { it1 -> newFragment.show(it1, "datePicker") }
         }

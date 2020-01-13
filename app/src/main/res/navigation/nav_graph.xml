@@ -12,16 +12,32 @@
         tools:layout="@layout/expense_fragment">
         <action
             android:id="@+id/action_expenseFragment_to_expenseInput"
-            app:destination="@id/expenseInput" />
+            app:destination="@id/expenseInput"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
         <action
             android:id="@+id/action_expenseFragment_to_editExpenseFragment"
-            app:destination="@id/editExpenseFragment" />
+            app:destination="@id/editExpenseFragment"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
         <action
             android:id="@+id/action_expenseFragment_to_settingsFragment"
-            app:destination="@id/secondActivity" />
+            app:destination="@id/secondActivity"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
         <action
             android:id="@+id/action_expenseFragment_to_lineChartFragment"
-            app:destination="@id/lineChartFragment" />
+            app:destination="@id/lineChartFragment"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
     </fragment>
     <fragment
         android:id="@+id/expenseInput"

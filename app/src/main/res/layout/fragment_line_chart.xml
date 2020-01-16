@@ -15,7 +15,7 @@
             android:layout_height="match_parent"
             tools:context=".ui.chart.LineChartFragment">
 
-            <me.raghu.chartslib.hellocharts.view.LineChartView
+            <co.csadev.kellocharts.view.LineChartView
                 android:id="@+id/chart"
                 android:layout_width="0dp"
                 android:layout_height="0dp"

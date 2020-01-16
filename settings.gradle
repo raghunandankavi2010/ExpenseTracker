@@ -1,2 +1,2 @@
-include ':app', ':rally_line_indicator', ':chartslib'
+include ':app', ':rally_line_indicator', ':kellocharts'
 rootProject.name='Expense Tracker'

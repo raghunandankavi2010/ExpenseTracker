@@ -11,21 +11,17 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import co.csadev.kellocharts.formatter.SimpleAxisValueFormatter
+import co.csadev.kellocharts.gesture.ContainerScrollType
+import co.csadev.kellocharts.gesture.ZoomType.HORIZONTAL_AND_VERTICAL
+import co.csadev.kellocharts.model.*
 import dagger.android.support.AndroidSupportInjection
 import dagger.android.support.DaggerFragment
-import me.raghu.chartslib.hellocharts.formatter.SimpleAxisValueFormatter
-import me.raghu.chartslib.hellocharts.gesture.ContainerScrollType
-import me.raghu.chartslib.hellocharts.gesture.ZoomType
-import me.raghu.chartslib.hellocharts.model.*
 import me.raghu.expensetracker.R
 import me.raghu.expensetracker.databinding.FragmentLineChartBinding
 import me.raghu.expensetracker.ui.databinding.FragmentDataBindingComponent
 import me.raghu.expensetracker.utils.autoCleared
-import me.raghu.expensetracker.utils.getDayOfMonth
-import me.raghu.expensetracker.utils.getLastDateOfMonth
-import java.util.*
 import javax.inject.Inject
-import kotlin.collections.ArrayList
 
 
 @Suppress("UNUSED_PARAMETER")
@@ -79,7 +75,7 @@ class LineChartFragment : DaggerFragment() {
         resetViewport()
         binding.chart.isInteractive = true
         binding.chart.isZoomEnabled = true
-        binding.chart.zoomType = ZoomType.HORIZONTAL_AND_VERTICAL
+        binding.chart.zoomType = HORIZONTAL_AND_VERTICAL
         binding.chart.setContainerScrollEnabled(true, ContainerScrollType.HORIZONTAL)
         lineChartViewModel.liveDataLineChartValues.observe(this, Observer {
             binding.chart.visibility = View.GONE
@@ -94,10 +90,10 @@ class LineChartFragment : DaggerFragment() {
                     line.isCubic = isCubic
                     line.isFilled = isFilled
                     line.strokeWidth = 2
-                    line.setHasLabels(hasLabels)
-                    line.setHasLabelsOnlyForSelected(hasLabelForSelected)
-                    line.setHasLines(hasLines)
-                    line.setHasPoints(hasPoints)
+                    line.hasLabels = true
+                    line.hasLabelsOnlyForSelected = hasLabelForSelected
+                    line.hasLines = hasLines
+                    line.hasPoints = hasPoints
                     val lines: MutableList<Line> = ArrayList<Line>()
                     lines.add(line)
 
@@ -106,7 +102,8 @@ class LineChartFragment : DaggerFragment() {
 
                     axisX.formatter = SimpleAxisValueFormatter(0)
                     val typeface = ResourcesCompat.getFont(context!!, R.font.roboto_medium)
-                    val axisY: Axis = Axis().setHasLines(true)
+                    val axisY = Axis()
+                    axisY.hasLines = true
                     axisX.name = "Day"
                     axisX.textColor = Color.BLACK
                     axisX.typeface = typeface
@@ -139,7 +136,7 @@ class LineChartFragment : DaggerFragment() {
     }
 
     private fun setViewPort(left: Float?, right: Float?, top: Float?, bottom: Float?) {
-        val v = Viewport(binding.chart.maximumViewport)
+        val v = Viewport(0f,0f,0f,0f)
 
         v.bottom = 0f
 
@@ -151,7 +148,7 @@ class LineChartFragment : DaggerFragment() {
         v.left = 1f
 
         if (right != null) {
-            v.right =  right
+            v.right = right
         }
 
         binding.chart.maximumViewport = v
@@ -159,7 +156,7 @@ class LineChartFragment : DaggerFragment() {
     }
 
     private fun resetViewport() { // Reset viewport height range to (0,100)
-        val v = Viewport(binding.chart.maximumViewport)
+        val v = Viewport(0f,0f,0f,0f)
         v.bottom = 0f
         v.top = 100f
         v.left = 0f

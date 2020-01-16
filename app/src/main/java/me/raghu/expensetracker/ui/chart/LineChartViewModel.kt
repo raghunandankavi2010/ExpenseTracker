@@ -5,7 +5,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.switchMap
-import me.raghu.chartslib.hellocharts.model.PointValue
+import co.csadev.kellocharts.model.PointValue
 import me.raghu.expensetracker.repository.DatabaseRepository
 import me.raghu.expensetracker.utils.getDayOfMonth
 import me.raghu.expensetracker.utils.getDayofMonth
@@ -14,7 +14,7 @@ import me.raghu.expensetracker.utils.getLastDateOfMonth
 import java.util.*
 import javax.inject.Inject
 
-
+@Suppress("UNUSED_PARAMETER")
 class LineChartViewModel @Inject constructor(private val databaseRepository: DatabaseRepository): ViewModel() {
     private val date = Date()
     private val expenseList = databaseRepository.getExpensesForLineChart( date.getFirstDateOfMonth(), getLastDateOfMonth())
@@ -24,8 +24,6 @@ class LineChartViewModel @Inject constructor(private val databaseRepository: Dat
             if(expense.date!=null && expense.expenseAmt!=null) {
                 val lineChartEntry =
                     PointValue(expense.date.getDayOfMonth(), expense.expenseAmt.toFloat())
-                lineChartEntry.setLabel(expense.date.getDayofMonth())
-
                 Log.i("Index",""+expense.expenseAmt)
                 chartEntry.add(lineChartEntry)
             }

@@ -81,7 +81,7 @@ dependencies {
     // rally line indicator
     implementation project(':rally_line_indicator')
     // line chart
-    implementation project(':chartslib')
+    implementation project(':kellocharts')
 
     testImplementation "junit:junit:$rootProject.junit"
     testImplementation "androidx.paging:paging-common:$rootProject.paging_version"

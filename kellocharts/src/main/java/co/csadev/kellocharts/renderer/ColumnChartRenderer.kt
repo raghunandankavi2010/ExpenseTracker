@@ -165,8 +165,6 @@ open class ColumnChartRenderer(context: Context, chart: Chart, private val dataP
                 tempMin = sumNegative
             }
         }
-        for (column in data.columns) {
-        }
         if (data.isHorizontal) {
             tempMaximumViewport.right = tempMax
             tempMaximumViewport.left = tempMin
@@ -179,10 +177,8 @@ open class ColumnChartRenderer(context: Context, chart: Chart, private val dataP
     private fun drawColumnsForSubcolumns(canvas: Canvas, isHorizontal: Boolean) {
         val data = dataProvider.columnChartData
         val columnWidth = calculateColumnWidth(isHorizontal)
-        var columnIndex = 0
-        for (column in data.columns) {
+        for ((columnIndex, column) in data.columns.withIndex()) {
             processColumnForSubcolumns(canvas, column, columnWidth, columnIndex, MODE_DRAW, isHorizontal)
-            ++columnIndex
         }
     }
 
@@ -268,11 +264,9 @@ open class ColumnChartRenderer(context: Context, chart: Chart, private val dataP
         touchedPoint.y = touchY
         val data = dataProvider.columnChartData
         val columnWidth = calculateColumnWidth(isHorizontal)
-        var columnIndex = 0
-        for (column in data.columns) {
+        for ((columnIndex, column) in data.columns.withIndex()) {
             // canvas is not needed for checking touch
             processColumnForStacked(null, column, columnWidth, columnIndex, MODE_CHECK_TOUCH, isHorizontal)
-            ++columnIndex
         }
     }
 
@@ -282,8 +276,7 @@ open class ColumnChartRenderer(context: Context, chart: Chart, private val dataP
         var mostPositiveValue = baseValue
         var mostNegativeValue = baseValue
         var subcolumnBaseValue: Float
-        var valueIndex = 0
-        for (columnValue in column.values) {
+        for ((valueIndex, columnValue) in column.values.withIndex()) {
             columnPaint.color = columnValue.color
             if (columnValue.value >= baseValue) {
                 // Using values instead of raw pixels make code easier to
@@ -306,7 +299,6 @@ open class ColumnChartRenderer(context: Context, chart: Chart, private val dataP
                     // be thrown
                     throw IllegalStateException("Cannot process column in mode: " + mode)
             }
-            ++valueIndex
         }
     }
 
@@ -425,12 +417,12 @@ open class ColumnChartRenderer(context: Context, chart: Chart, private val dataP
     }
 
     companion object {
-        val DEFAULT_SUBCOLUMN_SPACING_DP = 1
-        val DEFAULT_COLUMN_TOUCH_ADDITIONAL_WIDTH_DP = 4
+        const val DEFAULT_SUBCOLUMN_SPACING_DP = 1
+        const val DEFAULT_COLUMN_TOUCH_ADDITIONAL_WIDTH_DP = 4
 
-        private val MODE_DRAW = 0
-        private val MODE_CHECK_TOUCH = 1
-        private val MODE_HIGHLIGHT = 2
+        private const val MODE_DRAW = 0
+        private const val MODE_CHECK_TOUCH = 1
+        private const val MODE_HIGHLIGHT = 2
     }
 
 }

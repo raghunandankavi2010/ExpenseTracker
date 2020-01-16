@@ -30,7 +30,7 @@ abstract class AbstractChartView @JvmOverloads constructor(context: Context, att
     override val chartComputator: ChartComputator = ChartComputator()
     override val axesRenderer: AxesRenderer = AxesRenderer(context, this)
     override var touchHandler: ChartTouchHandler = ChartTouchHandler(context, this)
-    override var chartRenderer: ChartRenderer = InternalChartRendererBase(context, this)
+    final override var chartRenderer: ChartRenderer = InternalChartRendererBase(context, this)
         set(value) {
             field=  value
             resetRendererAndTouchHandler()

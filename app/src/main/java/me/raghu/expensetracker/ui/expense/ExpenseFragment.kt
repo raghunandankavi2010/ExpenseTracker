@@ -2,7 +2,6 @@ package me.raghu.expensetracker.ui.expense
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -121,9 +120,8 @@ class ExpenseFragment : Fragment() {
         binding.add.setOnClickListener {
             it.findNavController().navigate(R.id.expenseInput)
         }
-        val date = Date()
 
-        expenseViewModel.setDateRange(date.getFirstDateOfMonth(), getLastDateOfMonth())
+        expenseViewModel.setDateRange(getFirstDateOfMonth(), getLastDateOfMonth())
 
     }
 

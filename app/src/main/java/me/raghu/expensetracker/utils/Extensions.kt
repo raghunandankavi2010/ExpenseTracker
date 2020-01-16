@@ -1,6 +1,6 @@
 package me.raghu.expensetracker.utils
 
-import android.util.Log
+import timber.log.Timber
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -11,15 +11,15 @@ fun getLastDateOfMonth(): Date {
         val lastDate: Int = cal.getActualMaximum(Calendar.DATE)
         cal.set(Calendar.DAY_OF_MONTH, lastDate)
         cal.set(Calendar.HOUR_OF_DAY,0)
-        Log.i("last day",""+cal.time.dateToString()+""+lastDate)
+        Timber.i(cal.time.dateToString(),lastDate)
         return cal.time
     }
 
-    fun Date.getFirstDateOfMonth(): Date {
+    fun getFirstDateOfMonth(): Date {
         val cal = Calendar.getInstance()
         cal.set(Calendar.HOUR_OF_DAY,0)
         cal[Calendar.DAY_OF_MONTH] = cal.getActualMinimum(Calendar.DAY_OF_MONTH)
-        Log.i("first day",""+cal.time.dateToString())
+        Timber.i(cal.time.dateToString())
         return cal.time
     }
 

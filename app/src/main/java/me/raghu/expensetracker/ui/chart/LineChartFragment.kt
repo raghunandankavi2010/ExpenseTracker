@@ -32,7 +32,6 @@ class LineChartFragment : DaggerFragment() {
     private val hasPoints = true
     private val shape = ValueShape.CIRCLE
     private val isFilled = false
-    private val hasLabels = false
     private val isCubic = false
     private val hasLabelForSelected = false
 

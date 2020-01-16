@@ -82,6 +82,8 @@ dependencies {
     implementation project(':rally_line_indicator')
     // line chart
     implementation project(':kellocharts')
+    // timber logging
+    implementation 'com.jakewharton.timber:timber:4.7.1'
 
     testImplementation "junit:junit:$rootProject.junit"
     testImplementation "androidx.paging:paging-common:$rootProject.paging_version"

@@ -1,10 +1,6 @@
 package me.raghu.expensetracker.ui.databinding
 
 import android.content.Context
-import android.text.Editable
-import android.text.SpannableStringBuilder
-import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
@@ -17,16 +13,15 @@ import androidx.databinding.BindingAdapter
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.android.material.button.MaterialButton
-import com.google.android.material.textfield.TextInputEditText
 import me.raghu.expensetracker.R
 import me.raghu.expensetracker.utils.dateToString
-import me.raghu.expensetracker.utils.toDateFormat
+import timber.log.Timber
 import java.util.*
 
 
 object BindingAdapters {
 
-
+    @Suppress("UNCHECKED_CAST")
     @BindingAdapter("binding")
     @JvmStatic
     fun bindEditText(
@@ -151,14 +146,14 @@ object BindingAdapters {
     @BindingAdapter("textDate")
     @JvmStatic
     fun textDate(view: TextView, bindableDate: MutableLiveData<Date>) {
-        Log.i("Date",""+bindableDate.value?.dateToString())
+        Timber.i(bindableDate.value?.dateToString())
         view.text = bindableDate.value?.dateToString()
     }
 
     @BindingAdapter("textDateEdit")
     @JvmStatic
     fun textDateEdit(view: TextView, bindableDate: MutableLiveData<Date>) {
-        Log.i("Date",""+bindableDate.value?.dateToString())
+        Timber.i(bindableDate.value?.dateToString())
         view.text = bindableDate.value?.dateToString()
     }
 }

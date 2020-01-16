@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import me.raghu.expensetracker.db.Expense
 import me.raghu.expensetracker.repository.DatabaseRepository
+import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
 
@@ -64,10 +65,10 @@ class ExpenseInputViewModel
     }
 
     private fun addExpenseToDb(expense: Expense) {
-        Log.i("Value",""+expense.date.toString())
+        Timber.i(expense.date.toString())
         viewModelScope.launch {
             val long = databaseRepository.insert(expense)
-            Log.i("Value",""+long)
+           Timber.i(long.toString())
             insertedSuccessFully.value = true
             reset()
         }

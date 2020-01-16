@@ -5,6 +5,7 @@ import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
 import me.raghu.expensetracker.di.DaggerAppComponent
+import timber.log.Timber
 import javax.inject.Inject
 
 
@@ -14,6 +15,10 @@ class ExpenseApp :Application(), HasAndroidInjector {
 
     override fun onCreate() {
         super.onCreate()
+        if (BuildConfig.DEBUG) {
+            Timber.plant(Timber.DebugTree())
+        }
+
         DaggerAppComponent.builder()
             .application(this)
             .build()

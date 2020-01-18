@@ -1,11 +1,15 @@
 package me.raghu.expensetracker.ui.expense
 
 import android.content.Context
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
+import androidx.core.view.ViewCompat
+import androidx.core.view.marginBottom
+import androidx.core.view.marginLeft
 import androidx.databinding.DataBindingComponent
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -19,10 +23,7 @@ import me.raghu.expensetracker.R
 import me.raghu.expensetracker.databinding.ExpenseFragmentBinding
 import me.raghu.expensetracker.ui.MainActivity
 import me.raghu.expensetracker.ui.databinding.FragmentDataBindingComponent
-import me.raghu.expensetracker.utils.SharedPreferenceStringLiveData
-import me.raghu.expensetracker.utils.autoCleared
-import me.raghu.expensetracker.utils.getFirstDateOfMonth
-import me.raghu.expensetracker.utils.getLastDateOfMonth
+import me.raghu.expensetracker.utils.*
 import java.util.*
 import java.util.concurrent.Executors
 import javax.inject.Inject
@@ -100,6 +101,24 @@ class ExpenseFragment : Fragment() {
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        ViewCompat.requestApplyInsets(view)
+        binding.main.nestedScroll.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
+                View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+        binding.root.let {
+            ViewCompat.setOnApplyWindowInsetsListener(it) { v, insets ->
+                ViewCompat.onApplyWindowInsets(
+                    v, insets.replaceSystemWindowInsets(
+                        insets.systemWindowInsetLeft, 0,
+                        insets.systemWindowInsetRight, insets.systemWindowInsetBottom
+                    )
+                )
+                insets // return original insets to pass them down in view hierarchy or remove this line if you want to pass modified insets down the stream.
+
+            }
+        }
+
+        binding.main.expenseList.addSystemWindowInsetToMargin(bottom = true)
+        binding.add.addSystemWindowInsetToMargin(bottom = true)
 
         PreferenceManager.setDefaultValues(activity, R.xml.preferences, false)
         val sharedPreferences =
@@ -123,6 +142,10 @@ class ExpenseFragment : Fragment() {
 
         expenseViewModel.setDateRange(getFirstDateOfMonth(), getLastDateOfMonth())
 
+    }
+
+    private fun pxFromDp(dp: Float): Int {
+        return (dp * resources.displayMetrics.density).toInt()
     }
 
 }

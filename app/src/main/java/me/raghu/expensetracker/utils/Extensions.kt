@@ -1,5 +1,8 @@
 package me.raghu.expensetracker.utils
 
+import android.view.View
+import android.view.ViewGroup
+import androidx.core.view.*
 import timber.log.Timber
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
@@ -46,4 +49,29 @@ fun getLastDateOfMonth(): Date {
        c.time = this
        val dayOfWeek = c[Calendar.DAY_OF_MONTH]
     return dayOfWeek.toFloat()
+}
+
+fun View.addSystemWindowInsetToMargin(
+    left: Boolean = false,
+    top: Boolean = false,
+    right: Boolean = false,
+    bottom: Boolean = false
+) {
+    val (initialLeft, initialTop, initialRight, initialBottom) =
+        listOf(marginLeft, marginTop, marginRight, marginBottom)
+
+    ViewCompat.setOnApplyWindowInsetsListener(this) { view, insets ->
+        view.updateLayoutParams {
+            (this as? ViewGroup.MarginLayoutParams)?.let {
+                updateMargins(
+                    left = initialLeft + (if (left) insets.systemWindowInsetLeft else 0),
+                    top = initialTop + (if (top) insets.systemWindowInsetTop else 0),
+                    right = initialRight + (if (right) insets.systemWindowInsetRight else 0),
+                    bottom = initialBottom + (if (bottom) insets.systemWindowInsetBottom else 0)
+                )
+            }
+        }
+
+        insets
+    }
 }

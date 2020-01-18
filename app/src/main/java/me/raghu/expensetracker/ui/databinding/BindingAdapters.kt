@@ -91,18 +91,18 @@ object BindingAdapters {
 
     @BindingAdapter(value = ["selectedValue"], requireAll = false)
     @JvmStatic
-    fun setSelectedSpinnerValue(spinner: Spinner, spinnerValue: MutableLiveData<String>) {
-        spinnerValue.value?.let {
-            spinner.setSelection(getIndex(spinner, it))
+    fun setSelectedSpinnerValue(spinner: Spinner?, spinnerValue: MutableLiveData<String>?) {
+        spinnerValue?.value?.let {
+            spinner?.setSelection(getIndex(spinner, it))
         }
-        spinner.onItemSelectedListener = object :
+        spinner?.onItemSelectedListener = object :
             OnItemSelectedListener {
             override fun onItemSelected(
-                parent: AdapterView<*>,
-                view: View, position: Int, id: Long
+                parent: AdapterView<*>?,
+                view: View?, position: Int, id: Long
             ) {
-                val value: String = parent.getItemAtPosition(position) as String
-                spinnerValue.value = value
+                val value: String = parent?.getItemAtPosition(position) as String
+                spinnerValue?.value = value
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {

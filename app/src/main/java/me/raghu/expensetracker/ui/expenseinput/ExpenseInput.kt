@@ -1,8 +1,10 @@
 package me.raghu.expensetracker.ui.expenseinput
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.text.Editable
 import android.view.*
+import androidx.core.view.marginLeft
 import androidx.databinding.DataBindingComponent
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
@@ -15,6 +17,7 @@ import me.raghu.expensetracker.R
 import me.raghu.expensetracker.databinding.ExpenseInputFragmentBinding
 import me.raghu.expensetracker.ui.databinding.FragmentDataBindingComponent
 import me.raghu.expensetracker.ui.databinding.TextWatcherAdapter
+import me.raghu.expensetracker.utils.addSystemWindowInsetToMargin
 import me.raghu.expensetracker.utils.autoCleared
 import me.raghu.expensetracker.utils.toDateFormat
 import javax.inject.Inject
@@ -68,6 +71,13 @@ class ExpenseInput : DaggerFragment() {
             expenseInputViewModel.performValidation()
         }
 
+        val orientation = resources.configuration.orientation
+        val margin =  binding.coordinator?.marginLeft
+        if (orientation == Configuration.ORIENTATION_LANDSCAPE) { // In landscape
+            if (margin != null) {
+                binding.coordinator?.addSystemWindowInsetToMargin(left = true)
+            }
+        }
         val model = activity?.let { ViewModelProviders.of(it).get(DateShareViewModel::class.java) }
         binding.dateSharedViewmodel = model
 

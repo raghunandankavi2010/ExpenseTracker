@@ -1,9 +1,11 @@
 package me.raghu.expensetracker.ui.editexpense
 
 import android.content.Context
+import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import androidx.core.view.marginLeft
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -17,6 +19,7 @@ import me.raghu.expensetracker.databinding.ExpenseEditBinding
 import me.raghu.expensetracker.db.Expense
 import me.raghu.expensetracker.ui.expenseinput.DatePickerFragment
 import me.raghu.expensetracker.ui.expenseinput.DateShareViewModel
+import me.raghu.expensetracker.utils.addSystemWindowInsetToMargin
 import java.util.*
 import javax.inject.Inject
 
@@ -67,7 +70,11 @@ class EditExpenseFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
+        val orientation = resources.configuration.orientation
+        val margin =  binding.coordinator?.marginLeft
+        if (orientation == Configuration.ORIENTATION_LANDSCAPE) { // In landscape
+            margin?.let { binding.coordinator?.addSystemWindowInsetToMargin(left = true) }
+        }
         val model = activity?.let { ViewModelProviders.of(it).get(ShareDateModel::class.java) }
         binding.dateSharedViewModel = model
 

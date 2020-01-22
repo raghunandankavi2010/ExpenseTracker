@@ -1,23 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:bind="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
+        <import type="android.view.View" />
 
         <variable
             name="viewModel"
             type="me.raghu.expensetracker.ui.expense.ExpenseViewModel" />
     </data>
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/root"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/coordinator_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <include
-            android:id="@+id/main"
-            layout="@layout/content_main"
-            bind:expenseViewModel="@{viewModel}" />
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/expenseList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/rv_bottom"
+                app:layoutManager="LinearLayoutManager" />
+
+        </FrameLayout>
+
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/add"
@@ -31,7 +44,162 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/root"
             app:srcCompat="@color/colorAccent" />
-
-
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
 </layout>
+
+    <!--
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:id="@+id/coordinator_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true">
+
+            <include
+                android:id="@+id/appBarLayout"
+                layout="@layout/appbar_toolbar"/>
+
+            <View
+                android:fitsSystemWindows="true"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:background="@color/transparent"
+                app:layout_behavior=".utils.StatusBarScrimBehavior" />
+         <com.google.android.material.card.MaterialCardView
+                android:id="@+id/layout_account_expenditure_details"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_medium"
+                android:clickable="true"
+                android:layout_marginEnd="@dimen/spacing_medium"
+                android:layout_marginTop="@dimen/spacing_small"
+                android:layout_marginBottom="@dimen/spacing_small"
+                android:focusable="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    >
+
+                    <TextView
+                        android:id="@+id/alert"
+                        style="?attr/textAppearanceSubtitle2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/spacing_medium"
+                        android:layout_marginTop="16dp"
+                        android:fontFamily="@font/roboto_medium"
+                        android:text="@string/expense_exceed"
+                        android:textStyle="bold"
+                        android:visibility="@{viewModel.expenseExceeded==0 ? View.GONE: (viewModel.totalExpenseCurrentMonth > viewModel.expenseExceeded ? View.VISIBLE : View.GONE)}" />
+
+                    <TextView
+                        android:layout_marginStart="@dimen/spacing_medium"
+                        style="?attr/textAppearanceHeadline3"
+                        android:id="@+id/exceeded"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/spacing_small"
+                        android:fontFamily="@font/roboto_medium"
+                        text="@{viewModel.totalExpenseCurrentMonth - viewModel.expenseExceeded}"
+                        android:visibility="@{viewModel.expenseExceeded==0 ? View.GONE: (viewModel.totalExpenseCurrentMonth > viewModel.expenseExceeded ? View.VISIBLE : View.GONE)}" />
+
+                    <TextView
+                        android:id="@+id/m_income"
+                        style="?attr/textAppearanceSubtitle2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/spacing_medium"
+                        android:layout_marginTop="@dimen/spacing_small"
+                        android:fontFamily="@font/roboto_medium"
+                        android:gravity="center"
+                        android:text="@string/monthly_income"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/monthly_income"
+                        style="?attr/textAppearanceHeadline3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/spacing_medium"
+                        android:layout_marginTop="@dimen/spacing_small"
+                        android:fontFamily="@font/roboto_medium"
+                        android:gravity="center"
+                        tools:text="0 Rs" />
+
+                    <TextView
+                        android:id="@+id/total_amt_spent"
+                        style="?attr/textAppearanceSubtitle2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/spacing_medium"
+                        android:layout_marginTop="@dimen/spacing_small"
+                        android:fontFamily="@font/roboto_medium"
+                        android:text="@string/total_amt_spent"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/total_amt_spent_value"
+                        style="?attr/textAppearanceHeadline3"
+                        amount="@{viewModel.totalExpenseCurrentMonth}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/spacing_medium"
+                        android:layout_marginTop="@dimen/spacing_small"
+                        android:layout_marginBottom="@dimen/spacing_medium"
+                        android:fontFamily="@font/roboto_medium"
+                        android:gravity="center"
+                        tools:text="0 Rs" />
+
+
+                    <io.material.rally_line_indicator.RallyLineIndicator
+                        android:id="@+id/account_line_indicator"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        tools:background="@color/expense_green_300"/>
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>&ndash;&gt;
+
+            <include
+                android:id="@+id/main"
+                layout="@layout/content_main"
+                bind:expenseViewModel="@{viewModel}" />
+
+
+            <FrameLayout
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/expenseList"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clipToPadding="false"
+                    android:orientation="vertical"
+                    android:paddingBottom="@dimen/rv_bottom"
+                    app:layoutManager="LinearLayoutManager" />
+            </FrameLayout>
+
+
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/add"
+                style="@style/Widget.MaterialComponents.FloatingActionButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_margin="@dimen/fab_margin"
+                android:src="@drawable/ic_add"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/root"
+                app:srcCompat="@color/colorAccent" />
+
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    -->

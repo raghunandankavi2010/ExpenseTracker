@@ -1,97 +1,94 @@
 package me.raghu.expensetracker.ui
 
-import android.content.res.Configuration
-import android.graphics.Color
 import android.os.Bundle
-import android.view.*
+import android.view.View
+import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
-import androidx.core.view.marginLeft
-import androidx.core.view.updateLayoutParams
+import androidx.core.view.updatePadding
+import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.onNavDestinationSelected
 import androidx.navigation.ui.setupActionBarWithNavController
 import dagger.android.AndroidInjection
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.toolbar.toolbar
 import me.raghu.expensetracker.R
-import me.raghu.expensetracker.utils.addSystemWindowInsetToMargin
+import me.raghu.expensetracker.utils.HeightTopWindowInsetsListener
+import me.raghu.expensetracker.utils.NoopWindowInsetsListener
 import javax.inject.Inject
 
 
-class MainActivity : AppCompatActivity(), HasAndroidInjector {
+class MainActivity : AppCompatActivity(), HasAndroidInjector, NavigationHost {
 
     @Inject
-    lateinit  var androidInjector: DispatchingAndroidInjector<Any?>
-    private lateinit var appBarConfiguration:AppBarConfiguration
+    lateinit var androidInjector: DispatchingAndroidInjector<Any?>
+    private lateinit var appBarConfiguration: AppBarConfiguration
+    private lateinit var content: FrameLayout
+    private lateinit var navController: NavController
 
+    private lateinit var statusScrim: View
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        setSupportActionBar(toolbar)
-        val navController = findNavController(R.id.nav_host_fragment)
-        appBarConfiguration = AppBarConfiguration(navController.graph)
-        setupActionBarWithNavController(navController, appBarConfiguration)
-        //toolbar.setupWithNavController(navController, appBarConfiguration)
 
-        supportActionBar?.apply {
-            setHomeAsUpIndicator(R.drawable.ic_home)
-            setDisplayHomeAsUpEnabled(true)
+        ViewCompat.setOnApplyWindowInsetsListener(root) { view, insets ->
+            ViewCompat.onApplyWindowInsets(root,insets)
 
-        }
-        val orientation = resources.configuration.orientation
-        if (orientation == Configuration.ORIENTATION_LANDSCAPE) { // In landscape
-            root.addSystemWindowInsetToMargin(left = true)
-        }
-        root.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
-                View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
+            view.updatePadding(
+                left = insets.systemWindowInsetLeft,
+                right = insets.systemWindowInsetRight
+            )
+            insets.replaceSystemWindowInsets(
+                0, insets.systemWindowInsetTop,
+                0, insets.systemWindowInsetBottom
+            )
 
-        window.apply {
-            clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-            addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-            decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-            statusBarColor = Color.TRANSPARENT
-        }
-
-        ViewCompat.setOnApplyWindowInsetsListener(toolbar) { _, insets ->
-            toolbar.setMarginTop(insets.systemWindowInsetTop)
             insets
         }
 
-    }
+        content = findViewById(R.id.content_container)
+        content.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
+                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
+                View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+        // Make the content ViewGroup ignore insets so that it does not use the default padding
+        content.setOnApplyWindowInsetsListener(NoopWindowInsetsListener)
 
-    private fun View.setMarginTop(value: Int) = updateLayoutParams<ViewGroup.MarginLayoutParams> {
-        topMargin = value
-    }
+        statusScrim = findViewById(R.id.status_bar_scrim)
+        statusScrim.setOnApplyWindowInsetsListener(HeightTopWindowInsetsListener)
 
-    private fun pxFromDp(dp: Float): Int {
-        return (dp * resources.displayMetrics.density).toInt()
+        setSupportActionBar(toolbar)
+
+        navController = findNavController(R.id.nav_host_fragment)
+
+        appBarConfiguration = AppBarConfiguration(setOf(R.id.expenseFragment))
+        setupActionBarWithNavController(navController, appBarConfiguration)
+        supportActionBar?.apply {
+            setDisplayHomeAsUpEnabled(true)
+            setHomeAsUpIndicator(R.drawable.ic_home)
+        }
+
     }
 
     override fun androidInjector(): DispatchingAndroidInjector<Any?> {
         return androidInjector
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        val inflater: MenuInflater = menuInflater
-        inflater.inflate(R.menu.main_menu, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val navController = findNavController(R.id.nav_host_fragment)
-        return item.onNavDestinationSelected(navController) || super.onOptionsItemSelected(item)
-    }
 
     override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.nav_host_fragment)
         return navController.navigateUp() || super.onSupportNavigateUp()
     }
 
+    override fun registerToolbarWithNavigation() {
+        appBarConfiguration = AppBarConfiguration(setOf(R.id.expenseFragment))
+        setupActionBarWithNavController(navController, appBarConfiguration)
+        supportActionBar?.apply {
+            setDisplayHomeAsUpEnabled(true)
+            setHomeAsUpIndicator(R.drawable.ic_home)
+        }
+    }
 
 }
 

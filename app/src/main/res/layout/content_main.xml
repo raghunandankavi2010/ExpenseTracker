@@ -12,11 +12,13 @@
     </data>
 
     <androidx.core.widget.NestedScrollView
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:id="@+id/nestedScroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+
             android:id="@+id/root"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -62,6 +64,7 @@
                 app:layout_constraintEnd_toEndOf="@id/keyline_end"
                 app:layout_constraintStart_toStartOf="@id/keyline_start"
                 app:layout_constraintTop_toBottomOf="@+id/layout_account_expenditure_details" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout
+         >
     </androidx.core.widget.NestedScrollView>
 </layout>

@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/expenseFragment">
+    app:startDestination="@id/expenseFragment"
+    tools:ignore="UnusedNavigation">
 
     <fragment
         android:id="@+id/expenseFragment"
@@ -43,7 +44,11 @@
         android:id="@+id/expenseInput"
         android:name="me.raghu.expensetracker.ui.expenseinput.ExpenseInput"
         android:label="Add Your Expenses"
-        tools:layout="@layout/expense_input_fragment"/>
+        tools:layout="@layout/expense_input_fragment">
+        <action
+            android:id="@+id/action_expenseInput_to_expenseFragment"
+            app:destination="@id/expenseFragment" />
+    </fragment>
     <fragment
         android:id="@+id/editExpenseFragment"
         android:name="me.raghu.expensetracker.ui.editexpense.EditExpenseFragment"

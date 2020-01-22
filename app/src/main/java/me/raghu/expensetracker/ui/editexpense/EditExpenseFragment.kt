@@ -1,10 +1,11 @@
 package me.raghu.expensetracker.ui.editexpense
 
-import android.content.Context
 import android.content.res.Configuration
 import android.os.Bundle
-import android.util.Log
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.marginLeft
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -13,14 +14,10 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.snackbar.Snackbar
-import dagger.android.support.AndroidSupportInjection
 import me.raghu.expensetracker.R
 import me.raghu.expensetracker.databinding.ExpenseEditBinding
 import me.raghu.expensetracker.db.Expense
-import me.raghu.expensetracker.ui.expenseinput.DatePickerFragment
-import me.raghu.expensetracker.ui.expenseinput.DateShareViewModel
 import me.raghu.expensetracker.utils.addSystemWindowInsetToMargin
-import java.util.*
 import javax.inject.Inject
 
 
@@ -41,17 +38,8 @@ class EditExpenseFragment : Fragment() {
         arguments?.let {
             expense = it.getParcelable("expense")
         }
-        setHasOptionsMenu(true)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        menu.clear()
-    }
-    override fun onAttach(context: Context) {
-        AndroidSupportInjection.inject(this)
-        super.onAttach(context)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -70,6 +58,11 @@ class EditExpenseFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        (requireActivity() as AppCompatActivity).supportActionBar?.apply {
+            setHomeAsUpIndicator(R.drawable.ic_arrow_back_black_24dp)
+            setDisplayHomeAsUpEnabled(true)
+        }
+
         val orientation = resources.configuration.orientation
         val margin =  binding.coordinator?.marginLeft
         if (orientation == Configuration.ORIENTATION_LANDSCAPE) { // In landscape

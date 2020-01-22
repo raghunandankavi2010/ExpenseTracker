@@ -4,7 +4,10 @@ package me.raghu.expensetracker.ui.chart
 import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.DataBindingComponent
 import androidx.databinding.DataBindingUtil
@@ -49,15 +52,6 @@ class LineChartFragment : DaggerFragment() {
 
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        menu.clear()
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -71,6 +65,12 @@ class LineChartFragment : DaggerFragment() {
             DataBindingUtil.bind<FragmentLineChartBinding>(view, dataBindingComponent)!!
         binding = dataBinding
         binding.lifecycleOwner = this
+
+        (requireActivity() as AppCompatActivity).supportActionBar?.apply {
+            setHomeAsUpIndicator(R.drawable.ic_arrow_back_black_24dp)
+            setDisplayHomeAsUpEnabled(true)
+        }
+
         resetViewport()
         binding.chart.isInteractive = true
         binding.chart.isZoomEnabled = true

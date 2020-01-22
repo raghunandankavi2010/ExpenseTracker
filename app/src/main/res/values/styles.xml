@@ -1,24 +1,23 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <style name="BaseTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
 
-        <item name="android:windowLightStatusBar" tools:targetApi="23">@bool/use_light_status</item>
-        <item name="android:statusBarColor">@color/transparent</item>
-        <item name="android:windowLightNavigationBar" tools:targetApi="27">@bool/use_light_navigation</item>
-        <item name="android:navigationBarColor">@color/nav_bar_scrim</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">@bool/use_light_status</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">@bool/use_light_navigation</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
 
     </style>
 
     <style name="Widget.ExpenseTracker.Toolbar" parent="Widget.MaterialComponents.Toolbar">
         <item name="android:paddingEnd">8dp</item>
         <item name="android:elevation">2dp</item>
-        <item name="android:background">@android:color/transparent</item>
         <item name="titleTextAppearance">@style/TextAppearance.ExpenseTracker.ToolbarTitle</item>
     </style>
 
@@ -28,5 +27,10 @@
         <item name="android:textSize" tools:ignore="SpUsage">20dp</item>
     </style>
 
-    <style name="Widget.AppTheme.AppBar" parent="ThemeOverlay.MaterialComponents.Dark" />
+    <style name="Widget.AppTheme.AppBar" parent="ThemeOverlay.MaterialComponents.Dark">
+    <item name="android:background">?attr/colorSurface</item>
+    <item name="android:elevation">8dp</item>/>
+    </style>
+
+
 </resources>

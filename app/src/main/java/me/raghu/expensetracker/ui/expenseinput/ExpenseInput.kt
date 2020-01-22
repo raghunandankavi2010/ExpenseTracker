@@ -2,8 +2,10 @@ package me.raghu.expensetracker.ui.expenseinput
 
 import android.content.res.Configuration
 import android.os.Bundle
-import android.text.Editable
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.marginLeft
 import androidx.databinding.DataBindingComponent
 import androidx.databinding.DataBindingUtil
@@ -16,10 +18,8 @@ import dagger.android.support.DaggerFragment
 import me.raghu.expensetracker.R
 import me.raghu.expensetracker.databinding.ExpenseInputFragmentBinding
 import me.raghu.expensetracker.ui.databinding.FragmentDataBindingComponent
-import me.raghu.expensetracker.ui.databinding.TextWatcherAdapter
 import me.raghu.expensetracker.utils.addSystemWindowInsetToMargin
 import me.raghu.expensetracker.utils.autoCleared
-import me.raghu.expensetracker.utils.toDateFormat
 import javax.inject.Inject
 
 
@@ -42,17 +42,6 @@ class ExpenseInput : DaggerFragment() {
         viewModelFactory
     }
 
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        menu.clear()
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -69,6 +58,10 @@ class ExpenseInput : DaggerFragment() {
         binding.viewModel = expenseInputViewModel
         binding.addExpenses.setOnClickListener {
             expenseInputViewModel.performValidation()
+        }
+        (requireActivity() as AppCompatActivity).supportActionBar?.apply {
+            setHomeAsUpIndicator(R.drawable.ic_arrow_back_black_24dp)
+            setDisplayHomeAsUpEnabled(true)
         }
 
         val orientation = resources.configuration.orientation

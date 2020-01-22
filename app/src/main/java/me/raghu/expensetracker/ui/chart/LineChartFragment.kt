@@ -9,6 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.updatePaddingRelative
 import androidx.databinding.DataBindingComponent
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
@@ -24,6 +26,8 @@ import me.raghu.expensetracker.R
 import me.raghu.expensetracker.databinding.FragmentLineChartBinding
 import me.raghu.expensetracker.ui.databinding.FragmentDataBindingComponent
 import me.raghu.expensetracker.utils.autoCleared
+import me.raghu.expensetracker.utils.doOnApplyWindowInsets
+import me.raghu.expensetracker.utils.requestApplyInsetsWhenAttached
 import javax.inject.Inject
 
 
@@ -71,6 +75,17 @@ class LineChartFragment : DaggerFragment() {
             setDisplayHomeAsUpEnabled(true)
         }
 
+        ViewCompat.requestApplyInsets(view)
+
+
+        binding.chart.doOnApplyWindowInsets { v, insets, padding ->
+            v.updatePaddingRelative(top = padding.top + insets.systemWindowInsetTop)
+        }
+
+
+        binding.coordinator.postDelayed({
+            binding.coordinator.requestApplyInsetsWhenAttached()
+        }, 500)
         resetViewport()
         binding.chart.isInteractive = true
         binding.chart.isZoomEnabled = true
@@ -135,7 +150,7 @@ class LineChartFragment : DaggerFragment() {
     }
 
     private fun setViewPort(left: Float?, right: Float?, top: Float?, bottom: Float?) {
-        val v = Viewport(0f,0f,0f,0f)
+        val v = Viewport(0f, 0f, 0f, 0f)
 
         v.bottom = 0f
 
@@ -155,7 +170,7 @@ class LineChartFragment : DaggerFragment() {
     }
 
     private fun resetViewport() { // Reset viewport height range to (0,100)
-        val v = Viewport(0f,0f,0f,0f)
+        val v = Viewport(0f, 0f, 0f, 0f)
         v.bottom = 0f
         v.top = 100f
         v.left = 0f

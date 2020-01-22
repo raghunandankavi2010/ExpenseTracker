@@ -6,7 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
 import androidx.core.view.marginLeft
+import androidx.core.view.updatePadding
+import androidx.core.view.updatePaddingRelative
 import androidx.databinding.DataBindingComponent
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
@@ -15,11 +18,14 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.snackbar.Snackbar
 import dagger.android.support.DaggerFragment
+import kotlinx.android.synthetic.main.activity_main.*
 import me.raghu.expensetracker.R
 import me.raghu.expensetracker.databinding.ExpenseInputFragmentBinding
 import me.raghu.expensetracker.ui.databinding.FragmentDataBindingComponent
 import me.raghu.expensetracker.utils.addSystemWindowInsetToMargin
 import me.raghu.expensetracker.utils.autoCleared
+import me.raghu.expensetracker.utils.doOnApplyWindowInsets
+import me.raghu.expensetracker.utils.requestApplyInsetsWhenAttached
 import javax.inject.Inject
 
 
@@ -63,12 +69,21 @@ class ExpenseInput : DaggerFragment() {
             setHomeAsUpIndicator(R.drawable.ic_arrow_back_black_24dp)
             setDisplayHomeAsUpEnabled(true)
         }
+        binding.coordinator?.doOnApplyWindowInsets { v, insets, padding ->
+            v.updatePaddingRelative(top = padding.top + insets.systemWindowInsetTop)
+        }
 
+        if (savedInstanceState == null) {
+
+            binding.coordinator?.postDelayed({
+                binding.coordinator?.requestApplyInsetsWhenAttached()
+            }, 500)
+        }
         val orientation = resources.configuration.orientation
         val margin =  binding.coordinator?.marginLeft
         if (orientation == Configuration.ORIENTATION_LANDSCAPE) { // In landscape
             if (margin != null) {
-                binding.coordinator?.addSystemWindowInsetToMargin(left = true)
+                binding.coordinator?.addSystemWindowInsetToMargin(top = true)
             }
         }
         val model = activity?.let { ViewModelProviders.of(it).get(DateShareViewModel::class.java) }

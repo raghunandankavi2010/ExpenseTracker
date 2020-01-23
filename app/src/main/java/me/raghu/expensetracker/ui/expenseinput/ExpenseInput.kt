@@ -61,15 +61,12 @@ class ExpenseInput : MainNavigationFragment() {
 
         if (savedInstanceState == null) {
 
-            binding.coordinator?.let{
-                binding.coordinator?.postDelayed({
-                    binding.coordinator?.requestApplyInsetsWhenAttached()
-                }, 500)
+            binding.coordinator?.let {
+                binding.coordinator?.requestApplyInsetsWhenAttached()
             }
-
         }
 
-        val model = activity?.let { ViewModelProviders.of(it).get(DateShareViewModel::class.java) }
+        val model = activity?.let { ViewModelProvider(it).get(DateShareViewModel::class.java) }
         binding.dateSharedViewmodel = model
 
         model?.selectedDate?.observe(this, Observer {
@@ -80,7 +77,7 @@ class ExpenseInput : MainNavigationFragment() {
 
         binding.showDatePicker.setOnClickListener {
             val newFragment = DatePickerFragment()
-            fragmentManager?.let { it1 -> newFragment.show(it1, "datePicker") }
+            parentFragmentManager.let { it1 -> newFragment.show(it1, "datePicker") }
         }
 
         expenseInputViewModel.amount.observe(this, Observer {

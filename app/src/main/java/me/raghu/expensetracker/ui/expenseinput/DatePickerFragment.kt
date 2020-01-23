@@ -6,14 +6,14 @@ import android.os.Bundle
 import android.widget.DatePicker
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import java.util.*
 
 class DatePickerFragment : DialogFragment(), DatePickerDialog.OnDateSetListener {
 
     private var model: DateShareViewModel? = null
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        model = activity?.let { ViewModelProviders.of(it).get(DateShareViewModel::class.java) }
+        model = activity?.let { ViewModelProvider(it).get(DateShareViewModel::class.java) }
         val c = Calendar.getInstance()
         val year = c.get(Calendar.YEAR)
         val month = c.get(Calendar.MONTH)

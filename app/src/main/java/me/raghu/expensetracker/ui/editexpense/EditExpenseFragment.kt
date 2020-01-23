@@ -8,11 +8,9 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.marginLeft
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.snackbar.Snackbar
 import me.raghu.expensetracker.R
 import me.raghu.expensetracker.databinding.ExpenseEditBinding
@@ -70,7 +68,7 @@ class EditExpenseFragment : MainNavigationFragment() {
         if (orientation == Configuration.ORIENTATION_LANDSCAPE) { // In landscape
             margin?.let { binding.coordinator?.addSystemWindowInsetToMargin(left = true) }
         }
-        val model = activity?.let { ViewModelProviders.of(it).get(ShareDateModel::class.java) }
+        val model = activity?.let { ViewModelProvider(it).get(ShareDateModel::class.java) }
         binding.dateSharedViewModel = model
 
         model?.selectedDate?.observe(this, Observer {
@@ -81,7 +79,7 @@ class EditExpenseFragment : MainNavigationFragment() {
 
         binding.showDatePicker.setOnClickListener {
             val newFragment = DatePicker()
-            fragmentManager?.let { it1 -> newFragment.show(it1, "datePicker") }
+            parentFragmentManager.let { it1 -> newFragment.show(it1, "datePicker") }
         }
 
         expense?.let {

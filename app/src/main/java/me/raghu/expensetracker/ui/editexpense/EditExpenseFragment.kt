@@ -17,11 +17,12 @@ import com.google.android.material.snackbar.Snackbar
 import me.raghu.expensetracker.R
 import me.raghu.expensetracker.databinding.ExpenseEditBinding
 import me.raghu.expensetracker.db.Expense
+import me.raghu.expensetracker.ui.MainNavigationFragment
 import me.raghu.expensetracker.utils.addSystemWindowInsetToMargin
 import javax.inject.Inject
 
 
-class EditExpenseFragment : Fragment() {
+class EditExpenseFragment : MainNavigationFragment() {
 
     private var expense: Expense? = null
 
@@ -58,6 +59,7 @@ class EditExpenseFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         (requireActivity() as AppCompatActivity).supportActionBar?.apply {
             setHomeAsUpIndicator(R.drawable.ic_arrow_back_black_24dp)
             setDisplayHomeAsUpEnabled(true)

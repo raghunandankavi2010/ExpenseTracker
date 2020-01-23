@@ -24,6 +24,7 @@ import dagger.android.support.AndroidSupportInjection
 import dagger.android.support.DaggerFragment
 import me.raghu.expensetracker.R
 import me.raghu.expensetracker.databinding.FragmentLineChartBinding
+import me.raghu.expensetracker.ui.MainNavigationFragment
 import me.raghu.expensetracker.ui.databinding.FragmentDataBindingComponent
 import me.raghu.expensetracker.utils.autoCleared
 import me.raghu.expensetracker.utils.doOnApplyWindowInsets
@@ -32,7 +33,7 @@ import javax.inject.Inject
 
 
 @Suppress("UNUSED_PARAMETER")
-class LineChartFragment : DaggerFragment() {
+class LineChartFragment : MainNavigationFragment() {
 
 
     private val hasLines = true
@@ -50,11 +51,6 @@ class LineChartFragment : DaggerFragment() {
     }
     var binding by autoCleared<FragmentLineChartBinding>()
     var dataBindingComponent: DataBindingComponent = FragmentDataBindingComponent(this)
-    override fun onAttach(context: Context) {
-        AndroidSupportInjection.inject(this)
-        super.onAttach(context)
-
-    }
 
 
     override fun onCreateView(
@@ -65,6 +61,7 @@ class LineChartFragment : DaggerFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         val dataBinding =
             DataBindingUtil.bind<FragmentLineChartBinding>(view, dataBindingComponent)!!
         binding = dataBinding
@@ -75,7 +72,13 @@ class LineChartFragment : DaggerFragment() {
             setDisplayHomeAsUpEnabled(true)
         }
 
-        ViewCompat.requestApplyInsets(view)
+
+        if (savedInstanceState == null) {
+
+            binding.coordinator.postDelayed({
+                binding.coordinator.requestApplyInsetsWhenAttached()
+            }, 500)
+        }
 
 
         binding.chart.doOnApplyWindowInsets { v, insets, padding ->

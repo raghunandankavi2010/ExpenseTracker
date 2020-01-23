@@ -3,29 +3,29 @@ package me.raghu.expensetracker.ui.expense
 import android.content.Context
 import android.os.Bundle
 import android.view.*
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.core.view.ViewCompat
+import androidx.core.view.updatePadding
 import androidx.core.view.updatePaddingRelative
 import androidx.databinding.DataBindingComponent
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
 import dagger.android.support.AndroidSupportInjection
-import dagger.android.support.DaggerFragment
+import kotlinx.android.synthetic.main.activity_main.*
 import me.raghu.expensetracker.R
 import me.raghu.expensetracker.databinding.ExpenseFragmentBinding
-import me.raghu.expensetracker.ui.NavigationHost
+import me.raghu.expensetracker.ui.MainNavigationFragment
 import me.raghu.expensetracker.ui.databinding.FragmentDataBindingComponent
 import me.raghu.expensetracker.utils.*
 import java.util.concurrent.Executors
 import javax.inject.Inject
 
 
-class ExpenseFragment : DaggerFragment() {
+class ExpenseFragment : MainNavigationFragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -40,8 +40,6 @@ class ExpenseFragment : DaggerFragment() {
 
     }
 
-    protected var navigationHost: NavigationHost? = null
-
     private val expenseViewModel: ExpenseViewModel by viewModels {
         viewModelFactory
     }
@@ -54,32 +52,32 @@ class ExpenseFragment : DaggerFragment() {
     override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
         super.onAttach(context)
-        if (context is NavigationHost) {
-            navigationHost = context
-        }
-    }
 
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val dataBinding = DataBindingUtil.inflate<ExpenseFragmentBinding>(
-            inflater,
-            R.layout.expense_fragment,
-            container,
-            false
-        )
 
         binding = ExpenseFragmentBinding.inflate(inflater, container, false).apply {
             lifecycleOwner = viewLifecycleOwner
             viewModel = this@ExpenseFragment.expenseViewModel
         }
 
-        binding = dataBinding
-
         binding.lifecycleOwner = this
         binding.viewModel = expenseViewModel
+
+        return binding.root
+    }
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.expenseList.doOnApplyWindowInsets { v, insets, padding ->
+            v.updatePaddingRelative(bottom = padding.bottom + insets.systemWindowInsetBottom)
+        }
         val newSingleThreadExecutor = Executors.newSingleThreadExecutor()
         val expenseAdapter = ExpenseAdapter(
             dataBindingComponent = dataBindingComponent, appExecutors = newSingleThreadExecutor
@@ -103,23 +101,17 @@ class ExpenseFragment : DaggerFragment() {
             dividerItemDecoration = context?.let { DividerItemDecoration(it) }
             dividerItemDecoration?.let { binding.expenseList.addItemDecoration(it) }
         }
+
+
         expenseViewModel.expense.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             adapter.submitList(it)
         })
-        return binding.root
-    }
 
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        navigationHost?.registerToolbarWithNavigation()
-        ViewCompat.requestApplyInsets(view)
-
-        binding.add.addSystemWindowInsetToMargin(bottom = true)
-
-        binding.expenseList.doOnApplyWindowInsets { v, insets, padding ->
-            v.updatePaddingRelative(bottom = padding.bottom + insets.systemWindowInsetBottom)
+        (requireActivity() as AppCompatActivity).supportActionBar?.apply {
+            setHomeAsUpIndicator(R.drawable.ic_home)
+            setDisplayHomeAsUpEnabled(true)
         }
+
 
         if (savedInstanceState == null) {
 
@@ -127,6 +119,7 @@ class ExpenseFragment : DaggerFragment() {
                 binding.coordinatorLayout.requestApplyInsetsWhenAttached()
             }, 500)
         }
+
         PreferenceManager.setDefaultValues(activity, R.xml.preferences, false)
         val sharedPreferences =
             PreferenceManager.getDefaultSharedPreferences(activity /* Activity context */)
@@ -155,10 +148,11 @@ class ExpenseFragment : DaggerFragment() {
         inflater.inflate(R.menu.main_menu, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean { // Handle item selection
         return when (item.itemId) {
             R.id.secondActivity -> {
-             findNavController().navigate(R.id.secondActivity)
+                findNavController().navigate(R.id.secondActivity)
                 true
             }
             R.id.lineChartFragment -> {

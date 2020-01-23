@@ -16,7 +16,22 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true">
+        <com.google.android.material.appbar.AppBarLayout
+            android:fitsSystemWindows="true"
+            android:id="@+id/appbar"
+            style="@style/Widget.AppTheme.AppBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                app:title="@string/add_expense"
+                app:navigationIcon="@drawable/ic_arrow_back_black_24dp"
+                />
+
+        </com.google.android.material.appbar.AppBarLayout>
     <androidx.constraintlayout.widget.ConstraintLayout
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:id="@+id/constraintLayout"

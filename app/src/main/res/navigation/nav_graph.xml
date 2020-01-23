@@ -53,7 +53,11 @@
         android:id="@+id/editExpenseFragment"
         android:name="me.raghu.expensetracker.ui.editexpense.EditExpenseFragment"
         android:label="Edit Expenses"
-        tools:layout="@layout/expense_edit" />
+        tools:layout="@layout/expense_edit" >
+        <action
+            android:id="@+id/action_editExpenseFragment_to_expenseFragment"
+            app:destination="@id/expenseFragment" />
+    </fragment>
     <activity
         android:id="@+id/secondActivity"
         android:name="me.raghu.expensetracker.ui.settings.SettingsActivity"
@@ -62,5 +66,10 @@
         android:id="@+id/lineChartFragment"
         android:name="me.raghu.expensetracker.ui.chart.LineChartFragment"
         android:label="Line Chart"
-        tools:layout="@layout/fragment_line_chart" />
+        tools:layout="@layout/fragment_line_chart" >
+
+        <action
+            android:id="@+id/action_lineChartFragment_to_expenseFragment"
+            app:destination="@id/expenseFragment" />
+    </fragment>
 </navigation>

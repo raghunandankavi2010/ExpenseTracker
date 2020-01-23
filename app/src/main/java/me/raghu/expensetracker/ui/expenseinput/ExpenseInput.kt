@@ -1,5 +1,6 @@
 package me.raghu.expensetracker.ui.expenseinput
 
+import android.content.Context
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -17,10 +18,13 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.snackbar.Snackbar
+import dagger.android.support.AndroidSupportInjection
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import me.raghu.expensetracker.R
 import me.raghu.expensetracker.databinding.ExpenseInputFragmentBinding
+import me.raghu.expensetracker.ui.MainNavigationFragment
+import me.raghu.expensetracker.ui.NavigationHost
 import me.raghu.expensetracker.ui.databinding.FragmentDataBindingComponent
 import me.raghu.expensetracker.utils.addSystemWindowInsetToMargin
 import me.raghu.expensetracker.utils.autoCleared
@@ -29,7 +33,7 @@ import me.raghu.expensetracker.utils.requestApplyInsetsWhenAttached
 import javax.inject.Inject
 
 
-class ExpenseInput : DaggerFragment() {
+class ExpenseInput : MainNavigationFragment() {
 
     companion object {
         fun newInstance() =
@@ -48,6 +52,16 @@ class ExpenseInput : DaggerFragment() {
         viewModelFactory
     }
 
+
+/*
+    override fun onAttach(context: Context) {
+        AndroidSupportInjection.inject(this)
+        super.onAttach(context)
+
+    }
+*/
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -58,19 +72,14 @@ class ExpenseInput : DaggerFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         val dataBinding = DataBindingUtil.bind<ExpenseInputFragmentBinding>(view,dataBindingComponent)!!
         binding = dataBinding
+
         binding.lifecycleOwner = this
         binding.viewModel = expenseInputViewModel
         binding.addExpenses.setOnClickListener {
             expenseInputViewModel.performValidation()
-        }
-        (requireActivity() as AppCompatActivity).supportActionBar?.apply {
-            setHomeAsUpIndicator(R.drawable.ic_arrow_back_black_24dp)
-            setDisplayHomeAsUpEnabled(true)
-        }
-        binding.coordinator?.doOnApplyWindowInsets { v, insets, padding ->
-            v.updatePaddingRelative(top = padding.top + insets.systemWindowInsetTop)
         }
 
         if (savedInstanceState == null) {
@@ -79,13 +88,7 @@ class ExpenseInput : DaggerFragment() {
                 binding.coordinator?.requestApplyInsetsWhenAttached()
             }, 500)
         }
-        val orientation = resources.configuration.orientation
-        val margin =  binding.coordinator?.marginLeft
-        if (orientation == Configuration.ORIENTATION_LANDSCAPE) { // In landscape
-            if (margin != null) {
-                binding.coordinator?.addSystemWindowInsetToMargin(top = true)
-            }
-        }
+
         val model = activity?.let { ViewModelProviders.of(it).get(DateShareViewModel::class.java) }
         binding.dateSharedViewmodel = model
 

@@ -1,50 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<me.raghu.expensetracker.ui.NavigationBarContentFrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/root">
-    <com.google.android.material.appbar.AppBarLayout
-        android:fitsSystemWindows="true"
-        android:id="@+id/appBarLayout"
-        style="@style/Widget.AppTheme.AppBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        style="@style/Widget.ExpenseTracker.Toolbar"
-        app:titleTextColor="@color/black"
-        app:title="@string/expense"
-        app:navigationIcon="@drawable/ic_home"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        />
-    </com.google.android.material.appbar.AppBarLayout>
-
+    android:layout_height="match_parent">
 
     <FrameLayout
-            android:fitsSystemWindows="true"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:id="@+id/content_container"
+        android:fitsSystemWindows="true"
+        android:id="@+id/content_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+       >
+        <fragment
+            android:id="@+id/nav_host_fragment"
+            android:name="me.raghu.expensetracker.ui.DispatchInsetsNavHostFragment"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            app:defaultNavHost="true"
+            app:layout_anchor="@+id/content_container"
+            app:navGraph="@navigation/nav_graph" />
+        <View
+            android:id="@+id/status_bar_scrim"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/status_bar_scrim" />
 
 
-                <fragment
-                    android:id="@+id/nav_host_fragment"
-                    android:name="me.raghu.expensetracker.ui.DispatchInsetsNavHostFragment"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:defaultNavHost="true"
-                    app:navGraph="@navigation/nav_graph" />
-            <View
-                android:id="@+id/status_bar_scrim"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:background="@color/status_bar_scrim" />
+    </FrameLayout>
 
-
-        </FrameLayout>
-
-
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</me.raghu.expensetracker.ui.NavigationBarContentFrameLayout>

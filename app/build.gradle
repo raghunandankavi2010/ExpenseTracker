@@ -54,6 +54,7 @@ dependencies {
     implementation "androidx.legacy:legacy-support-v4:$rootProject.legacySupport"
     implementation "androidx.lifecycle:lifecycle-extensions:$rootProject.lifecycleExtension"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$rootProject.viewModelKtx"
+    implementation "androidx.lifecycle:lifecycle-common-java8:$rootProject.lifecycleExtension"
     //dagger2
     implementation "com.google.dagger:dagger:$rootProject.dagger"
     api "com.google.dagger:dagger-android:$rootProject.dagger"

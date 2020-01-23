@@ -1,16 +1,9 @@
 package me.raghu.expensetracker.ui.expenseinput
 
-import android.content.Context
-import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.marginLeft
-import androidx.core.view.updatePadding
-import androidx.core.view.updatePaddingRelative
 import androidx.databinding.DataBindingComponent
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
@@ -18,17 +11,11 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.snackbar.Snackbar
-import dagger.android.support.AndroidSupportInjection
-import dagger.android.support.DaggerFragment
-import kotlinx.android.synthetic.main.activity_main.*
 import me.raghu.expensetracker.R
 import me.raghu.expensetracker.databinding.ExpenseInputFragmentBinding
 import me.raghu.expensetracker.ui.MainNavigationFragment
-import me.raghu.expensetracker.ui.NavigationHost
 import me.raghu.expensetracker.ui.databinding.FragmentDataBindingComponent
-import me.raghu.expensetracker.utils.addSystemWindowInsetToMargin
 import me.raghu.expensetracker.utils.autoCleared
-import me.raghu.expensetracker.utils.doOnApplyWindowInsets
 import me.raghu.expensetracker.utils.requestApplyInsetsWhenAttached
 import javax.inject.Inject
 
@@ -52,16 +39,6 @@ class ExpenseInput : MainNavigationFragment() {
         viewModelFactory
     }
 
-
-/*
-    override fun onAttach(context: Context) {
-        AndroidSupportInjection.inject(this)
-        super.onAttach(context)
-
-    }
-*/
-
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -84,9 +61,12 @@ class ExpenseInput : MainNavigationFragment() {
 
         if (savedInstanceState == null) {
 
-            binding.coordinator?.postDelayed({
-                binding.coordinator?.requestApplyInsetsWhenAttached()
-            }, 500)
+            binding.coordinator?.let{
+                binding.coordinator?.postDelayed({
+                    binding.coordinator?.requestApplyInsetsWhenAttached()
+                }, 500)
+            }
+
         }
 
         val model = activity?.let { ViewModelProviders.of(it).get(DateShareViewModel::class.java) }

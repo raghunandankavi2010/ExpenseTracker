@@ -31,7 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/spacing_medium"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="@dimen/spacing_small"
             android:fontFamily="@font/roboto_medium"
             android:text="@string/expense_exceed"
             android:textStyle="bold"
@@ -48,6 +48,11 @@
             text="@{expenseViewModel.totalExpenseCurrentMonth - expenseViewModel.expenseExceeded}"
             android:visibility="@{expenseViewModel.expenseExceeded==0 ? View.GONE: (expenseViewModel.totalExpenseCurrentMonth > expenseViewModel.expenseExceeded ? View.VISIBLE : View.GONE)}" />
 
+        <View
+            android:id="@+id/indicator1"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/expense_green_300"/>
         <TextView
             android:id="@+id/m_income"
             style="?attr/textAppearanceSubtitle2"
@@ -70,6 +75,11 @@
             android:fontFamily="@font/roboto_medium"
             android:gravity="center"
             tools:text="0 Rs" />
+        <View
+            android:id="@+id/indicator2"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/expense_green_300"/>
 
         <TextView
             android:id="@+id/total_amt_spent"
@@ -95,12 +105,11 @@
             android:gravity="center"
             tools:text="0 Rs" />
 
-
-        <io.material.rally_line_indicator.RallyLineIndicator
+        <View
             android:id="@+id/account_line_indicator"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            tools:background="@color/expense_green_300"/>
+            android:layout_height="2dp"
+            android:background="@color/expense_green_300"/>
 
     </LinearLayout>
 

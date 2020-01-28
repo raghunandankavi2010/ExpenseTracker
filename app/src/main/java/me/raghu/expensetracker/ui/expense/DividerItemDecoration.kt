@@ -3,8 +3,10 @@ package me.raghu.expensetracker.ui.expense
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.drawable.Drawable
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ItemDecoration
+import me.raghu.expensetracker.R
 
 
 class DividerItemDecoration(context: Context) : ItemDecoration() {
@@ -13,7 +15,7 @@ class DividerItemDecoration(context: Context) : ItemDecoration() {
 
     init {
         val a = context.obtainStyledAttributes(ATTRS)
-        mDivider = a.getDrawable(0)
+        mDivider = ContextCompat.getDrawable(context, R.drawable.line_divider);
         a.recycle()
     }
 

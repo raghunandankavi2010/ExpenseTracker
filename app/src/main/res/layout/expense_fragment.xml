@@ -2,7 +2,9 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:bind="http://schemas.android.com/tools">
+
     <data>
+
         <import type="android.view.View" />
 
         <variable
@@ -16,21 +18,28 @@
         android:layout_height="match_parent"
         android:fitsSystemWindows="true">
 
-        <include android:id="@+id/appbar" layout="@layout/appbar_toolbar"/>
+        <include
+            android:id="@+id/appbar"
+            layout="@layout/appbar_toolbar" />
+
         <View
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:background="?attr/colorSurface"
             android:fitsSystemWindows="true"
             app:layout_behavior=".utils.StatusBarScrimBehavior" />
-        <androidx.core.widget.NestedScrollView
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            android:id="@+id/newstedScrollView"
-            android:paddingBottom="@dimen/rv_bottom"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
 
-            <include android:id="@+id/main" layout="@layout/content_main" bind:expenseViewModel="@{viewModel}"/>
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nestedScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="@dimen/rv_bottom"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <include
+                android:id="@+id/main"
+                layout="@layout/content_main"
+                bind:expenseViewModel="@{viewModel}" />
 
         </androidx.core.widget.NestedScrollView>
 

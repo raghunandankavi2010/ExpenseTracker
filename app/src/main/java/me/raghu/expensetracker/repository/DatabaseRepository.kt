@@ -13,6 +13,7 @@ import javax.inject.Singleton
 @Singleton
 class DatabaseRepository @Inject constructor(private val expenseDao: ExpenseDao) {
 
+    // using suspend is enough no need for thread
     suspend fun insert(expense: Expense): Long {
         var long: Long = 0
         try {

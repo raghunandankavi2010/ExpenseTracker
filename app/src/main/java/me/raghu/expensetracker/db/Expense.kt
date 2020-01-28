@@ -16,7 +16,7 @@ data class Expense(
     var id: Int = 0,
     @ColumnInfo(name = "expense_type",defaultValue = "")
     val expenseType: String?,
-    @ColumnInfo(name = "expense_amount",defaultValue = "")
+    @ColumnInfo(name = "expense_amount",defaultValue = "0")
     val expenseAmt: String?,
     @ColumnInfo(name = "remarks",defaultValue = "")
     val remarks: String?,

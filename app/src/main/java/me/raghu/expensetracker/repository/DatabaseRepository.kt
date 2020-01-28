@@ -25,19 +25,17 @@ class DatabaseRepository @Inject constructor(private val expenseDao: ExpenseDao)
         return long
     }
 
-    fun getExpensesForLineChart(startDate: Date, endDate: Date): LiveData<List<Expense>> {
+    suspend fun getExpensesForLineChart(startDate: Date, endDate: Date): LiveData<List<Expense>> {
         return expenseDao.expenseInRange(startDate, endDate)
     }
 
-    fun getExpensesForCurrentMonth(startDate: Date, endDate: Date): LiveData<Float> {
+    suspend fun getExpensesForCurrentMonth(startDate: Date, endDate: Date): LiveData<Float> {
         return expenseDao.expenseForCurrentMonth(startDate, endDate)
 
     }
 
     suspend fun deleteExpense(id: Int) {
-        withContext(Dispatchers.IO) {
             expenseDao.deleteExpense(id)
-        }
     }
 
 

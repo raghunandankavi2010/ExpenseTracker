@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools">
     <data>
         <import type="android.view.View" />
 
@@ -15,53 +16,30 @@
         android:layout_height="match_parent"
         android:fitsSystemWindows="true">
 
-        <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/appbar"
-            style="@style/Widget.AppTheme.AppBar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fitsSystemWindows="true">
-
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                app:title="Expense"
-                android:layout_height="?actionBarSize"
-                app:layout_scrollFlags="scroll|snap|enterAlways"
-                app:navigationIcon="@drawable/ic_home"
-                />
-        </com.google.android.material.appbar.AppBarLayout>
+        <include android:id="@+id/appbar" layout="@layout/appbar_toolbar"/>
         <View
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:background="?attr/colorSurface"
             android:fitsSystemWindows="true"
             app:layout_behavior=".utils.StatusBarScrimBehavior" />
-
-        <FrameLayout
+        <androidx.core.widget.NestedScrollView
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:id="@+id/newstedScrollView"
+            android:paddingBottom="@dimen/rv_bottom"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/expenseList"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:clipToPadding="false"
-                android:orientation="vertical"
-                android:paddingBottom="@dimen/rv_bottom"
-                android:scrollbars="vertical"
-                app:layoutManager="LinearLayoutManager" />
+            <include android:id="@+id/main" layout="@layout/content_main" bind:expenseViewModel="@{viewModel}"/>
 
-
-        </FrameLayout>
+        </androidx.core.widget.NestedScrollView>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/add"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
-            android:layout_margin="@dimen/standard_16dp"
+            android:layout_margin="@dimen/fab_margin"
             app:hoveredFocusedTranslationZ="0dp"
             app:pressedTranslationZ="0dp"
             app:srcCompat="@drawable/ic_add" />
@@ -70,86 +48,3 @@
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </layout>
-<!--<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-
-    <data>
-
-        <import type="android.view.View" />
-
-        <variable
-            name="viewModel"
-            type="me.raghu.expensetracker.ui.expense.ExpenseViewModel" />
-    </data>
-
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:id="@+id/coordinator_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fitsSystemWindows="true">
-
-        <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/appbar"
-            style="@style/Widget.AppTheme.AppBar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fitsSystemWindows="true">
-
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                app:title="@string/expense"
-                android:layout_height="?actionBarSize"
-                app:layout_scrollFlags="scroll|snap|enterAlways"
-                app:navigationIcon="@drawable/ic_home"
-                />
-
-        </com.google.android.material.appbar.AppBarLayout>
-        &lt;!&ndash; A view to draw above the AppBarLayout to mimic the status bar &ndash;&gt;
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:background="?attr/colorSurface"
-            android:fitsSystemWindows="true"
-            app:layout_behavior=".utils.StatusBarScrimBehavior" />
-
-
-     <FrameLayout
-            android:id="@+id/rl"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
-
-            <androidx.recyclerview.widget.RecyclerView
-                app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                android:id="@+id/expenseList"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:clipToPadding="false"
-                android:orientation="vertical"
-                android:paddingBottom="@dimen/rv_bottom"
-                app:layoutManager="LinearLayoutManager" />
-
-
-      </FrameLayout>
-
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/add"
-            style="@style/Widget.MaterialComponents.FloatingActionButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_margin="@dimen/fab_margin"
-            android:src="@drawable/ic_add"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/root"
-            app:srcCompat="@color/colorAccent" />
-
-
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-</layout>-->
-

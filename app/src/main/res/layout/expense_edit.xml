@@ -25,6 +25,7 @@
             android:fitsSystemWindows="true">
 
             <androidx.appcompat.widget.Toolbar
+                style="@style/Widget.ExpenseTracker.Toolbar"
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 app:title="@string/edit_expense"

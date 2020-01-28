@@ -35,14 +35,14 @@ inline fun <reified T> parcelableClassLoaderCreator(
 
 // Parcel extensions
 
-inline fun Parcel.readBoolean() = readInt() != 0
+ fun Parcel.readBooleanValue() = readInt() != 0
 
-inline fun Parcel.writeBoolean(value: Boolean) = writeInt(if (value) 1 else 0)
+ fun Parcel.writeBooleanValue(value: Boolean) = writeInt(if (value) 1 else 0)
 
 inline fun <reified T : Enum<T>> Parcel.readEnum() =
         readString()?.let { enumValueOf<T>(it) }
 
-inline fun <T : Enum<T>> Parcel.writeEnum(value: T?) =
+ fun <T : Enum<T>> Parcel.writeEnum(value: T?) =
         writeString(value?.name)
 
 inline fun <T> Parcel.readNullable(reader: () -> T) =

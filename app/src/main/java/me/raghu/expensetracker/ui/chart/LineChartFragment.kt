@@ -1,7 +1,6 @@
 package me.raghu.expensetracker.ui.chart
 
 
-import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
-import androidx.core.view.ViewCompat
 import androidx.core.view.updatePaddingRelative
 import androidx.databinding.DataBindingComponent
 import androidx.databinding.DataBindingUtil
@@ -20,8 +18,6 @@ import co.csadev.kellocharts.formatter.SimpleAxisValueFormatter
 import co.csadev.kellocharts.gesture.ContainerScrollType
 import co.csadev.kellocharts.gesture.ZoomType.HORIZONTAL_AND_VERTICAL
 import co.csadev.kellocharts.model.*
-import dagger.android.support.AndroidSupportInjection
-import dagger.android.support.DaggerFragment
 import me.raghu.expensetracker.R
 import me.raghu.expensetracker.databinding.FragmentLineChartBinding
 import me.raghu.expensetracker.ui.MainNavigationFragment
@@ -72,6 +68,9 @@ class LineChartFragment : MainNavigationFragment() {
             setDisplayHomeAsUpEnabled(true)
         }
 
+        binding.chart.doOnApplyWindowInsets { v, insets, padding ->
+            v.updatePaddingRelative(bottom = padding.bottom + insets.systemWindowInsetBottom)
+        }
 
         if (savedInstanceState == null) {
 
@@ -81,14 +80,6 @@ class LineChartFragment : MainNavigationFragment() {
         }
 
 
-        binding.chart.doOnApplyWindowInsets { v, insets, padding ->
-            v.updatePaddingRelative(top = padding.top + insets.systemWindowInsetTop)
-        }
-
-
-        binding.coordinator.postDelayed({
-            binding.coordinator.requestApplyInsetsWhenAttached()
-        }, 500)
         resetViewport()
         binding.chart.isInteractive = true
         binding.chart.isZoomEnabled = true

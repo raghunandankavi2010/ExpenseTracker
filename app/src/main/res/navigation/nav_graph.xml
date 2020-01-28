@@ -39,6 +39,7 @@
             app:popExitAnim="@anim/slide_out_right"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"/>
+
     </fragment>
     <fragment
         android:id="@+id/expenseInput"
@@ -58,10 +59,7 @@
             android:id="@+id/action_editExpenseFragment_to_expenseFragment"
             app:destination="@id/expenseFragment" />
     </fragment>
-    <activity
-        android:id="@+id/secondActivity"
-        android:name="me.raghu.expensetracker.ui.settings.SettingsActivity"
-        tools:layout="@layout/settings_activity"/>
+
     <fragment
         android:id="@+id/lineChartFragment"
         android:name="me.raghu.expensetracker.ui.chart.LineChartFragment"
@@ -72,4 +70,10 @@
             android:id="@+id/action_lineChartFragment_to_expenseFragment"
             app:destination="@id/expenseFragment" />
     </fragment>
+    <activity
+        android:id="@+id/secondActivity"
+        android:name="me.raghu.expensetracker.ui.settings.SettingsActivity"
+        tools:layout="@layout/settings_activity"/>
+
+
 </navigation>

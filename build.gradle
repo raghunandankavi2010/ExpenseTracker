@@ -41,7 +41,7 @@ ext {
     coreKtx = '1.1.0'
     constraintLayout = '1.1.3'
     roomVersion = '2.2.3'
-    materialUi = '1.1.0-alpha07'
+    materialUi = '1.2.0-alpha04'
     livedataKtx = '2.2.0'
     paging_version = '2.1.1'
     legacySupport = '1.0.0'

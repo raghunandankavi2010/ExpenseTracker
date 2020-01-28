@@ -14,7 +14,7 @@ data class RallyLineIndicatorPortion(
 
 fun List<RallyLineIndicatorPortion>.toPoints(maxValue: Float): List<RallyLineIndicatorRenderData> {
   val renderDataList = mutableListOf<RallyLineIndicatorRenderData>()
-  forEachIndexed { index, it ->
+  forEachIndexed { _, it ->
     val percent = it.value / maxValue
     renderDataList.add(RallyLineIndicatorRenderData(it.name, percent, it.colorInt))
   }

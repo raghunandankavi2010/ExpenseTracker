@@ -5,8 +5,6 @@ import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
-import androidx.core.view.ViewCompat
-import androidx.core.view.updatePadding
 import androidx.core.view.updatePaddingRelative
 import androidx.databinding.DataBindingComponent
 import androidx.fragment.app.viewModels
@@ -14,13 +12,15 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
+import com.google.android.material.appbar.AppBarLayout
 import dagger.android.support.AndroidSupportInjection
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.appbar_toolbar.*
 import me.raghu.expensetracker.R
 import me.raghu.expensetracker.databinding.ExpenseFragmentBinding
 import me.raghu.expensetracker.ui.MainNavigationFragment
 import me.raghu.expensetracker.ui.databinding.FragmentDataBindingComponent
 import me.raghu.expensetracker.utils.*
+import java.util.*
 import java.util.concurrent.Executors
 import javax.inject.Inject
 
@@ -75,7 +75,7 @@ class ExpenseFragment : MainNavigationFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.expenseList.doOnApplyWindowInsets { v, insets, padding ->
+        binding.main.expenseList.doOnApplyWindowInsets { v, insets, padding ->
             v.updatePaddingRelative(bottom = padding.bottom + insets.systemWindowInsetBottom)
         }
         val newSingleThreadExecutor = Executors.newSingleThreadExecutor()
@@ -96,10 +96,10 @@ class ExpenseFragment : MainNavigationFragment() {
         }
 
         this.adapter = expenseAdapter
-        binding.expenseList.adapter = adapter
-        if (binding.expenseList.itemDecorationCount == 0) {
+        binding.main.expenseList.adapter = adapter
+        if (binding.main.expenseList.itemDecorationCount == 0) {
             dividerItemDecoration = context?.let { DividerItemDecoration(it) }
-            dividerItemDecoration?.let { binding.expenseList.addItemDecoration(it) }
+            dividerItemDecoration?.let { binding.main.expenseList.addItemDecoration(it) }
         }
 
 
@@ -127,11 +127,11 @@ class ExpenseFragment : MainNavigationFragment() {
             SharedPreferenceStringLiveData(sharedPreferences, "income_monthly", "")
         sharedPreferenceStringLiveData.getStringLiveData("income_monthly", "").observe(this,
             androidx.lifecycle.Observer { incomeValue: String ->
-                /* binding.monthlyIncome.text =
+                 binding.main.layoutAccountExpenditureDetails.monthlyIncome.text =
                       activity?.resources?.getString(
                           R.string.m_income, incomeValue,
                           Currency.getInstance(Locale.getDefault()).getSymbol(Locale.getDefault())
-                      )*/
+                      )
                 expenseViewModel.expenseExceeded.value = incomeValue.toFloat()
             }
         )
@@ -152,7 +152,7 @@ class ExpenseFragment : MainNavigationFragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean { // Handle item selection
         return when (item.itemId) {
             R.id.secondActivity -> {
-                findNavController().navigate(R.id.secondActivity)
+               findNavController().navigate(R.id.secondActivity)
                 true
             }
             R.id.lineChartFragment -> {
@@ -161,5 +161,21 @@ class ExpenseFragment : MainNavigationFragment() {
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+
+    fun setScrollEnabled(enabled: Boolean) {
+        val params =
+            toolbar.layoutParams as AppBarLayout.LayoutParams
+        params.scrollFlags =
+            if (enabled) AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL or AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS else 0
+        toolbar.layoutParams = params
+    }
+
+    fun disableScroll() {
+        val params =
+            toolbar.layoutParams as AppBarLayout.LayoutParams
+        params.scrollFlags = 0
+        toolbar.setLayoutParams(params)
     }
 }

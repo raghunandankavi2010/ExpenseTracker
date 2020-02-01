@@ -1,19 +1,17 @@
 
 package me.raghu.expensetracker.ui.expense
 
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import androidx.databinding.DataBindingComponent
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
-import android.view.LayoutInflater
-import android.view.ViewGroup
 import me.raghu.expensetracker.R
 import me.raghu.expensetracker.databinding.ExpenseItemBinding
 import me.raghu.expensetracker.db.Expense
 import me.raghu.expensetracker.ui.common.DataBoundListAdapter
 import me.raghu.expensetracker.utils.ExpenseEvent
-import me.raghu.expensetracker.utils.dateToString
 import java.util.concurrent.Executor
-import java.util.concurrent.Executors
 
 /**
  * A RecyclerView adapter for [Repo] class.

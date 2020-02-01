@@ -29,10 +29,8 @@ class ExpenseInput : MainNavigationFragment() {
     var binding by autoCleared<ExpenseInputFragmentBinding>()
     var dataBindingComponent: DataBindingComponent = FragmentDataBindingComponent(this)
 
-
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
-
 
     private val expenseInputViewModel: ExpenseInputViewModel by viewModels {
         viewModelFactory
@@ -43,13 +41,12 @@ class ExpenseInput : MainNavigationFragment() {
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.expense_input_fragment, container, false)
-
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val dataBinding = DataBindingUtil.bind<ExpenseInputFragmentBinding>(view,dataBindingComponent)!!
+        val dataBinding =
+            DataBindingUtil.bind<ExpenseInputFragmentBinding>(view, dataBindingComponent)!!
         binding = dataBinding
 
         binding.lifecycleOwner = this
@@ -92,9 +89,9 @@ class ExpenseInput : MainNavigationFragment() {
         })
 
         expenseInputViewModel.insertedSuccessFully.observe(this, Observer {
-            if(it){
+            if (it) {
                 val snackbar = Snackbar
-                        .make(binding.type, getString(R.string.expense_saved), Snackbar.LENGTH_LONG)
+                    .make(binding.type, getString(R.string.expense_saved), Snackbar.LENGTH_LONG)
 
                 snackbar.show()
                 expenseInputViewModel.insertedSuccessFully.value = false

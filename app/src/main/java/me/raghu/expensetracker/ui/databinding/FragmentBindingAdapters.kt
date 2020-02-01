@@ -5,7 +5,6 @@ package me.raghu.expensetracker.ui.databinding
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LiveData
 import me.raghu.expensetracker.R
 import me.raghu.expensetracker.utils.dateToString
 import java.util.*

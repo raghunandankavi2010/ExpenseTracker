@@ -31,7 +31,6 @@ import javax.inject.Inject
 @Suppress("UNUSED_PARAMETER")
 class LineChartFragment : MainNavigationFragment() {
 
-
     private val hasLines = true
     private val hasPoints = true
     private val shape = ValueShape.CIRCLE
@@ -78,8 +77,6 @@ class LineChartFragment : MainNavigationFragment() {
                 binding.coordinator.requestApplyInsetsWhenAttached()
             }, 500)
         }
-
-
         resetViewport()
         binding.chart.isInteractive = true
         binding.chart.isZoomEnabled = true
@@ -145,20 +142,14 @@ class LineChartFragment : MainNavigationFragment() {
 
     private fun setViewPort(left: Float?, right: Float?, top: Float?, bottom: Float?) {
         val v = Viewport(0f, 0f, 0f, 0f)
-
         v.bottom = 0f
-
         if (top != null) {
             v.top = top
         }
-
-
         v.left = 1f
-
         if (right != null) {
             v.right = right
         }
-
         binding.chart.maximumViewport = v
         binding.chart.currentViewport = v
     }

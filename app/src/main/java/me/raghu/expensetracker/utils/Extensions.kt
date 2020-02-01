@@ -10,44 +10,44 @@ import java.util.*
 
 
 fun getLastDateOfMonth(): Date {
-        val cal: Calendar = Calendar.getInstance()
-        val lastDate: Int = cal.getActualMaximum(Calendar.DATE)
-        cal.set(Calendar.DAY_OF_MONTH, lastDate)
-        cal.set(Calendar.HOUR_OF_DAY,0)
-        Timber.i(cal.time.dateToString(),lastDate)
-        return cal.time
-    }
+    val cal: Calendar = Calendar.getInstance()
+    val lastDate: Int = cal.getActualMaximum(Calendar.DATE)
+    cal.set(Calendar.DAY_OF_MONTH, lastDate)
+    cal.set(Calendar.HOUR_OF_DAY, 0)
+    Timber.i(cal.time.dateToString(), lastDate)
+    return cal.time
+}
 
-    fun getFirstDateOfMonth(): Date {
-        val cal = Calendar.getInstance()
-        cal.set(Calendar.HOUR_OF_DAY,0)
-        cal[Calendar.DAY_OF_MONTH] = cal.getActualMinimum(Calendar.DAY_OF_MONTH)
-        Timber.i(cal.time.dateToString())
-        return cal.time
-    }
+fun getFirstDateOfMonth(): Date {
+    val cal = Calendar.getInstance()
+    cal.set(Calendar.HOUR_OF_DAY, 0)
+    cal[Calendar.DAY_OF_MONTH] = cal.getActualMinimum(Calendar.DAY_OF_MONTH)
+    Timber.i(cal.time.dateToString())
+    return cal.time
+}
 
-    fun Date.dateToString(): String {
-        val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-        return dateFormat.format(this)
-    }
+fun Date.dateToString(): String {
+    val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+    return dateFormat.format(this)
+}
 
-    fun Date.getDayofMonth(): String {
+fun Date.getDayofMonth(): String {
     val dateFormat = SimpleDateFormat("dd", Locale.getDefault())
     return dateFormat.format(this)
-    }
+}
 
-   fun Float.toDefaultFormat(): String {
+fun Float.toDefaultFormat(): String {
     return NumberFormat.getCurrencyInstance(Locale.getDefault()).format(this)
-   }
+}
 
-   fun String.toDateFormat(): Date? {
-       return SimpleDateFormat("dd/MM/yyyy",Locale.getDefault()).parse(this)
-   }
+fun String.toDateFormat(): Date? {
+    return SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).parse(this)
+}
 
-   fun Date.getDayOfMonth(): Float {
-       val c = Calendar.getInstance()
-       c.time = this
-       val dayOfWeek = c[Calendar.DAY_OF_MONTH]
+fun Date.getDayOfMonth(): Float {
+    val c = Calendar.getInstance()
+    c.time = this
+    val dayOfWeek = c[Calendar.DAY_OF_MONTH]
     return dayOfWeek.toFloat()
 }
 
@@ -109,5 +109,7 @@ data class ViewPaddingState(
     val end: Int
 )
 
-private fun createStateForView(view: View) = ViewPaddingState(view.paddingLeft,
-    view.paddingTop, view.paddingRight, view.paddingBottom, view.paddingStart, view.paddingEnd)
+private fun createStateForView(view: View) = ViewPaddingState(
+    view.paddingLeft,
+    view.paddingTop, view.paddingRight, view.paddingBottom, view.paddingStart, view.paddingEnd
+)

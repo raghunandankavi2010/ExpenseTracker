@@ -15,7 +15,7 @@ class DividerItemDecoration(context: Context) : ItemDecoration() {
 
     init {
         val a = context.obtainStyledAttributes(ATTRS)
-        mDivider = ContextCompat.getDrawable(context, R.drawable.line_divider);
+        mDivider = ContextCompat.getDrawable(context, R.drawable.line_divider)
         a.recycle()
     }
 
@@ -24,7 +24,6 @@ class DividerItemDecoration(context: Context) : ItemDecoration() {
            android.R.attr.listDivider
         )
     }
-
 
     override fun onDraw(
         c: Canvas,

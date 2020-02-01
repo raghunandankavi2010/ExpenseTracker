@@ -71,7 +71,6 @@ class ExpenseFragment : MainNavigationFragment() {
         return binding.root
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -127,11 +126,11 @@ class ExpenseFragment : MainNavigationFragment() {
             SharedPreferenceStringLiveData(sharedPreferences, "income_monthly", "")
         sharedPreferenceStringLiveData.getStringLiveData("income_monthly", "").observe(this,
             androidx.lifecycle.Observer { incomeValue: String ->
-                 binding.main.layoutAccountExpenditureDetails.monthlyIncome.text =
-                      activity?.resources?.getString(
-                          R.string.m_income, incomeValue,
-                          Currency.getInstance(Locale.getDefault()).getSymbol(Locale.getDefault())
-                      )
+                binding.main.layoutAccountExpenditureDetails.monthlyIncome.text =
+                    activity?.resources?.getString(
+                        R.string.m_income, incomeValue,
+                        Currency.getInstance(Locale.getDefault()).getSymbol(Locale.getDefault())
+                    )
                 expenseViewModel.expenseExceeded.value = incomeValue.toFloat()
             }
         )
@@ -152,7 +151,7 @@ class ExpenseFragment : MainNavigationFragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean { // Handle item selection
         return when (item.itemId) {
             R.id.secondActivity -> {
-               findNavController().navigate(R.id.secondActivity)
+                findNavController().navigate(R.id.secondActivity)
                 true
             }
             R.id.lineChartFragment -> {
@@ -176,6 +175,6 @@ class ExpenseFragment : MainNavigationFragment() {
         val params =
             toolbar.layoutParams as AppBarLayout.LayoutParams
         params.scrollFlags = 0
-        toolbar.setLayoutParams(params)
+        toolbar.layoutParams = params
     }
 }

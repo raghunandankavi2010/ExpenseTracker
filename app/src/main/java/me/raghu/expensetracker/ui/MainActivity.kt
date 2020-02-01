@@ -24,12 +24,12 @@ import javax.inject.Inject
 class MainActivity : AppCompatActivity(), HasAndroidInjector, NavigationHost {
 
     @Inject
-    lateinit var androidInjector: DispatchingAndroidInjector<Any?>
+    private lateinit var androidInjector: DispatchingAndroidInjector<Any?>
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var content: FrameLayout
     private lateinit var navController: NavController
-
     private lateinit var statusScrim: View
+
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
@@ -49,7 +49,6 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector, NavigationHost {
             )
         }
 
-
         content = findViewById(R.id.content_container)
         content.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
                 View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
@@ -60,11 +59,7 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector, NavigationHost {
         statusScrim = findViewById(R.id.status_bar_scrim)
         statusScrim.setOnApplyWindowInsetsListener(HeightTopWindowInsetsListener)
 
-
         navController = findNavController(R.id.nav_host_fragment)
-
-
-
     }
 
     override fun androidInjector(): DispatchingAndroidInjector<Any?> {
@@ -82,6 +77,5 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector, NavigationHost {
         toolbar.setupWithNavController(navController, appBarConfiguration)
 
     }
-
 }
 

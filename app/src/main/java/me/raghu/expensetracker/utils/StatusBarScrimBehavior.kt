@@ -19,7 +19,7 @@ class StatusBarScrimBehavior(
         child: View,
         layoutDirection: Int
     ): Boolean {
-       child.setOnApplyWindowInsetsListener(NoopWindowInsetsListener)
+        child.setOnApplyWindowInsetsListener(NoopWindowInsetsListener)
         // Return false so that the child is laid out by the parent
         return false
     }

@@ -21,6 +21,5 @@ class ExpenseTrackerViewModelFactory @Inject constructor(
         } catch (e: Exception) {
             throw RuntimeException(e)
         }
-
     }
 }

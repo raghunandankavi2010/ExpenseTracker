@@ -25,9 +25,9 @@ class DatePickerFragment : DialogFragment(), DatePickerDialog.OnDateSetListener 
 
     override fun onDateSet(view: DatePicker, year: Int, month: Int, day: Int) {
         val c = Calendar.getInstance()
-        c.set(Calendar.YEAR,year)
-        c.set(Calendar.MONTH,month)
-        c.set(Calendar.DAY_OF_MONTH,day)
+        c.set(Calendar.YEAR, year)
+        c.set(Calendar.MONTH, month)
+        c.set(Calendar.DAY_OF_MONTH, day)
         model?.selectedDate?.value = c.time
     }
 }

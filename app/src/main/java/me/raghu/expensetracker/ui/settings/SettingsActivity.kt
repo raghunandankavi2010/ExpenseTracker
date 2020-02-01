@@ -9,7 +9,6 @@ import com.takisoft.preferencex.PreferenceFragmentCompat
 import kotlinx.android.synthetic.main.appbar_toolbar.*
 import me.raghu.expensetracker.R
 
-
 @Suppress("UNUSED_VARIABLE")
 class SettingsActivity : AppCompatActivity() {
 
@@ -27,7 +26,6 @@ class SettingsActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
     }
-
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
@@ -47,9 +45,8 @@ class SettingsActivity : AppCompatActivity() {
         }
 
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-           // setPreferencesFromResource(R.xml.preferences, rootKey)
+            // setPreferencesFromResource(R.xml.preferences, rootKey)
 
         }
-
     }
 }

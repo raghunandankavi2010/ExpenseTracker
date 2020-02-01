@@ -24,7 +24,7 @@ import javax.inject.Inject
 class MainActivity : AppCompatActivity(), HasAndroidInjector, NavigationHost {
 
     @Inject
-    private lateinit var androidInjector: DispatchingAndroidInjector<Any?>
+    lateinit var androidInjector: DispatchingAndroidInjector<Any?>
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var content: FrameLayout
     private lateinit var navController: NavController

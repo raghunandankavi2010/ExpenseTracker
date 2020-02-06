@@ -99,7 +99,7 @@ class LineChartFragment : MainNavigationFragment() {
                     line.hasLabelsOnlyForSelected = hasLabelForSelected
                     line.hasLines = hasLines
                     line.hasPoints = hasPoints
-                    val lines: MutableList<Line> = ArrayList<Line>()
+                    val lines: MutableList<Line> = mutableListOf()
                     lines.add(line)
 
                     val data = LineChartData()

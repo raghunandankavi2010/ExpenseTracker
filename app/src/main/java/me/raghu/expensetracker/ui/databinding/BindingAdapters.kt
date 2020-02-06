@@ -21,7 +21,6 @@ import java.util.*
 
 object BindingAdapters {
 
-    @Suppress("UNCHECKED_CAST")
     @BindingAdapter("binding")
     @JvmStatic
     fun bindEditText(
@@ -30,6 +29,7 @@ object BindingAdapters {
     ) {
         var pair: Pair<MutableLiveData<String>, TextWatcherAdapter>? = null
         if (view.getTag(R.id.binded) != null) {
+            @Suppress("UNCHECKED_CAST")
             pair = view.getTag(R.id.binded) as Pair<MutableLiveData<String>, TextWatcherAdapter>
         }
 

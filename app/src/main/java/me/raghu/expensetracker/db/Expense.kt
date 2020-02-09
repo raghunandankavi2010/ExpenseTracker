@@ -10,6 +10,10 @@ import me.raghu.expensetracker.utils.readDate
 import me.raghu.expensetracker.utils.writeDate
 import java.util.*
 
+/**
+ *  Model class that has columns for db.
+ */
+
 @Entity(tableName = "expense")
 data class Expense(
     @PrimaryKey(autoGenerate = true)

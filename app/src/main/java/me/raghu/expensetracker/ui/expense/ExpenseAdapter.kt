@@ -14,7 +14,7 @@ import me.raghu.expensetracker.utils.ExpenseEvent
 import java.util.concurrent.Executor
 
 /**
- * A RecyclerView adapter for [Repo] class.
+ * A RecyclerView adapter for [ExpenseFragment] class.
  */
 class ExpenseAdapter(
     private val dataBindingComponent: DataBindingComponent,

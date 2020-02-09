@@ -4,6 +4,9 @@ import android.content.SharedPreferences
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
 import androidx.lifecycle.LiveData
 
+/**
+ *  A live data to watch for share preferences changes.
+ */
 @Suppress("UNUSED_ANONYMOUS_PARAMETER")
 abstract class SharedPreferenceLiveData<T>(
     var sharedPrefs: SharedPreferences,

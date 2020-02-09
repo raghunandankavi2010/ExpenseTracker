@@ -3,6 +3,10 @@ package me.raghu.expensetracker.db
 import androidx.room.TypeConverter
 import java.util.*
 
+/**
+ *  Date Converter to convert long to date
+ */
+
 object DateConverter {
     @TypeConverter
     @JvmStatic

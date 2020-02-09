@@ -14,6 +14,10 @@ import me.raghu.expensetracker.utils.getLastDateOfMonth
 import timber.log.Timber
 import javax.inject.Inject
 
+/**
+ *  A View Model class the gets the expense for current month
+ *  Each day expense total is calculated
+ */
 class LineChartViewModel @Inject constructor(@Suppress("UNUSED_PARAMETER") private val databaseRepository: DatabaseRepository) :
     ViewModel() {
 

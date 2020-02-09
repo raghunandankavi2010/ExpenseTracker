@@ -7,6 +7,11 @@ import javax.inject.Inject
 import javax.inject.Provider
 import javax.inject.Singleton
 
+
+/**
+ *  View model factory that can take parameter in the constructor 
+ *  dependency injection using parameters
+ */
 @Singleton
 class ExpenseTrackerViewModelFactory @Inject constructor(
     private val creators: Map<Class<out ViewModel>, @JvmSuppressWildcards Provider<ViewModel>>

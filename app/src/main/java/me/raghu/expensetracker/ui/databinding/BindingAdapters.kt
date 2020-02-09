@@ -18,7 +18,9 @@ import me.raghu.expensetracker.utils.dateToString
 import timber.log.Timber
 import java.util.*
 
-
+/**
+ *  Custom binding adapters
+ */
 object BindingAdapters {
 
     @BindingAdapter("binding")

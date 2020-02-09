@@ -6,6 +6,10 @@ import java.math.BigDecimal
 import java.math.BigInteger
 import java.util.*
 
+/**
+ * Parcelable utils using kotlin makes it easier to use and reduces boiler plate code
+ * Effective use of extensions and inline.
+ */
 
 interface KParcelable : Parcelable {
     override fun describeContents() = 0

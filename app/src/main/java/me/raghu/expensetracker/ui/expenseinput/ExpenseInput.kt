@@ -18,7 +18,9 @@ import me.raghu.expensetracker.utils.autoCleared
 import me.raghu.expensetracker.utils.requestApplyInsetsWhenAttached
 import javax.inject.Inject
 
-
+/**
+ *  Displays views to add Expense's
+ */
 class ExpenseInput : MainNavigationFragment() {
 
     companion object {
@@ -65,7 +67,7 @@ class ExpenseInput : MainNavigationFragment() {
         val model = activity?.let { ViewModelProvider(it).get(DateShareViewModel::class.java) }
         binding.dateSharedViewmodel = model
 
-        model?.selectedDate?.observe(this, Observer {
+        model?.selectedDate?.observe(viewLifecycleOwner, Observer {
             it?.let {
                 expenseInputViewModel.selectedDate.value = it
             }
@@ -76,19 +78,19 @@ class ExpenseInput : MainNavigationFragment() {
             parentFragmentManager.let { it1 -> newFragment.show(it1, "datePicker") }
         }
 
-        expenseInputViewModel.amount.observe(this, Observer {
+        expenseInputViewModel.amount.observe(viewLifecycleOwner, Observer {
             if (it.isNotEmpty()) {
                 expenseInputViewModel.amountError.value = ""
             }
         })
 
-        expenseInputViewModel.remarks.observe(this, Observer {
+        expenseInputViewModel.remarks.observe(viewLifecycleOwner, Observer {
             if (it.isNotEmpty()) {
                 expenseInputViewModel.remarksError.value = ""
             }
         })
 
-        expenseInputViewModel.insertedSuccessFully.observe(this, Observer {
+        expenseInputViewModel.insertedSuccessFully.observe(viewLifecycleOwner, Observer {
             if (it) {
                 val snackbar = Snackbar
                     .make(binding.type, getString(R.string.expense_saved), Snackbar.LENGTH_LONG)

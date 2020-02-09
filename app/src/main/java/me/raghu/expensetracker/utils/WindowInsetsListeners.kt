@@ -19,6 +19,10 @@ package me.raghu.expensetracker.utils
 import android.view.View
 import android.view.WindowInsets
 
+/**
+ *  Window insets for going edge to edge display
+ */
+
 object NoopWindowInsetsListener : View.OnApplyWindowInsetsListener {
     override fun onApplyWindowInsets(v: View, insets: WindowInsets): WindowInsets {
         return insets

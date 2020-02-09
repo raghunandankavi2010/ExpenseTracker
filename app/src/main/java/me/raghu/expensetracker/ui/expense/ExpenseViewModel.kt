@@ -10,6 +10,10 @@ import me.raghu.expensetracker.repository.DatabaseRepository
 import java.util.*
 import javax.inject.Inject
 
+/**
+ *  Get expenses
+ */
+
 class ExpenseViewModel
 @Inject constructor(
     private val databaseRepository: DatabaseRepository,

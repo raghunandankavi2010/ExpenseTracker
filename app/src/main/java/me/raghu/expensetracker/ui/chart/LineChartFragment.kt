@@ -27,6 +27,9 @@ import me.raghu.expensetracker.utils.doOnApplyWindowInsets
 import me.raghu.expensetracker.utils.requestApplyInsetsWhenAttached
 import javax.inject.Inject
 
+/**
+ *  Displays line chart for expense for current month
+ */
 
 @Suppress("UNUSED_PARAMETER")
 class LineChartFragment : MainNavigationFragment() {
@@ -82,7 +85,7 @@ class LineChartFragment : MainNavigationFragment() {
         binding.chart.isZoomEnabled = true
         binding.chart.zoomType = HORIZONTAL_AND_VERTICAL
         binding.chart.setContainerScrollEnabled(true, ContainerScrollType.HORIZONTAL)
-        lineChartViewModel.liveDataLineChartValues.observe(this, Observer {
+        lineChartViewModel.liveDataLineChartValues.observe(viewLifecycleOwner, Observer {
             binding.chart.visibility = View.GONE
             binding.textView2.visibility = View.VISIBLE
             it?.let {

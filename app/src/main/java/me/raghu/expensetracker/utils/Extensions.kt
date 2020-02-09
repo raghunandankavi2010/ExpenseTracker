@@ -8,6 +8,9 @@ import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
+/**
+ *  Utils methods
+ */
 
 fun getLastDateOfMonth(): Date {
     val cal: Calendar = Calendar.getInstance()

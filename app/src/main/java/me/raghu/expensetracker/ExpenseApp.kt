@@ -8,6 +8,9 @@ import me.raghu.expensetracker.di.DaggerAppComponent
 import timber.log.Timber
 import javax.inject.Inject
 
+/**
+ * Application class
+ */
 
 class ExpenseApp :Application(), HasAndroidInjector {
     @Inject

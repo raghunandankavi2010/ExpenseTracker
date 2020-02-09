@@ -2,6 +2,10 @@ package me.raghu.expensetracker.utils
 
 import android.content.SharedPreferences
 
+/**
+ *  A live data to listen to string preference changes.
+ */
+
 class SharedPreferenceStringLiveData(
     sharedPrefs: SharedPreferences,
     key: String,

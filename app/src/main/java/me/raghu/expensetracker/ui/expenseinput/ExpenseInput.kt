@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingComponent
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -30,6 +31,8 @@ class ExpenseInput : MainNavigationFragment() {
 
     var binding by autoCleared<ExpenseInputFragmentBinding>()
     var dataBindingComponent: DataBindingComponent = FragmentDataBindingComponent(this)
+
+    private val dateShareViewModel by activityViewModels<DateShareViewModel>()
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -64,10 +67,9 @@ class ExpenseInput : MainNavigationFragment() {
             }
         }
 
-        val model = activity?.let { ViewModelProvider(it).get(DateShareViewModel::class.java) }
-        binding.dateSharedViewmodel = model
+        binding.dateSharedViewmodel = dateShareViewModel
 
-        model?.selectedDate?.observe(viewLifecycleOwner, Observer {
+        dateShareViewModel.selectedDate.observe(viewLifecycleOwner, Observer {
             it?.let {
                 expenseInputViewModel.selectedDate.value = it
             }

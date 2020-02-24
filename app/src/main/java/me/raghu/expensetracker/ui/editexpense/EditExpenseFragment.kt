@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.marginLeft
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -30,6 +31,9 @@ class EditExpenseFragment : MainNavigationFragment() {
     private val editexpenseViewModel: ExpenseEditViewModel by viewModels {
         viewModelFactory
     }
+
+    private val dateShareViewModel by activityViewModels<ShareDateModel>()
+
     private lateinit var binding: ExpenseEditBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,7 +42,6 @@ class EditExpenseFragment : MainNavigationFragment() {
             expense = it.getParcelable("expense")
         }
     }
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -68,10 +71,10 @@ class EditExpenseFragment : MainNavigationFragment() {
         if (orientation == Configuration.ORIENTATION_LANDSCAPE) { // In landscape
             margin?.let { binding.coordinator?.addSystemWindowInsetToMargin(left = true) }
         }
-        val model = activity?.let { ViewModelProvider(it).get(ShareDateModel::class.java) }
-        binding.dateSharedViewModel = model
 
-        model?.selectedDate?.observe(this, Observer {
+        binding.dateSharedViewModel = dateShareViewModel
+
+        dateShareViewModel.selectedDate.observe(viewLifecycleOwner, Observer {
             it?.let {
                 editexpenseViewModel.selectedDate.value = it
             }
@@ -94,7 +97,7 @@ class EditExpenseFragment : MainNavigationFragment() {
             editexpenseViewModel.updateExpenseToDb()
         }
 
-        editexpenseViewModel.editedSuccessFully.observe(this, Observer {
+        editexpenseViewModel.editedSuccessFully.observe(viewLifecycleOwner, Observer {
             if(it){
                 val snackbar = Snackbar
                     .make(binding.type, getString(R.string.expense_saved), Snackbar.LENGTH_LONG)

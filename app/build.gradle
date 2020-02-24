@@ -53,6 +53,9 @@ dependencies {
     implementation "androidx.core:core-ktx:$rootProject.coreKtx"
     implementation "androidx.constraintlayout:constraintlayout:$rootProject.constraintLayout"
 
+    // fragment ktx
+    implementation "androidx.fragment:fragment-ktx:$rootProject.fragmentKtx"
+
     implementation "androidx.legacy:legacy-support-v4:$rootProject.legacySupport"
     implementation "androidx.lifecycle:lifecycle-extensions:$rootProject.lifecycleExtension"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$rootProject.viewModelKtx"

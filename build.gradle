@@ -35,6 +35,7 @@ task clean(type: Delete) {
 ext {
 
     // dependencies versions
+    fragmentKtx = '1.2.2'
     dagger = '2.26'
     navVersion = '2.2.1'
     appCompat = '1.1.0'

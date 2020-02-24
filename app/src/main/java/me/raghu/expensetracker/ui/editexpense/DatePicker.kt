@@ -5,15 +5,13 @@ import android.app.Dialog
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
-import androidx.lifecycle.ViewModelProvider
-
+import androidx.fragment.app.activityViewModels
 import java.util.*
 
 class DatePicker : DialogFragment(), DatePickerDialog.OnDateSetListener {
 
-    private var model: ShareDateModel? = null
+    private val model: ShareDateModel by activityViewModels()
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        model = activity?.let { ViewModelProvider(it).get(ShareDateModel::class.java) }
         val c = Calendar.getInstance()
         val year = c.get(Calendar.YEAR)
         val month = c.get(Calendar.MONTH)
@@ -28,6 +26,6 @@ class DatePicker : DialogFragment(), DatePickerDialog.OnDateSetListener {
         c.set(Calendar.YEAR,year)
         c.set(Calendar.MONTH,month)
         c.set(Calendar.DAY_OF_MONTH,day)
-        model?.selectedDate?.value = c.time
+        model.selectedDate.value = c.time
     }
 }

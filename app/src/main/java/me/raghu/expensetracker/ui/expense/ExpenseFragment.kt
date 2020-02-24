@@ -10,9 +10,11 @@ import androidx.databinding.DataBindingComponent
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
 import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.transition.Hold
 import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.appbar_toolbar.*
 import me.raghu.expensetracker.R
@@ -37,6 +39,7 @@ class ExpenseFragment : MainNavigationFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
+        exitTransition =  Hold()
 
     }
 
@@ -124,7 +127,7 @@ class ExpenseFragment : MainNavigationFragment() {
             PreferenceManager.getDefaultSharedPreferences(activity /* Activity context */)
         val sharedPreferenceStringLiveData =
             SharedPreferenceStringLiveData(sharedPreferences, "income_monthly", "")
-        sharedPreferenceStringLiveData.getStringLiveData("income_monthly", "").observe(this,
+        sharedPreferenceStringLiveData.getStringLiveData("income_monthly", "").observe(viewLifecycleOwner,
             androidx.lifecycle.Observer { incomeValue: String ->
                 binding.main.layoutAccountExpenditureDetails.monthlyIncome.text =
                     activity?.resources?.getString(
@@ -134,9 +137,9 @@ class ExpenseFragment : MainNavigationFragment() {
                 expenseViewModel.expenseExceeded.value = incomeValue.toFloat()
             }
         )
-
+        val extras =  FragmentNavigatorExtras(binding.add to "shared_element_end_root")
         binding.add.setOnClickListener {
-            it.findNavController().navigate(R.id.expenseInput)
+            findNavController().navigate(R.id.expenseInput, null, null, extras)
         }
 
         expenseViewModel.setDateRange(getFirstDateOfMonth(), getLastDateOfMonth())
@@ -160,21 +163,5 @@ class ExpenseFragment : MainNavigationFragment() {
             }
             else -> super.onOptionsItemSelected(item)
         }
-    }
-
-
-    fun setScrollEnabled(enabled: Boolean) {
-        val params =
-            toolbar.layoutParams as AppBarLayout.LayoutParams
-        params.scrollFlags =
-            if (enabled) AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL or AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS else 0
-        toolbar.layoutParams = params
-    }
-
-    fun disableScroll() {
-        val params =
-            toolbar.layoutParams as AppBarLayout.LayoutParams
-        params.scrollFlags = 0
-        toolbar.layoutParams = params
     }
 }

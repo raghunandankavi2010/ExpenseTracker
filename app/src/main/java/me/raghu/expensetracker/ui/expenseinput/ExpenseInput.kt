@@ -17,6 +17,7 @@ import me.raghu.expensetracker.ui.MainNavigationFragment
 import me.raghu.expensetracker.ui.databinding.FragmentDataBindingComponent
 import me.raghu.expensetracker.utils.autoCleared
 import me.raghu.expensetracker.utils.requestApplyInsetsWhenAttached
+import com.google.android.material.transition.MaterialContainerTransform
 import javax.inject.Inject
 
 /**
@@ -41,6 +42,10 @@ class ExpenseInput : MainNavigationFragment() {
         viewModelFactory
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        sharedElementEnterTransition = MaterialContainerTransform(requireContext())
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

@@ -17,7 +17,7 @@ class AppModule {
         return Room
             .databaseBuilder(app, ExpenseDb::class.java, "expense.db")
             // this will remove all data and create table newly.
-            // in case of data bas mogration check https://medium.com/androiddevelopers/understanding-migrations-with-room-f01e04b07929
+            // in case of data bas migration check https://medium.com/androiddevelopers/understanding-migrations-with-room-f01e04b07929
             .fallbackToDestructiveMigration()
             .build()
     }

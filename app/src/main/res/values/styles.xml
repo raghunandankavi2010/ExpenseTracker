@@ -1,19 +1,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- Base application theme. -->
-    <style name="BaseTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <!--<item name="android:windowDrawsSystemBarBackgrounds">true</item>-->
-
-        <item name="android:windowLightStatusBar" tools:targetApi="m">@bool/use_light_status</item>
-        <item name="android:statusBarColor">@color/transparent</item>
-        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">@bool/use_light_navigation</item>
-        <item name="android:navigationBarColor">@color/transparent</item>
-
-    </style>
 
     <style name="Widget.ExpenseTracker.Toolbar" parent="Widget.MaterialComponents.Toolbar">
         <item name="android:paddingEnd">8dp</item>

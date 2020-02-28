@@ -8,7 +8,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
 import androidx.core.view.updatePadding
 import androidx.navigation.NavController
-import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import dagger.android.AndroidInjection
@@ -59,7 +59,11 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector, NavigationHost {
         statusScrim = findViewById(R.id.status_bar_scrim)
         statusScrim.setOnApplyWindowInsetsListener(HeightTopWindowInsetsListener)
 
-        navController = findNavController(R.id.nav_host_fragment)
+        // navController initialization
+        val navHostFragment = supportFragmentManager
+            .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        navController = navHostFragment.navController
+
     }
 
     override fun androidInjector(): DispatchingAndroidInjector<Any?> {

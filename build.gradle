@@ -36,7 +36,7 @@ ext {
 
     // dependencies versions
     fragmentKtx = '1.2.2'
-    dagger = '2.26'
+    dagger = '2.27'
     navVersion = '2.2.1'
     appCompat = '1.1.0'
     coreKtx = '1.2.0'

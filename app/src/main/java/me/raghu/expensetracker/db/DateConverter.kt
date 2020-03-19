@@ -11,7 +11,7 @@ object DateConverter {
     @TypeConverter
     @JvmStatic
     fun toDate(dateLong: Long): Date {
-        return dateLong.let { Date(it) }
+        return Date(dateLong)
     }
 
     @TypeConverter

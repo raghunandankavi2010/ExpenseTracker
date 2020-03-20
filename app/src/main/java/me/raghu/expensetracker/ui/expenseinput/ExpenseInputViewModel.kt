@@ -1,7 +1,6 @@
 package me.raghu.expensetracker.ui.expenseinput
 
 import android.text.TextUtils
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -68,17 +67,15 @@ class ExpenseInputViewModel
         Timber.i(expense.date.toString())
         viewModelScope.launch {
             val long = databaseRepository.insert(expense)
-           Timber.i(long.toString())
+            Timber.i(long.toString())
             insertedSuccessFully.value = true
             reset()
         }
     }
 
-    private fun reset(){
-
+    private fun reset() {
         expenseType.value = "Cash"
         amount.value = ""
         remarks.value = ""
     }
-
 }

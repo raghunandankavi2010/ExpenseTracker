@@ -9,14 +9,11 @@ import androidx.core.view.updatePaddingRelative
 import androidx.databinding.DataBindingComponent
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
-import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.transition.Hold
 import dagger.android.support.AndroidSupportInjection
-import kotlinx.android.synthetic.main.appbar_toolbar.*
 import me.raghu.expensetracker.R
 import me.raghu.expensetracker.databinding.ExpenseFragmentBinding
 import me.raghu.expensetracker.ui.MainNavigationFragment

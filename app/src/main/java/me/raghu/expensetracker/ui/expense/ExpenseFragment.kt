@@ -46,7 +46,6 @@ class ExpenseFragment : MainNavigationFragment() {
     private lateinit var binding: ExpenseFragmentBinding
 
     private var adapter by autoCleared<ExpenseAdapter>()
-    private var dividerItemDecoration: DividerItemDecoration? = null
     var dataBindingComponent: DataBindingComponent = FragmentDataBindingComponent(this)
 
     override fun onAttach(context: Context) {
@@ -68,15 +67,6 @@ class ExpenseFragment : MainNavigationFragment() {
         binding.lifecycleOwner = this
         binding.viewModel = expenseViewModel
 
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        binding.main.expenseList.doOnApplyWindowInsets { v, insets, padding ->
-            v.updatePaddingRelative(bottom = padding.bottom + insets.systemWindowInsetBottom)
-        }
         val newSingleThreadExecutor = Executors.newSingleThreadExecutor()
         val expenseAdapter = ExpenseAdapter(
             dataBindingComponent = dataBindingComponent, appExecutors = newSingleThreadExecutor
@@ -96,11 +86,19 @@ class ExpenseFragment : MainNavigationFragment() {
 
         this.adapter = expenseAdapter
         binding.main.expenseList.adapter = adapter
-        if (binding.main.expenseList.itemDecorationCount == 0) {
-            dividerItemDecoration = context?.let { DividerItemDecoration(it) }
-            dividerItemDecoration?.let { binding.main.expenseList.addItemDecoration(it) }
-        }
+        val dividerItemDecoration =  DividerItemDecoration(activity as Context)
+        binding.main.expenseList.addItemDecoration(dividerItemDecoration)
 
+
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.main.expenseList.doOnApplyWindowInsets { v, insets, padding ->
+            v.updatePaddingRelative(bottom = padding.bottom + insets.systemWindowInsetBottom)
+        }
 
         expenseViewModel.expense.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             adapter.submitList(it)
@@ -113,10 +111,9 @@ class ExpenseFragment : MainNavigationFragment() {
 
 
         if (savedInstanceState == null) {
-
             binding.coordinatorLayout.postDelayed({
                 binding.coordinatorLayout.requestApplyInsetsWhenAttached()
-            }, 500)
+            }, 200)
         }
 
         PreferenceManager.setDefaultValues(activity, R.xml.preferences, false)

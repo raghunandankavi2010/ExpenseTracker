@@ -81,8 +81,8 @@ class LineChartFragment : MainNavigationFragment() {
             }, 500)
         }
         resetViewport()
-        binding.chart.isInteractive = true
-        binding.chart.isZoomEnabled = true
+        binding.chart.isInteractive = false
+        binding.chart.isZoomEnabled = false
         binding.chart.zoomType = HORIZONTAL_AND_VERTICAL
         binding.chart.setContainerScrollEnabled(true, ContainerScrollType.HORIZONTAL)
         lineChartViewModel.liveDataLineChartValues.observe(viewLifecycleOwner, Observer {
@@ -109,7 +109,7 @@ class LineChartFragment : MainNavigationFragment() {
                     val axisX = Axis()
 
                     axisX.formatter = SimpleAxisValueFormatter(0)
-                    val typeface = ResourcesCompat.getFont(context!!, R.font.roboto_medium)
+                    val typeface = ResourcesCompat.getFont(requireContext(), R.font.roboto_medium)
                     val axisY = Axis()
                     axisY.hasLines = true
                     axisX.name = "Day"

@@ -1,5 +1,6 @@
 package me.raghu.expensetracker.ui.editexpense
 
+import android.content.Context
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,6 +14,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar
+import dagger.android.support.AndroidSupportInjection
 import me.raghu.expensetracker.R
 import me.raghu.expensetracker.databinding.ExpenseEditBinding
 import me.raghu.expensetracker.db.Expense
@@ -42,6 +44,12 @@ class EditExpenseFragment : MainNavigationFragment() {
             expense = it.getParcelable("expense")
         }
     }
+
+    override fun onAttach(context: Context) {
+        AndroidSupportInjection.inject(this)
+        super.onAttach(context)
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

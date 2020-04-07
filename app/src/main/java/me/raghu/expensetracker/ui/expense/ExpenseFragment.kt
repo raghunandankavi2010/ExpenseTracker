@@ -11,11 +11,14 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupWithNavController
 import androidx.preference.PreferenceManager
 import com.google.android.material.transition.Hold
 import dagger.android.support.AndroidSupportInjection
 import me.raghu.expensetracker.R
 import me.raghu.expensetracker.databinding.ExpenseFragmentBinding
+import me.raghu.expensetracker.ui.MainActivity
 import me.raghu.expensetracker.ui.MainNavigationFragment
 import me.raghu.expensetracker.ui.databinding.FragmentDataBindingComponent
 import me.raghu.expensetracker.utils.*
@@ -24,7 +27,7 @@ import java.util.concurrent.Executors
 import javax.inject.Inject
 
 
-class ExpenseFragment : MainNavigationFragment() {
+open class ExpenseFragment : MainNavigationFragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -40,6 +43,14 @@ class ExpenseFragment : MainNavigationFragment() {
 
     }
 
+    override fun onAttach(context: Context) {
+        injectMembers()
+        super.onAttach(context)
+    }
+
+    protected open fun injectMembers() =
+        AndroidSupportInjection.inject(this)
+
     private val expenseViewModel: ExpenseViewModel by viewModels {
         viewModelFactory
     }
@@ -48,11 +59,6 @@ class ExpenseFragment : MainNavigationFragment() {
     private var adapter by autoCleared<ExpenseAdapter>()
     var dataBindingComponent: DataBindingComponent = FragmentDataBindingComponent(this)
 
-    override fun onAttach(context: Context) {
-        AndroidSupportInjection.inject(this)
-        super.onAttach(context)
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -96,6 +102,7 @@ class ExpenseFragment : MainNavigationFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         binding.main.expenseList.doOnApplyWindowInsets { v, insets, padding ->
             v.updatePaddingRelative(bottom = padding.bottom + insets.systemWindowInsetBottom)
         }
@@ -104,10 +111,14 @@ class ExpenseFragment : MainNavigationFragment() {
             adapter.submitList(it)
         })
 
-        (requireActivity() as AppCompatActivity).supportActionBar?.apply {
+        if(activity is MainActivity){
+            (activity as AppCompatActivity).setSupportActionBar(binding.appbar.toolbar)
+        }
+
+      /*  (requireActivity() as AppCompatActivity).supportActionBar?.apply {
             setHomeAsUpIndicator(R.drawable.ic_home)
             setDisplayHomeAsUpEnabled(true)
-        }
+        }*/
 
 
         if (savedInstanceState == null) {

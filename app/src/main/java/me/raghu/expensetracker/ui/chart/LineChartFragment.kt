@@ -1,6 +1,7 @@
 package me.raghu.expensetracker.ui.chart
 
 
+import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,10 +15,13 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import co.csadev.kellocharts.formatter.SimpleAxisValueFormatter
 import co.csadev.kellocharts.gesture.ContainerScrollType
 import co.csadev.kellocharts.gesture.ZoomType.HORIZONTAL_AND_VERTICAL
 import co.csadev.kellocharts.model.*
+import dagger.android.support.AndroidSupportInjection
+import kotlinx.android.synthetic.main.expense_input_fragment.view.*
 import me.raghu.expensetracker.R
 import me.raghu.expensetracker.databinding.FragmentLineChartBinding
 import me.raghu.expensetracker.ui.MainNavigationFragment
@@ -50,6 +54,11 @@ class LineChartFragment : MainNavigationFragment() {
     var binding by autoCleared<FragmentLineChartBinding>()
     var dataBindingComponent: DataBindingComponent = FragmentDataBindingComponent(this)
 
+    override fun onAttach(context: Context) {
+        AndroidSupportInjection.inject(this)
+        super.onAttach(context)
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -65,10 +74,11 @@ class LineChartFragment : MainNavigationFragment() {
         binding = dataBinding
         binding.lifecycleOwner = this
 
-        (requireActivity() as AppCompatActivity).supportActionBar?.apply {
-            setHomeAsUpIndicator(R.drawable.ic_arrow_back_black_24dp)
-            setDisplayHomeAsUpEnabled(true)
+        (activity as AppCompatActivity).setSupportActionBar(binding.appbar.toolbar)
+        binding.appbar.toolbar.setNavigationOnClickListener {
+            it.findNavController().navigateUp()
         }
+
 
         binding.chart.doOnApplyWindowInsets { v, insets, padding ->
             v.updatePaddingRelative(bottom = padding.bottom + insets.systemWindowInsetBottom)

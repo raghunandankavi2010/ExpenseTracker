@@ -5,7 +5,9 @@ import android.view.View
 import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.graphics.Insets
 import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -43,10 +45,12 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector, NavigationHost {
                 left = insets.systemWindowInsetLeft,
                 right = insets.systemWindowInsetRight
             )
-            insets.replaceSystemWindowInsets(
-                0, insets.systemWindowInsetTop,
-                0, insets.systemWindowInsetBottom
-            )
+
+           WindowInsetsCompat.Builder(insets).setSystemWindowInsets(
+                    Insets.of(
+                        0, insets.systemWindowInsetTop,
+                        0, insets.systemWindowInsetBottom)).build()
+
         }
 
         content = findViewById(R.id.content_container)
@@ -63,6 +67,7 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector, NavigationHost {
         val navHostFragment = supportFragmentManager
             .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
+        appBarConfiguration = AppBarConfiguration(navController.graph)
 
     }
 
@@ -77,7 +82,6 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector, NavigationHost {
 
     override fun registerToolbarWithNavigation(toolbar: Toolbar) {
         setSupportActionBar(toolbar)
-        appBarConfiguration = AppBarConfiguration(navController.graph)
         toolbar.setupWithNavController(navController, appBarConfiguration)
 
     }

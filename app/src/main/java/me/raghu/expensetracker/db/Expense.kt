@@ -47,5 +47,7 @@ data class Expense(
 
     companion object {
         @JvmField val CREATOR = parcelableCreator(::Expense)
+        const val UNKNOWN_ID = -1
+
     }
 }

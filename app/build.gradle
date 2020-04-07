@@ -8,6 +8,13 @@ apply plugin: 'kotlin-kapt'
 
 apply plugin: "androidx.navigation.safeargs.kotlin"
 
+apply plugin: 'kotlin-allopen'
+
+allOpen {
+    // allows mocking for classes w/o directly opening them for release builds
+    annotation 'me.raghu.expensetracker.testing.OpenClass'
+}
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
@@ -17,7 +24,7 @@ android {
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "me.raghu.expensetracker.util.ExpenseTestRunner"
         resConfigs "en"
     }
     buildTypes {
@@ -26,7 +33,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         debug {
-            applicationIdSuffix ".debug"
             debuggable true
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -39,6 +45,11 @@ android {
 
     kotlinOptions {
         jvmTarget = "1.8"
+    }
+
+    sourceSets {
+        androidTest.java.srcDirs += "src/test-common/java"
+        test.java.srcDirs += "src/test-common/java"
     }
 
     dataBinding {
@@ -54,7 +65,8 @@ dependencies {
     implementation "androidx.constraintlayout:constraintlayout:$rootProject.constraintLayout"
 
     // fragment ktx
-    implementation "androidx.fragment:fragment-ktx:$rootProject.fragmentKtx"
+    implementation ("androidx.fragment:fragment-ktx:$rootProject.fragmentKtx")
+
 
     implementation "androidx.legacy:legacy-support-v4:$rootProject.legacySupport"
     implementation "androidx.lifecycle:lifecycle-extensions:$rootProject.lifecycleExtension"
@@ -69,8 +81,8 @@ dependencies {
     kapt "com.google.dagger:dagger-compiler:$rootProject.dagger"
 
     // navigation
-    implementation "androidx.navigation:navigation-fragment-ktx:$rootProject.navVersion"
-    implementation "androidx.navigation:navigation-ui-ktx:$rootProject.navVersion"
+    implementation "androidx.navigation:navigation-fragment-ktx:$rootProject.nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$rootProject.nav_version"
     // room
     implementation "androidx.room:room-runtime:$rootProject.roomVersion"
     kapt "androidx.room:room-compiler:$rootProject.roomVersion"
@@ -91,11 +103,27 @@ dependencies {
     // timber logging
     implementation 'com.jakewharton.timber:timber:4.7.1'
 
+
+    testImplementation 'org.mockito:mockito-core:1.10.19'
+    // https://mvnrepository.com/artifact/android.arch.core/core-testing
+    testImplementation group: 'android.arch.core', name: 'core-testing', version: '1.1.1'
+
     testImplementation "junit:junit:$rootProject.junit"
     testImplementation "androidx.paging:paging-common:$rootProject.paging_version"
     testImplementation "androidx.room:room-testing:$rootProject.roomVersion"
     androidTestImplementation "androidx.test.ext:junit:$rootProject.junitext"
     androidTestImplementation "androidx.test.espresso:espresso-core:$rootProject.espresso"
+    androidTestImplementation 'androidx.test:rules:1.3.0-alpha05'
+    androidTestImplementation "androidx.test.espresso:espresso-intents:$rootProject.espresso"
+    androidTestImplementation "androidx.navigation:navigation-testing:$rootProject.nav_version"
+    debugImplementation ('androidx.fragment:fragment-testing:1.3.0-alpha03'){
+        exclude group: 'androidx.test', module : 'core'
+    }
+    androidTestImplementation 'org.hamcrest:hamcrest-library:1.3'
+    androidTestImplementation 'com.google.truth:truth:1.0.1'
+
+    androidTestImplementation  group: 'org.mockito', name: 'mockito-core', version: '2.25.0'
+    androidTestImplementation group: 'org.mockito', name: 'mockito-android', version: '2.25.0'
 
 
 }

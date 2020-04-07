@@ -18,8 +18,12 @@ package me.raghu.expensetracker.ui
 
 import android.content.Context
 import android.os.Bundle
+import android.view.FrameStats
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.fragment.app.Fragment
+import dagger.android.support.AndroidSupportInjection
 import dagger.android.support.DaggerFragment
 import me.raghu.expensetracker.R
 
@@ -45,7 +49,7 @@ interface NavigationDestination {
  * Fragment representing a main navigation destination. This class handles wiring up the [Toolbar]
  * navigation icon if the fragment is attached to a [NavigationHost].
  */
-open class MainNavigationFragment : DaggerFragment(), NavigationDestination {
+open class MainNavigationFragment : Fragment(), NavigationDestination {
 
     protected var navigationHost: NavigationHost? = null
 
@@ -56,6 +60,7 @@ open class MainNavigationFragment : DaggerFragment(), NavigationDestination {
         }
     }
 
+
     override fun onDetach() {
         super.onDetach()
         navigationHost = null
@@ -64,10 +69,10 @@ open class MainNavigationFragment : DaggerFragment(), NavigationDestination {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         // If we have a toolbar and we are attached to a proper navigation host, set up the toolbar
         // navigation icon.
-        val host = navigationHost ?: return
+    /*   val host = navigationHost ?: return
         val mainToolbar: Toolbar = view.findViewById(R.id.toolbar) ?: return
         mainToolbar.apply {
             host.registerToolbarWithNavigation(this)
-        }
+        }*/
     }
 }

@@ -8,13 +8,14 @@ buildscript {
         maven { url 'https://jitpack.io' }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.6.1'
+        classpath 'com.android.tools.build:gradle:3.6.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         def nav_version = "2.1.0"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
         classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4'
         classpath 'com.github.triplet.gradle:play-publisher:1.2.2'
+        classpath  "org.jetbrains.kotlin:kotlin-allopen:$kotlin_version"
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -35,7 +36,7 @@ task clean(type: Delete) {
 ext {
 
     // dependencies versions
-    fragmentKtx = '1.2.3'
+    fragmentKtx = '1.2.4'
     dagger = '2.27'
     navVersion = '2.2.1'
     appCompat = '1.1.0'
@@ -54,4 +55,5 @@ ext {
     junit = '4.13'
     takitpreference ='1.1.0'
     testRunner ='1.2.0'
+    nav_version = '2.3.0-alpha04'
 }

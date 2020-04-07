@@ -8,6 +8,7 @@ import java.util.*
 
 object TestUtil {
 
+    @Suppress("UNCHECKED_CAST")
     fun <T> mockPagedList(list: List<T>): PagedList<T> {
         val pagedList = Mockito.mock(PagedList::class.java) as PagedList<T>
         Mockito.`when`(pagedList.get(ArgumentMatchers.anyInt())).then { invocation ->

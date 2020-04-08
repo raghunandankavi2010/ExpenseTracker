@@ -26,6 +26,7 @@ import androidx.fragment.app.Fragment
 import dagger.android.support.AndroidSupportInjection
 import dagger.android.support.DaggerFragment
 import me.raghu.expensetracker.R
+import me.raghu.expensetracker.di.MyDaggerFragment
 
 /**
  * To be implemented by components that host top-level navigation destinations.
@@ -42,14 +43,14 @@ interface NavigationHost {
 interface NavigationDestination {
 
     /** Called by the host when the user interacts with it. */
-   // fun onUserInteraction() {}
+    fun onUserInteraction() {}
 }
 
 /**
  * Fragment representing a main navigation destination. This class handles wiring up the [Toolbar]
  * navigation icon if the fragment is attached to a [NavigationHost].
  */
-open class MainNavigationFragment : Fragment(), NavigationDestination {
+open class MainNavigationFragment : MyDaggerFragment(), NavigationDestination {
 
     protected var navigationHost: NavigationHost? = null
 

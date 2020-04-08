@@ -43,14 +43,6 @@ open class ExpenseFragment : MainNavigationFragment() {
 
     }
 
-    override fun onAttach(context: Context) {
-        injectMembers()
-        super.onAttach(context)
-    }
-
-    protected open fun injectMembers() =
-        AndroidSupportInjection.inject(this)
-
     private val expenseViewModel: ExpenseViewModel by viewModels {
         viewModelFactory
     }
@@ -114,11 +106,6 @@ open class ExpenseFragment : MainNavigationFragment() {
         if(activity is MainActivity){
             (activity as AppCompatActivity).setSupportActionBar(binding.appbar.toolbar)
         }
-
-      /*  (requireActivity() as AppCompatActivity).supportActionBar?.apply {
-            setHomeAsUpIndicator(R.drawable.ic_home)
-            setDisplayHomeAsUpEnabled(true)
-        }*/
 
 
         if (savedInstanceState == null) {

@@ -15,9 +15,11 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar
 import dagger.android.support.AndroidSupportInjection
+import kotlinx.android.synthetic.main.expense_edit.view.*
 import me.raghu.expensetracker.R
 import me.raghu.expensetracker.databinding.ExpenseEditBinding
 import me.raghu.expensetracker.db.Expense
+import me.raghu.expensetracker.ui.MainActivity
 import me.raghu.expensetracker.ui.MainNavigationFragment
 import me.raghu.expensetracker.utils.addSystemWindowInsetToMargin
 import javax.inject.Inject
@@ -69,9 +71,9 @@ class EditExpenseFragment : MainNavigationFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (requireActivity() as AppCompatActivity).supportActionBar?.apply {
-            setHomeAsUpIndicator(R.drawable.ic_arrow_back_black_24dp)
-            setDisplayHomeAsUpEnabled(true)
+
+        if(activity is MainActivity){
+            (activity as AppCompatActivity).setSupportActionBar(binding.appbar.toolbar)
         }
 
         val orientation = resources.configuration.orientation

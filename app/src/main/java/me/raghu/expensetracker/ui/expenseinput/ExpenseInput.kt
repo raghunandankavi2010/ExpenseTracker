@@ -1,6 +1,5 @@
 package me.raghu.expensetracker.ui.expenseinput
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,15 +13,14 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.transition.MaterialContainerTransform
+import kotlinx.android.synthetic.main.expense_input_fragment.view.*
 import me.raghu.expensetracker.R
 import me.raghu.expensetracker.databinding.ExpenseInputFragmentBinding
 import me.raghu.expensetracker.ui.MainNavigationFragment
 import me.raghu.expensetracker.ui.databinding.FragmentDataBindingComponent
 import me.raghu.expensetracker.utils.autoCleared
 import me.raghu.expensetracker.utils.requestApplyInsetsWhenAttached
-import com.google.android.material.transition.MaterialContainerTransform
-import dagger.android.support.AndroidSupportInjection
-import kotlinx.android.synthetic.main.expense_input_fragment.view.*
 import javax.inject.Inject
 
 /**
@@ -46,12 +44,6 @@ class ExpenseInput : MainNavigationFragment() {
     private val expenseInputViewModel: ExpenseInputViewModel by viewModels {
         viewModelFactory
     }
-
-    override fun onAttach(context: Context) {
-        AndroidSupportInjection.inject(this)
-        super.onAttach(context)
-    }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

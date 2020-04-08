@@ -54,12 +54,6 @@ class LineChartFragment : MainNavigationFragment() {
     var binding by autoCleared<FragmentLineChartBinding>()
     var dataBindingComponent: DataBindingComponent = FragmentDataBindingComponent(this)
 
-    override fun onAttach(context: Context) {
-        AndroidSupportInjection.inject(this)
-        super.onAttach(context)
-    }
-
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

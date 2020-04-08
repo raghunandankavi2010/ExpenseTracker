@@ -103,14 +103,14 @@ dependencies {
     // timber logging
     implementation "com.jakewharton.timber:timber:$rootProject.timber"
 
-
+    // test depencencies
     testImplementation "org.mockito:mockito-core:$rootProject.mockito_core"
-    // https://mvnrepository.com/artifact/android.arch.core/core-testing
     testImplementation "android.arch.core:core-testing:$rootProject.androidarchcoretesting"
-
     testImplementation "junit:junit:$rootProject.junit"
     testImplementation "androidx.paging:paging-common:$rootProject.paging_version"
     testImplementation "androidx.room:room-testing:$rootProject.roomVersion"
+
+    // android test dependencies
     androidTestImplementation "androidx.test.ext:junit:$rootProject.junitext"
     androidTestImplementation "androidx.test.espresso:espresso-core:$rootProject.espresso"
     androidTestImplementation "androidx.test:rules:$rootProject.testrules"
@@ -121,7 +121,7 @@ dependencies {
     }
     androidTestImplementation "org.hamcrest:hamcrest-library:$rootProject.hamcrest"
     androidTestImplementation "com.google.truth:truth:$rootProject.googletruth"
-
+    
     androidTestImplementation  "org.mockito:mockito-core:$rootProject.mockito"
     androidTestImplementation "org.mockito:mockito-android:$rootProject.mockito"
 

@@ -1,6 +1,7 @@
 package me.raghu.expensetracker.repository
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.asLiveData
 import me.raghu.expensetracker.db.Expense
 import me.raghu.expensetracker.db.ExpenseDao
 import timber.log.Timber
@@ -20,7 +21,7 @@ class DatabaseRepository @Inject constructor(private val expenseDao: ExpenseDao)
         var long: Long = 0
         try {
             long = expenseDao.insertExpense(expense)
-            Timber.i("Inserted Successfully! ", long)
+            Timber.i("Inserted Successfully! $long")
         } catch (error: Throwable) {
             error.printStackTrace()
         }
@@ -29,11 +30,11 @@ class DatabaseRepository @Inject constructor(private val expenseDao: ExpenseDao)
     }
 
     fun getExpensesForLineChart(startDate: Date, endDate: Date): LiveData<List<Expense>> {
-        return expenseDao.expenseInRange(startDate, endDate)
+        return expenseDao.expenseInRange(startDate, endDate).asLiveData()
     }
 
     fun getExpensesForCurrentMonth(startDate: Date, endDate: Date): LiveData<Float> {
-        return expenseDao.expenseForCurrentMonth(startDate, endDate)
+        return expenseDao.expenseForCurrentMonth(startDate, endDate).asLiveData()
 
     }
 

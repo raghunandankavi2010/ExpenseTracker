@@ -2,6 +2,8 @@ package me.raghu.expensetracker.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.asLiveData
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.runBlocking
 import me.raghu.expensetracker.db.Expense
 import me.raghu.expensetracker.db.ExpenseDao
 import timber.log.Timber
@@ -29,18 +31,14 @@ class DatabaseRepository @Inject constructor(private val expenseDao: ExpenseDao)
         return long
     }
 
-    fun getExpensesForLineChart(startDate: Date, endDate: Date): LiveData<List<Expense>> {
-        return expenseDao.expenseInRange(startDate, endDate).asLiveData()
-    }
+    fun getExpensesForLineChart(startDate: Date, endDate: Date): LiveData<List<Expense>> = expenseDao.expenseInRange(startDate, endDate)
 
-    fun getExpensesForCurrentMonth(startDate: Date, endDate: Date): LiveData<Float> {
-        return expenseDao.expenseForCurrentMonth(startDate, endDate).asLiveData()
 
-    }
+    fun getExpensesForCurrentMonth(startDate: Date, endDate: Date): LiveData<Float> = expenseDao.expenseForCurrentMonth(startDate, endDate)
 
-    suspend fun deleteExpense(id: Int) {
-        expenseDao.deleteExpense(id)
-    }
+
+    suspend fun deleteExpense(id: Int) = expenseDao.deleteExpense(id)
+
 
     suspend fun updateExpense(
         id: Int,
@@ -48,7 +46,7 @@ class DatabaseRepository @Inject constructor(private val expenseDao: ExpenseDao)
         expenseAmt: String,
         remarks: String,
         date: Date
-    ) {
-        expenseDao.updateExpense(id, expenseType, expenseAmt, remarks, date)
-    }
+    ) = expenseDao.updateExpense(id, expenseType, expenseAmt, remarks, date)
+
 }
+

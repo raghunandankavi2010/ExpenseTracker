@@ -25,6 +25,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mockito
 import org.mockito.Mockito.mock
+import java.util.*
 
 
 @RunWith(AndroidJUnit4::class)
@@ -88,7 +89,10 @@ class ExpenseFragmentTest {
 
         // Verify that performing a click changes the NavController’s state
         expenseExceeded.postValue(0f)
-        expense.postValue(TestUtil.mockPagedList(TestUtil.createExpenses()))
+        val calendar = Calendar.getInstance();
+        calendar.set(29,14,2020)
+        val date = calendar.time
+        expense.postValue(TestUtil.mockPagedList(TestUtil.createExpenses(1,"23","Cash","xyx",date)))
         onView(ViewMatchers.withId(R.id.add)).perform(ViewActions.click())
         assertThat(navController.currentDestination?.id).isEqualTo(R.id.expenseInput)
     }

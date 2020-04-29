@@ -20,13 +20,13 @@ object TestUtil {
     }
 
 
-    fun createExpenses(): List<Expense> {
+    fun createExpenses(id: Int,expenseAmt: String,expenseType: String,remarks: String,date: Date): List<Expense> {
         return (0 until 20).map {
-            createExpense()
+            createExpense(id+it,expenseAmt,expenseType,remarks,date)
         }
     }
 
-    fun createExpense() =
-        Expense(id = 1, expenseAmt = "23", expenseType = "Cash", remarks = "xyx", date = Date())
+    fun createExpense(id: Int,expenseAmt: String,expenseType: String,remarks: String,date: Date) =
+        Expense(id = id, expenseAmt = expenseAmt, expenseType = expenseType, remarks = remarks, date = Date())
 }
 

@@ -13,7 +13,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.google.android.material.snackbar.Snackbar
-import com.google.android.material.transition.MaterialContainerTransform
 import kotlinx.android.synthetic.main.expense_input_fragment.view.*
 import me.raghu.expensetracker.R
 import me.raghu.expensetracker.databinding.ExpenseInputFragmentBinding
@@ -47,7 +46,7 @@ class ExpenseInput : MainNavigationFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        sharedElementEnterTransition = MaterialContainerTransform(requireContext())
+
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

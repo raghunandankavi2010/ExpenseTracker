@@ -25,6 +25,9 @@ interface ExpenseDao {
     @Query("DELETE FROM expense WHERE id = :expenseId")
     suspend fun deleteExpense(expenseId:Int)
 
+    @Query("SELECT * FROM expense WHERE id = :expenseId")
+    fun getExpenseById(expenseId:Int): LiveData<Expense>
+
     // using livedata no need for suspend
     @Query("SELECT id,date,SUM(expense_amount) as expense_amount FROM expense WHERE date BETWEEN :from AND :to GROUP BY date ORDER BY date ASC")
     fun expenseInRange(from: Date, to: Date): LiveData<List<Expense>>

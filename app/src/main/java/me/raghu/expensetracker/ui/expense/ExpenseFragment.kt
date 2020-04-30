@@ -11,10 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupWithNavController
 import androidx.preference.PreferenceManager
-import dagger.android.support.AndroidSupportInjection
 import me.raghu.expensetracker.R
 import me.raghu.expensetracker.databinding.ExpenseFragmentBinding
 import me.raghu.expensetracker.ui.MainActivity
@@ -25,8 +22,7 @@ import java.util.*
 import java.util.concurrent.Executors
 import javax.inject.Inject
 
-
-open class ExpenseFragment : MainNavigationFragment() {
+class ExpenseFragment : MainNavigationFragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory

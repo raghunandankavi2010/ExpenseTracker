@@ -66,7 +66,6 @@ class ExpenseFragmentTest {
             }
         }
 
-
         val scenario = launchFragmentInContainer(
             themeResId = R.style.AppTheme
         ) {

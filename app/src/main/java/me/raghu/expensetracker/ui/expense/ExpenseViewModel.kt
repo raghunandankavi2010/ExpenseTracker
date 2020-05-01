@@ -9,13 +9,13 @@ import me.raghu.expensetracker.db.ExpenseDao
 import me.raghu.expensetracker.repository.DatabaseRepository
 import java.util.*
 import javax.inject.Inject
-import me.raghu.expensetracker.testing.OpenForTesting
+
 
 /**
  *  Get expenses
  */
 
-@OpenForTesting
+
 class ExpenseViewModel
 @Inject constructor(
     private val databaseRepository: DatabaseRepository,

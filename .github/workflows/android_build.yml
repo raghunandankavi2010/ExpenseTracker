@@ -22,6 +22,6 @@ jobs:
       - name: Unit tests
         run: sudo ./gradlew test
 
-      -name: Build Project
+      - name: Build Project
         run: sudo ./gradlew assemble
 

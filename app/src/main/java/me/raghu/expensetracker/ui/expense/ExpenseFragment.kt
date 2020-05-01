@@ -22,7 +22,7 @@ import java.util.*
 import java.util.concurrent.Executors
 import javax.inject.Inject
 
-class ExpenseFragment : MainNavigationFragment() {
+open class ExpenseFragment : MainNavigationFragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory

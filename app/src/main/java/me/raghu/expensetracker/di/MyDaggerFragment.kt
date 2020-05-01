@@ -6,8 +6,8 @@ import dagger.android.support.AndroidSupportInjection
 import dagger.android.support.DaggerFragment
 import me.raghu.expensetracker.testing.OpenForTesting
 
-@OpenForTesting
-class MyDaggerFragment: Fragment() {
+
+open class MyDaggerFragment: Fragment() {
 
     override fun onAttach(context: Context) {
         injectMembers()

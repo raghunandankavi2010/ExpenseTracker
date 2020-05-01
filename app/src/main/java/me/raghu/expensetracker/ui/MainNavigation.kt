@@ -50,7 +50,7 @@ interface NavigationDestination {
  * Fragment representing a main navigation destination. This class handles wiring up the [Toolbar]
  * navigation icon if the fragment is attached to a [NavigationHost].
  */
-class MainNavigationFragment : MyDaggerFragment(), NavigationDestination {
+open class MainNavigationFragment : MyDaggerFragment(), NavigationDestination {
 
     protected var navigationHost: NavigationHost? = null
 

@@ -55,7 +55,7 @@ ext {
     junit = '4.13'
     takitpreference ='1.1.0'
     testRunner ='1.2.0'
-    nav_version = '2.3.0-alpha06'
+    nav_version = '2.3.0-beta01'
     mockito_core = '1.10.19'
     mockito = '2.25.0'
     testrules = '1.3.0-beta01'

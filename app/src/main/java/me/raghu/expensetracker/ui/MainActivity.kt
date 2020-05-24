@@ -12,6 +12,7 @@ import androidx.core.view.updatePadding
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import dagger.android.AndroidInjection
 import dagger.android.DispatchingAndroidInjector
@@ -25,9 +26,13 @@ import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), HasAndroidInjector, NavigationHost {
 
+    private val TOP_LEVEL_DESTINATIONS = setOf(
+        R.id.expenseFragment
+
+    )
+
     @Inject
     lateinit var androidInjector: DispatchingAndroidInjector<Any?>
-    private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var content: FrameLayout
     private lateinit var navController: NavController
     private lateinit var statusScrim: View
@@ -67,7 +72,7 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector, NavigationHost {
         val navHostFragment = supportFragmentManager
             .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
-        appBarConfiguration = AppBarConfiguration(navController.graph)
+
 
     }
 
@@ -81,9 +86,10 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector, NavigationHost {
     }
 
     override fun registerToolbarWithNavigation(toolbar: Toolbar) {
-        setSupportActionBar(toolbar)
+        val appBarConfiguration = AppBarConfiguration(navController.graph)
         toolbar.setupWithNavController(navController, appBarConfiguration)
 
     }
+
 }
 

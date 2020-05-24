@@ -69,10 +69,10 @@ class LineChartFragment : MainNavigationFragment() {
         binding.lifecycleOwner = this
 
         (activity as AppCompatActivity).setSupportActionBar(binding.appbar.toolbar)
-        binding.appbar.toolbar.setNavigationOnClickListener {
+       /* binding.appbar.toolbar.setNavigationOnClickListener {
             it.findNavController().navigateUp()
         }
-
+*/
 
         binding.chart.doOnApplyWindowInsets { v, insets, padding ->
             v.updatePaddingRelative(bottom = padding.bottom + insets.systemWindowInsetBottom)

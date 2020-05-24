@@ -18,6 +18,7 @@
         android:layout_height="match_parent"
         android:fitsSystemWindows="true">
 
+
         <include
             android:id="@+id/appbar"
             layout="@layout/appbar_toolbar" />

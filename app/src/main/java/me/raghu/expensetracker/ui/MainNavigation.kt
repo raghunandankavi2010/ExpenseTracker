@@ -70,10 +70,10 @@ open class MainNavigationFragment : MyDaggerFragment(), NavigationDestination {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         // If we have a toolbar and we are attached to a proper navigation host, set up the toolbar
         // navigation icon.
-    /*   val host = navigationHost ?: return
+       val host = navigationHost ?: return
         val mainToolbar: Toolbar = view.findViewById(R.id.toolbar) ?: return
         mainToolbar.apply {
             host.registerToolbarWithNavigation(this)
-        }*/
+        }
     }
 }

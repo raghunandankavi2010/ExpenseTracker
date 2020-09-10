@@ -56,8 +56,6 @@ open class ExpenseFragment : MainNavigationFragment() {
             viewModel = this@ExpenseFragment.expenseViewModel
         }
 
-        binding.lifecycleOwner = this
-        binding.viewModel = expenseViewModel
 
         val newSingleThreadExecutor = Executors.newSingleThreadExecutor()
         val expenseAdapter = ExpenseAdapter(

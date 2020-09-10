@@ -1,5 +1,6 @@
 package me.raghu.expensetracker.ui
 
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.FrameLayout
@@ -12,7 +13,6 @@ import androidx.core.view.updatePadding
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import dagger.android.AndroidInjection
 import dagger.android.DispatchingAndroidInjector
@@ -24,12 +24,9 @@ import me.raghu.expensetracker.utils.NoopWindowInsetsListener
 import javax.inject.Inject
 
 
+@Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity(), HasAndroidInjector, NavigationHost {
 
-    private val TOP_LEVEL_DESTINATIONS = setOf(
-        R.id.expenseFragment
-
-    )
 
     @Inject
     lateinit var androidInjector: DispatchingAndroidInjector<Any?>
@@ -59,9 +56,13 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector, NavigationHost {
         }
 
         content = findViewById(R.id.content_container)
-        content.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
-                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
-                View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                window.setDecorFitsSystemWindows(false)
+            }else {
+                content.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
+                        View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
+                        View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+            }
         // Make the content ViewGroup ignore insets so that it does not use the default padding
         content.setOnApplyWindowInsetsListener(NoopWindowInsetsListener)
 

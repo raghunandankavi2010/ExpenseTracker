@@ -38,8 +38,8 @@ class ExpenseFragmentTest {
     private lateinit var mockBindingAdapter: FragmentBindingAdapters
     private lateinit var viewModel: ExpenseViewModel
 
-    val expenseExceeded: MutableLiveData<Float> = MutableLiveData()
-    var expense: MutableLiveData<PagedList<Expense>> = MutableLiveData()
+    private val expenseExceeded: MutableLiveData<Float> = MutableLiveData()
+    private var expense: MutableLiveData<PagedList<Expense>> = MutableLiveData()
 
 
     @Before
@@ -88,7 +88,7 @@ class ExpenseFragmentTest {
 
         // Verify that performing a click changes the NavController’s state
         expenseExceeded.postValue(0f)
-        val calendar = Calendar.getInstance();
+        val calendar = Calendar.getInstance()
         calendar.set(29,14,2020)
         val date = calendar.time
         expense.postValue(TestUtil.mockPagedList(TestUtil.createExpenses(1,"23","Cash","xyx",date)))
